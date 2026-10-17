@@ -1,0 +1,69 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mastery Math · Grade 7 – Algebra I</title>
+<style>
+:root{--b:#3b5bdb;--g:#2f9e44;--r:#e03131;--o:#e8590c;--bg:#f5f7fb}*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:#1c1e21;line-height:1.45}
+header{background:var(--b);color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:30;gap:10px}
+header h1{font-size:1.05rem;margin:0;flex:1;cursor:pointer}header button{background:#fff2;color:#fff;border:1px solid #fff6;border-radius:8px;padding:8px 12px;cursor:pointer;font-size:.9rem}
+.wrap{max-width:920px;margin:auto;padding:12px 16px 40px}
+.card{background:#fff;border-radius:14px;padding:16px;box-shadow:0 1px 4px #0001;margin-bottom:12px}
+h2{margin:0 0 8px;font-size:1.2rem}h3{margin:14px 0 6px;font-size:1.02rem}
+button,input,select{font:inherit}
+.btn{background:var(--b);color:#fff;border:0;border-radius:10px;padding:11px 16px;font-size:1rem;cursor:pointer;margin:4px 6px 4px 0}
+.btn.sec{background:#e9ecef;color:#222}.btn.warn{background:var(--o)}.btn.danger{background:var(--r)}.btn.sm{padding:7px 11px;font-size:.88rem}.btn:disabled{opacity:.5;cursor:not-allowed}
+.link{background:none;border:0;color:var(--b);cursor:pointer;padding:2px 0;text-decoration:underline;font-size:.9rem}
+#stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.stat{flex:1;min-width:130px;background:#fff;border-radius:12px;padding:10px 12px;box-shadow:0 1px 4px #0001}
+.stat b{font-size:1.25rem;display:block}.stat span{font-size:.78rem;color:#667}
+.bar{height:8px;background:#e9ecef;border-radius:4px;margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--g)}
+.unit{margin:18px 0 6px;font-weight:700;color:#1e3a8a}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.node{display:block;width:100%;text-align:left;border:2px solid #dde;background:#fff;border-radius:12px;padding:10px 12px;cursor:pointer}
+.node .t{font-weight:600}.node .m{font-size:.78rem;color:#667;margin-top:2px}
+.node.locked{background:#f1f3f5;color:#868e96;border-style:dashed}
+.node.available{border-color:var(--b)}.node.mastered{background:#ebfbee;border-color:#8ce99a}.node.due{background:#fff4e6;border-color:var(--o)}
+.badge{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 7px;border-radius:10px;margin-right:6px;vertical-align:middle}
+.badge.locked{background:#dee2e6;color:#495057}.badge.available{background:#dbe4ff;color:#364fc7}.badge.mastered{background:#d3f9d8;color:#2b8a3e}.badge.due{background:#ffe8cc;color:#d9480f}
+.legend{font-size:.82rem;color:#556;margin:6px 0}
+.q{font-size:1.2rem;margin:10px 0 14px}.small{font-size:.82rem;color:#667}
+.ch{display:block;width:100%;text-align:left;padding:12px;margin:6px 0;border:2px solid #dde;border-radius:10px;background:#fff;font-size:1rem;cursor:pointer}
+.ch:hover:not(:disabled){border-color:var(--b)}.ch.good{border-color:var(--g);background:#ebfbee}.ch.bad{border-color:var(--r);background:#fff5f5}
+input[type=text],input[type=email],input[type=password]{width:100%;padding:12px;font-size:1.05rem;border:2px solid #dde;border-radius:10px}
+.fb{margin-top:12px;padding:10px 12px;border-radius:10px}.fb.ok{background:#ebfbee;color:#1b6e2c}.fb.no{background:#fff5f5;color:#a51111}
+.steps{background:#f8f9fa;border-left:4px solid var(--b);border-radius:6px;padding:8px 14px;margin-top:10px}.steps ol{margin:6px 0;padding-left:20px}.steps li{margin:6px 0}
+.dots{display:flex;gap:6px;margin-bottom:8px}.dots i{width:14px;height:14px;border-radius:50%;background:#dee2e6;display:block}.dots i.ok{background:var(--g)}.dots i.no{background:var(--r)}.dots i.cur{outline:2px solid var(--b)}
+.pts li{margin:5px 0}.ex{background:#f1f3f5;border-radius:10px;padding:10px 12px;margin:8px 0}
+.win{background:#fff9db;border-radius:10px;padding:12px;font-weight:600}
+.tag{background:#e7f5ff;color:var(--b);padding:2px 8px;border-radius:6px;font-weight:600;font-size:.82rem}.tag.rv{background:#fff3bf;color:#a15c00}
+#menuBack{position:fixed;inset:0;z-index:40;background:#0003}
+#menu{position:fixed;z-index:50;top:56px;right:10px;width:min(360px,calc(100vw - 20px));max-height:calc(100dvh - 70px);overflow-y:auto;background:#fff;border-radius:14px;box-shadow:0 8px 30px #0004;padding:14px}
+#menu input{margin-top:8px}#menu hr{border:0;border-top:1px solid #e9ecef;margin:12px 0}.mhead{display:flex;justify-content:space-between;align-items:center}
+.mclose{background:none;border:0;font-size:1.2rem;cursor:pointer}#authBadge.on::before{content:"● ";color:#8ce99a}
+[hidden]{display:none!important}
+</style>
+<!-- ======================= SUPABASE CONFIG — FILL THESE IN =======================
+     Leave as-is to run in local-only mode (progress saved in this browser, no login).
+     Or run:  SUPABASE_URL=https://xxxx.supabase.co SUPABASE_KEY=sb_publishable_xxx python3 build.py
+     The publishable (anon) key is safe to ship in client code; NEVER use the service_role key here. -->
+<script>
+const SUPABASE_URL = "SUPABASE_URL";   // placeholder → e.g. "https://abcdefgh.supabase.co"
+const SUPABASE_KEY = "SUPABASE_KEY";   // placeholder → the project's publishable/anon key
+</script>
+</head><body>
+<header><h1 onclick="go({name:'home'})">🎓 Mastery Math <span style="font-weight:400;font-size:.8rem;opacity:.85">Grade 7 → Algebra I</span></h1><button id="menuBtn" onclick="toggleMenu()" aria-haspopup="dialog" aria-expanded="false"><span id="authBadge">Local</span> ▾</button></header>
+<div id="menuBack" hidden onclick="toggleMenu(false)"></div>
+<div id="menu" hidden role="dialog" aria-label="Account and settings"><div class="mhead"><b>⚙️ Settings &amp; account</b><button class="mclose" onclick="toggleMenu(false)" aria-label="Close">✕</button></div>
+<div id="authBox"><hr>
+<div id="authOut"><input id="authEmail" type="email" inputmode="email" autocomplete="username" placeholder="Email" autocapitalize="off" spellcheck="false">
+<input id="authPass" type="password" autocomplete="current-password" placeholder="Password" onkeydown="if(event.key==='Enter')authDo('in')">
+<button class="btn" style="width:100%;margin-top:8px" onclick="authDo('in')">Sign in</button>
+<button class="btn sec sm" onclick="authDo('up')">Create account</button><button class="link" onclick="authDo('reset')">Forgot password</button></div>
+<div id="authIn" hidden>Signed in as <b id="authWho"></b> <button class="btn sec sm" onclick="signOutCloud()">Sign out</button>
+<details id="pwSetBox" style="margin-top:8px"><summary>Set / change password</summary>
+<input id="newPass" type="password" autocomplete="new-password" placeholder="New password (8+ characters)">
+<input id="newPass2" type="password" autocomplete="new-password" placeholder="Repeat new password" onkeydown="if(event.key==='Enter')setPassword()">
+<button class="btn sm" onclick="setPassword()">Save password</button></details></div></div>
+<div id="syncMsg" class="small" role="status"></div>
+<hr><label>Daily XP goal <select id="goalSel" onchange="setGoal(+this.value)"><option>30</option><option>50</option><option>100</option><option>150</option></select></label>
+<hr><button class="btn danger sm" onclick="toggleMenu(false);resetAll()">Reset all progress</button></div>
+<div class="wrap"><div id="stats"></div><main id="app"></main></div>

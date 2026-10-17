@@ -1,0 +1,6 @@
+.supabase-db-password.txt
+.supabase-config.txt
+.supabase-*
+node_modules/
+*.env
+.env*
