@@ -55,8 +55,9 @@ const countMastered=S=>TOPICS.filter(t=>isMastered(S,t.id)).length;
 
 // ---- practice / mastery ----
 function makePractice(topic,n=PRACTICE_LEN){const out=[];let order=[];let last="";
-  for(let i=0;i<n;i++){if(!order.length)order=shuffle(topic.gens.map((_,j)=>j));
-    let q,tries=0;do{q=topic.gens[order[0]]();tries++}while(q.q===last&&tries<10);order.shift();last=q.q;out.push(q)}
+  let lastG=-1;
+  for(let i=0;i<n;i++){if(!order.length){order=shuffle(topic.gens.map((_,j)=>j));if(order.length>1&&order[0]===lastG)order.push(order.shift())}
+    let q,tries=0;do{q=topic.gens[order[0]]();tries++}while(q.q===last&&tries<10);lastG=order.shift();last=q.q;out.push(q)}
   return out}
 const masteryPassed=(correct,total=PRACTICE_LEN)=>total>=PRACTICE_LEN&&correct>=PASS_CORRECT;
 function addXP(S,amt,now=Date.now()){const n=cl(S),d=dayNum(now);if(!n.daily||n.daily.day!==d)n.daily={day:d,xp:0};
