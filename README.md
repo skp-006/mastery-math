@@ -1,4 +1,7 @@
-# Mastery Math (v1) — Grade 7 → Algebra I, Math-Academy-style mastery learning
+# Mastery Math — Grade 7 → Geometry (NYS Next Generation standards), Math-Academy-style mastery learning
+
+**Scope:** Grade 7 (34 topics), Grade 8 (22), Algebra I (46), Geometry (36) = 138 topics. Dashboard (daily XP goal ring, ordered task queue, per-course progress), separate Course map screen (course filter, collapsible units), per-course adaptive placement test. Generators are verified by `node test.js` (≈240k generated problems, independent answer checks); UI by `node e2e.js` (needs jsdom). Build: `python3 build.py` (optionally with SUPABASE_URL/SUPABASE_KEY env), then copy public/index.html to docs/index.html. Topic files: `t_1_g7.js`, `t_2_g8.js`, `t_3_a1.js`, `t_4_geo.js`; standard tags are best-effort labels.
+
 
 Single self-contained `public/index.html` (vanilla JS, no framework, no build deps beyond Python 3). Works fully offline with
 progress in `localStorage`; optional Supabase email+password login with cloud sync (off until configured).

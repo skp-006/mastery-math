@@ -13,9 +13,7 @@ const COURSES=[
  {id:"g7",title:"Grade 7",blurb:"Rational numbers, ratios, expressions, geometry and probability basics"},
  {id:"g8",title:"Grade 8",blurb:"Exponents, radicals, linear functions, transformations, bivariate data"},
  {id:"a1",title:"Algebra I",blurb:"Linear and quadratic functions, factoring, exponentials, statistics"},
- {id:"geo",title:"Geometry",blurb:"Congruence, similarity, trigonometry, circles, coordinate geometry, volume"},
- {id:"a2",title:"Algebra II",blurb:"Polynomials, complex numbers, rational/radical, exponential/log, trig, series, statistics"},
- {id:"pc",title:"Precalculus",blurb:"Functions, trig identities, vectors, matrices, polar/parametric, limits"}];
+ {id:"geo",title:"Geometry",blurb:"Congruence, similarity, trigonometry, circles, coordinate geometry, volume"}];
 const COURSE_BY_ID=Object.fromEntries(COURSES.map(c=>[c.id,c]));
 // Unit (strand) groupings; `course` says where the unit lives on the Course screen
 const UNITS=[

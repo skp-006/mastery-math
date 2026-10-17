@@ -99,7 +99,7 @@ function buildReviewQueue(S,now=Date.now(),{max=10,minFill=0}={}){
   const order=interleave(pickIds.map(x=>x.id)),by=Object.fromEntries(pickIds.map(x=>[x.id,x]));return order.map(id=>by[id])}
 
 // ---- diagnostic placement (adaptive binary search over the part of the graph relevant to the chosen starting course) ----
-// scope = the chosen course's topics plus all of their prerequisites (so a Grade 7 student is never probed on Precalculus)
+// scope = the chosen course's topics plus all of their prerequisites (so a Grade 7 student is never probed on Geometry)
 function dxScope(cid){const s=new Set();for(const t of courseTopics(cid)){s.add(t.id);ancestorsOf(t.id).forEach(a=>s.add(a))}return TOPICS.filter(t=>s.has(t.id)).map(t=>t.id)}
 function dxInit(course,S){const dx={status:{},tested:0,course:course||null,scope:course?dxScope(course):TOPICS.map(t=>t.id)};
   if(S)for(const id of dx.scope)if(isMastered(S,id)){dx.status[id]="known";for(const a of ancestorsOf(id))dx.status[a]="known"}   // retake: don't re-test what is already mastered

@@ -11,11 +11,11 @@ const w=dom.window,d=w.document,A=w.__mm;
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 (async()=>{await sleep(200);
   ok(A&&/Where would you like to start/.test(d.getElementById("app").innerHTML),"dashboard offers the start-course chooser");
-  ok(d.querySelectorAll(".chipb").length===6,"six course choices");
+  ok(d.querySelectorAll(".chipb").length===4,"four course choices (Grade 7, Grade 8, Algebra I, Geometry)");
   ok(d.getElementById("xpChip").textContent.includes("XP")&&d.getElementById("stkChip").textContent.includes("day"),"top bar shows XP and streak");
   ok(/Grade 7/.test(d.getElementById("courseBtn").textContent),"top bar shows course name");
   ok(d.querySelector(".ringw svg")&&d.querySelector(".upnext")&&d.querySelectorAll("ol.tasks li").length>=1,"dashboard has XP ring, Up next and task queue");
-  ok(d.querySelectorAll(".cprog").length===6,"per-course progress panel for 6 courses");
+  ok(d.querySelectorAll(".cprog").length===4,"per-course progress panel for 4 courses");
   ok(d.querySelectorAll(".node").length===0,"dashboard is not a wall of topics");
   A.go({name:"course"});
   ok(d.querySelectorAll(".node").length===w.eval('courseTopics("g7").length'),"course screen shows current course's topics ("+d.querySelectorAll(".node").length+")");
@@ -26,7 +26,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   ok(!w.CLOUD,"no cloud client created when unconfigured");
   // a1 placement is scoped: never probes later courses
   A.startDx("a1");ok(A.D.dx.scope.length===w.eval('dxScope("a1").length')&&A.D.dx.scope.every(id=>w.eval(`ORDER["${id}"]`)>=0),"a1 placement scope built");
-  ok(!A.D.dx.scope.some(id=>["geo","a2","pc"].includes(w.eval(`TOPIC_BY_ID["${id}"].course`))),"a1 placement never probes Geometry/Algebra II/Precalc");
+  ok(!A.D.dx.scope.some(id=>["geo"].includes(w.eval(`TOPIC_BY_ID["${id}"].course`))),"a1 placement never probes Geometry");
   ok(/Placement test · Algebra I/.test(d.getElementById("app").innerHTML),"placement header names the course");
   A.go({name:"home"});
   // placement test: simulate a student who knows the first 8 topics (by oracle answering from q.answer)
@@ -45,7 +45,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   A.go({name:"home"});ok(/Lesson:/.test(d.querySelector("ol.tasks").textContent),"task queue contains lessons after placement");
   ok(d.querySelector(".cprog.cur")&&/Current/.test(d.querySelector(".cprog.cur").textContent),"current course highlighted in progress panel");
   // course filter: all courses
-  A.go({name:"course"});d.querySelectorAll(".chipb")[6].click();
+  A.go({name:"course"});d.querySelectorAll(".chipb")[4].click();
   ok(d.querySelectorAll(".node").length===w.eval("TOPICS.length"),"'All courses' lists every topic ("+d.querySelectorAll(".node").length+")");
   d.querySelectorAll(".chipb")[1].click();ok(d.querySelectorAll(".node").length===w.eval('courseTopics("g8").length'),"course filter narrows to Grade 8");
   d.querySelectorAll(".chipb")[0].click();

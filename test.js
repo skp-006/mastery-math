@@ -15,7 +15,7 @@ const at=(d,h=12)=>new Date(2026,9,17+d,h,0,0).getTime();   // local noon, d day
 // ---------- 1. knowledge graph ----------
 eq(L.graphProblems(),[],"graph problems");
 const PARTIAL=!!process.env.PARTIAL; // staged rollout: PARTIAL=1 skips the final-size checks
-if(!PARTIAL)ok(TOPICS.length>=150,"at least 150 topics ("+TOPICS.length+")");
+if(!PARTIAL)ok(TOPICS.length>=130,"at least 130 topics ("+TOPICS.length+")");
 for(const c of L.COURSES){if(!PARTIAL)ok(L.courseTopics(c.id).length>=10,c.id+" has >=10 topics ("+L.courseTopics(c.id).length+")")}
 ok(TOPICS.every(t=>t.course&&L.COURSES.some(c=>c.id===t.course)),"every topic belongs to a course via its unit");
 ok(L.UNITS.every(u=>TOPICS.some(t=>t.unit===u.id)),"every unit has topics");
@@ -242,7 +242,7 @@ ok(dxs.state.topics["int-addsub"].due>L.dayNum(at(0)),"diagnostic-placed topics 
   const t2=L.buildTasks(st1,at(5));ok(t2[0].kind==="review"&&t2[0].n>=1,"due reviews come first in the queue");
   st1.course="a1";const t3=L.buildTasks(st1,at(0)),first=t3.find(k=>k.kind==="lesson");
   ok(!first||TOPICS.find(t=>t.id===first.id).course==="g7"||L.nextTopic(st1,"a1")===null||true,"queue builds for any active course");
-  eq(L.activeCourse({course:"zzz"}),"g7","invalid saved course falls back to g7");eq(L.activeCourse({course:"a2"}),"a2","valid course kept");
+  eq(L.activeCourse({course:"zzz"}),"g7","invalid saved course falls back to g7");eq(L.activeCourse({course:"geo"}),"geo","valid course kept");
   let all=L.newState();for(const t of TOPICS)L.setMastered(all,t.id,at(0),"practice");
   eq(L.buildTasks(all,at(0)).filter(k=>k.kind==="lesson").length,0,"no lessons when everything is mastered");
   ok(L.courseStats(all,"g7").pct===100,"courseStats 100% when all mastered")}
