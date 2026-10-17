@@ -1,10 +1,28 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Mastery Math · Grade 7 – Algebra I</title>
+<title>Mastery Math · Grade 7 – Precalculus</title>
 <style>
 :root{--b:#3b5bdb;--g:#2f9e44;--r:#e03131;--o:#e8590c;--bg:#f5f7fb}*{box-sizing:border-box}
 body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:#1c1e21;line-height:1.45}
-header{background:var(--b);color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:30;gap:10px}
-header h1{font-size:1.05rem;margin:0;flex:1;cursor:pointer}header button{background:#fff2;color:#fff;border:1px solid #fff6;border-radius:8px;padding:8px 12px;cursor:pointer;font-size:.9rem}
+header{background:linear-gradient(90deg,#1e2a78,#3b5bdb);color:#fff;padding:9px 16px;display:flex;align-items:center;position:sticky;top:0;z-index:30;gap:10px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:700;font-size:1.05rem}.logo svg{display:block}
+.sp{flex:1}.chip{background:#ffffff26;border:1px solid #fff4;border-radius:999px;padding:5px 12px;font-size:.88rem;color:#fff;white-space:nowrap}
+header button.chip,header #menuBtn{cursor:pointer;font:inherit;font-size:.88rem}header #menuBtn{background:#fff2;color:#fff;border:1px solid #fff6;border-radius:8px;padding:7px 11px}
+nav#tabs{background:#fff;border-bottom:1px solid #e3e7f3;display:flex;gap:4px;padding:0 12px;overflow-x:auto}
+nav#tabs button{background:none;border:0;border-bottom:3px solid transparent;padding:11px 16px;font-weight:600;color:#556;cursor:pointer;font-size:.97rem}nav#tabs button.on{color:var(--b);border-color:var(--b)}
+.dash{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:12px;align-items:start}@media(max-width:760px){.dash{grid-template-columns:1fr}}
+.goal{display:flex;gap:18px;align-items:center}.ringw{position:relative;width:132px;height:132px;flex:none}.ringt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}.ringt b{font-size:1.7rem;line-height:1}.ringt span{font-size:.78rem;color:#667}
+.upnext{border:2px solid var(--b);background:linear-gradient(180deg,#f3f6ff,#fff)}.eyebrow{font-size:.74rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--b)}.uptitle{font-size:1.25rem;font-weight:700;margin:4px 0}
+.btn.big{padding:13px 24px;font-size:1.08rem;margin-top:10px}
+ol.tasks{list-style:none;margin:0 0 8px;padding:0;counter-reset:t}ol.tasks li{counter-increment:t;margin:6px 0}
+ol.tasks button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:#f8f9fc;border:1px solid #e3e7f3;border-radius:10px;padding:10px 12px;cursor:pointer}
+ol.tasks li.first button{border-color:var(--b);background:#eef2ff}ol.tasks .ti{font-size:1.3rem}ol.tasks .tt{flex:1;display:flex;flex-direction:column}ol.tasks .tx{font-weight:700;color:#2b8a3e;font-size:.85rem;white-space:nowrap}
+.cprog{display:block;width:100%;text-align:left;background:#fff;border:1px solid #e3e7f3;border-radius:10px;padding:9px 11px;margin:6px 0;cursor:pointer}.cprog.cur{border-color:var(--b);background:#f3f6ff}
+.cph{display:flex;align-items:center;gap:8px}.cph .small{margin-left:auto}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}.chipb{background:#fff;border:2px solid #dde;border-radius:999px;padding:6px 14px;cursor:pointer;font-size:.92rem}.chipb.on{border-color:var(--b);background:#eef2ff;color:#233}
+.ch2{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:flex-start}.chbtns{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+details.unitd{border:1px solid #e3e7f3;border-radius:12px;margin:10px 0;background:#fbfcff}details.unitd>summary{cursor:pointer;padding:10px 12px;display:flex;align-items:center;gap:10px;font-weight:700;color:#1e3a8a;list-style:none}
+details.unitd>summary::-webkit-details-marker{display:none}details.unitd>summary::before{content:"▸";color:#667}details.unitd[open]>summary::before{content:"▾"}
+details.unitd .grid{padding:0 10px 10px}.bar.mini{width:90px;margin:0 0 0 auto;height:6px}
 .wrap{max-width:920px;margin:auto;padding:12px 16px 40px}
 .card{background:#fff;border-radius:14px;padding:16px;box-shadow:0 1px 4px #0001;margin-bottom:12px}
 h2{margin:0 0 8px;font-size:1.2rem}h3{margin:14px 0 6px;font-size:1.02rem}
@@ -15,7 +33,7 @@ button,input,select{font:inherit}
 #stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
 .stat{flex:1;min-width:130px;background:#fff;border-radius:12px;padding:10px 12px;box-shadow:0 1px 4px #0001}
 .stat b{font-size:1.25rem;display:block}.stat span{font-size:.78rem;color:#667}
-.bar{height:8px;background:#e9ecef;border-radius:4px;margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--g)}
+.bar{display:block;height:8px;background:#e9ecef;border-radius:4px;margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--g)}
 .unit{margin:18px 0 6px;font-weight:700;color:#1e3a8a}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
 .node{display:block;width:100%;text-align:left;border:2px solid #dde;background:#fff;border-radius:12px;padding:10px 12px;cursor:pointer}
@@ -50,7 +68,10 @@ const SUPABASE_URL = "SUPABASE_URL";   // placeholder → e.g. "https://abcdefgh
 const SUPABASE_KEY = "SUPABASE_KEY";   // placeholder → the project's publishable/anon key
 </script>
 </head><body>
-<header><h1 onclick="go({name:'home'})">🎓 Mastery Math <span style="font-weight:400;font-size:.8rem;opacity:.85">Grade 7 → Algebra I</span></h1><button id="menuBtn" onclick="toggleMenu()" aria-haspopup="dialog" aria-expanded="false"><span id="authBadge">Local</span> ▾</button></header>
+<header><div class="logo" onclick="go({name:'home'})"><svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#fff"/><path d="M6 24V14l5 5 5-9 5 7 5-9v16z" fill="#3b5bdb"/></svg><span>Mastery Math</span></div>
+<button class="chip" id="courseBtn" onclick="go({name:'course'})" title="Open course map"></button><div class="sp"></div><span class="chip" id="xpChip"></span><span class="chip" id="stkChip"></span>
+<button id="menuBtn" onclick="toggleMenu()" aria-haspopup="dialog" aria-expanded="false"><span id="authBadge">Local</span> ▾</button></header>
+<nav id="tabs"><button id="tabHome" onclick="go({name:'home'})">🏠 Dashboard</button><button id="tabCourse" onclick="go({name:'course'})">🗺️ Course</button></nav>
 <div id="menuBack" hidden onclick="toggleMenu(false)"></div>
 <div id="menu" hidden role="dialog" aria-label="Account and settings"><div class="mhead"><b>⚙️ Settings &amp; account</b><button class="mclose" onclick="toggleMenu(false)" aria-label="Close">✕</button></div>
 <div id="authBox"><hr>
@@ -66,4 +87,4 @@ const SUPABASE_KEY = "SUPABASE_KEY";   // placeholder → the project's publisha
 <div id="syncMsg" class="small" role="status"></div>
 <hr><label>Daily XP goal <select id="goalSel" onchange="setGoal(+this.value)"><option>30</option><option>50</option><option>100</option><option>150</option></select></label>
 <hr><button class="btn danger sm" onclick="toggleMenu(false);resetAll()">Reset all progress</button></div>
-<div class="wrap"><div id="stats"></div><main id="app"></main></div>
+<div class="wrap"><main id="app"></main></div>

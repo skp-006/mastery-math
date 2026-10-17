@@ -1,10 +1,28 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Mastery Math · Grade 7 – Algebra I</title>
+<title>Mastery Math · Grade 7 – Precalculus</title>
 <style>
 :root{--b:#3b5bdb;--g:#2f9e44;--r:#e03131;--o:#e8590c;--bg:#f5f7fb}*{box-sizing:border-box}
 body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:#1c1e21;line-height:1.45}
-header{background:var(--b);color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:30;gap:10px}
-header h1{font-size:1.05rem;margin:0;flex:1;cursor:pointer}header button{background:#fff2;color:#fff;border:1px solid #fff6;border-radius:8px;padding:8px 12px;cursor:pointer;font-size:.9rem}
+header{background:linear-gradient(90deg,#1e2a78,#3b5bdb);color:#fff;padding:9px 16px;display:flex;align-items:center;position:sticky;top:0;z-index:30;gap:10px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:700;font-size:1.05rem}.logo svg{display:block}
+.sp{flex:1}.chip{background:#ffffff26;border:1px solid #fff4;border-radius:999px;padding:5px 12px;font-size:.88rem;color:#fff;white-space:nowrap}
+header button.chip,header #menuBtn{cursor:pointer;font:inherit;font-size:.88rem}header #menuBtn{background:#fff2;color:#fff;border:1px solid #fff6;border-radius:8px;padding:7px 11px}
+nav#tabs{background:#fff;border-bottom:1px solid #e3e7f3;display:flex;gap:4px;padding:0 12px;overflow-x:auto}
+nav#tabs button{background:none;border:0;border-bottom:3px solid transparent;padding:11px 16px;font-weight:600;color:#556;cursor:pointer;font-size:.97rem}nav#tabs button.on{color:var(--b);border-color:var(--b)}
+.dash{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:12px;align-items:start}@media(max-width:760px){.dash{grid-template-columns:1fr}}
+.goal{display:flex;gap:18px;align-items:center}.ringw{position:relative;width:132px;height:132px;flex:none}.ringt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}.ringt b{font-size:1.7rem;line-height:1}.ringt span{font-size:.78rem;color:#667}
+.upnext{border:2px solid var(--b);background:linear-gradient(180deg,#f3f6ff,#fff)}.eyebrow{font-size:.74rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--b)}.uptitle{font-size:1.25rem;font-weight:700;margin:4px 0}
+.btn.big{padding:13px 24px;font-size:1.08rem;margin-top:10px}
+ol.tasks{list-style:none;margin:0 0 8px;padding:0;counter-reset:t}ol.tasks li{counter-increment:t;margin:6px 0}
+ol.tasks button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:#f8f9fc;border:1px solid #e3e7f3;border-radius:10px;padding:10px 12px;cursor:pointer}
+ol.tasks li.first button{border-color:var(--b);background:#eef2ff}ol.tasks .ti{font-size:1.3rem}ol.tasks .tt{flex:1;display:flex;flex-direction:column}ol.tasks .tx{font-weight:700;color:#2b8a3e;font-size:.85rem;white-space:nowrap}
+.cprog{display:block;width:100%;text-align:left;background:#fff;border:1px solid #e3e7f3;border-radius:10px;padding:9px 11px;margin:6px 0;cursor:pointer}.cprog.cur{border-color:var(--b);background:#f3f6ff}
+.cph{display:flex;align-items:center;gap:8px}.cph .small{margin-left:auto}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}.chipb{background:#fff;border:2px solid #dde;border-radius:999px;padding:6px 14px;cursor:pointer;font-size:.92rem}.chipb.on{border-color:var(--b);background:#eef2ff;color:#233}
+.ch2{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:flex-start}.chbtns{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+details.unitd{border:1px solid #e3e7f3;border-radius:12px;margin:10px 0;background:#fbfcff}details.unitd>summary{cursor:pointer;padding:10px 12px;display:flex;align-items:center;gap:10px;font-weight:700;color:#1e3a8a;list-style:none}
+details.unitd>summary::-webkit-details-marker{display:none}details.unitd>summary::before{content:"▸";color:#667}details.unitd[open]>summary::before{content:"▾"}
+details.unitd .grid{padding:0 10px 10px}.bar.mini{width:90px;margin:0 0 0 auto;height:6px}
 .wrap{max-width:920px;margin:auto;padding:12px 16px 40px}
 .card{background:#fff;border-radius:14px;padding:16px;box-shadow:0 1px 4px #0001;margin-bottom:12px}
 h2{margin:0 0 8px;font-size:1.2rem}h3{margin:14px 0 6px;font-size:1.02rem}
@@ -15,7 +33,7 @@ button,input,select{font:inherit}
 #stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
 .stat{flex:1;min-width:130px;background:#fff;border-radius:12px;padding:10px 12px;box-shadow:0 1px 4px #0001}
 .stat b{font-size:1.25rem;display:block}.stat span{font-size:.78rem;color:#667}
-.bar{height:8px;background:#e9ecef;border-radius:4px;margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--g)}
+.bar{display:block;height:8px;background:#e9ecef;border-radius:4px;margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--g)}
 .unit{margin:18px 0 6px;font-weight:700;color:#1e3a8a}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
 .node{display:block;width:100%;text-align:left;border:2px solid #dde;background:#fff;border-radius:12px;padding:10px 12px;cursor:pointer}
@@ -50,7 +68,10 @@ const SUPABASE_URL = "https://zlzbnxlyujcqhiiubddx.supabase.co";   // placeholde
 const SUPABASE_KEY = "sb_publishable_UIg0yrLgROuMFXfUm9WelA_9-BeIAY-";   // placeholder → the project's publishable/anon key
 </script>
 </head><body>
-<header><h1 onclick="go({name:'home'})">🎓 Mastery Math <span style="font-weight:400;font-size:.8rem;opacity:.85">Grade 7 → Algebra I</span></h1><button id="menuBtn" onclick="toggleMenu()" aria-haspopup="dialog" aria-expanded="false"><span id="authBadge">Local</span> ▾</button></header>
+<header><div class="logo" onclick="go({name:'home'})"><svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#fff"/><path d="M6 24V14l5 5 5-9 5 7 5-9v16z" fill="#3b5bdb"/></svg><span>Mastery Math</span></div>
+<button class="chip" id="courseBtn" onclick="go({name:'course'})" title="Open course map"></button><div class="sp"></div><span class="chip" id="xpChip"></span><span class="chip" id="stkChip"></span>
+<button id="menuBtn" onclick="toggleMenu()" aria-haspopup="dialog" aria-expanded="false"><span id="authBadge">Local</span> ▾</button></header>
+<nav id="tabs"><button id="tabHome" onclick="go({name:'home'})">🏠 Dashboard</button><button id="tabCourse" onclick="go({name:'course'})">🗺️ Course</button></nav>
 <div id="menuBack" hidden onclick="toggleMenu(false)"></div>
 <div id="menu" hidden role="dialog" aria-label="Account and settings"><div class="mhead"><b>⚙️ Settings &amp; account</b><button class="mclose" onclick="toggleMenu(false)" aria-label="Close">✕</button></div>
 <div id="authBox"><hr>
@@ -66,7 +87,7 @@ const SUPABASE_KEY = "sb_publishable_UIg0yrLgROuMFXfUm9WelA_9-BeIAY-";   // plac
 <div id="syncMsg" class="small" role="status"></div>
 <hr><label>Daily XP goal <select id="goalSel" onchange="setGoal(+this.value)"><option>30</option><option>50</option><option>100</option><option>150</option></select></label>
 <hr><button class="btn danger sm" onclick="toggleMenu(false);resetAll()">Reset all progress</button></div>
-<div class="wrap"><div id="stats"></div><main id="app"></main></div>
+<div class="wrap"><main id="app"></main></div>
 <script>
 // ===== CORE helpers + answer checking (pure; shared by browser and node tests) =====
 const ri=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
@@ -78,7 +99,7 @@ const lcm=(a,b)=>Math.abs(a*b)/gcd(a,b);
 const SUPD="⁰¹²³⁴⁵⁶⁷⁸⁹";
 const sup=n=>String(n).replace(/-/g,"⁻").replace(/\d/g,d=>SUPD[d]);
 // M(): convert an ASCII math string into display text (minus signs, superscripts, times)
-const M=s=>String(s).replace(/\^(-?\d+)/g,(_,n)=>sup(n)).replace(/ \* /g," × ").replace(/<=/g,"≤").replace(/>=/g,"≥").replace(/(?<![A-Za-z])-|-(?![A-Za-z])/g,"−");
+const M=s=>String(s).replace(/sqrt\((\d+)\)/g,"√$1").replace(/sqrt\(/g,"√(").replace(/cbrt\(/g,"∛(").replace(/(?<![a-z])pi(?![a-z])/g,"π").replace(/\^(-?\d+)/g,(_,n)=>sup(n)).replace(/ \* /g," × ").replace(/<=/g,"≤").replace(/>=/g,"≥").replace(/(?<![A-Za-z])-|-(?![A-Za-z])/g,"−");
 // reduced fraction as ASCII string ("-3/4", "5" when denominator is 1)
 function frs(n,d){if(d<0){n=-n;d=-d}const g=gcd(n,d);n/=g;d/=g;return d===1?String(n):n+"/"+d}
 const cf=(c,v)=>c===1?v:c===-1?"-"+v:c+v;   // coefficient+variable, e.g. cf(1,'x')='x'
@@ -143,6 +164,103 @@ function check(q,input){
     return {ok:a.v===t.v&&a.op===t.op&&near(a.n,t.n)}}
   if(q.type==="pair"){const a=parsePair(raw),t=parsePair(q.answer);if(!a)return {ok:false,note:"Write the solution as an ordered pair, like (3, -2)."};
     return {ok:near(a[0],t[0])&&near(a[1],t[1])}}
+  return checkNew(q,raw)}
+
+// ---- expression parser (AST) used by expr / factor / set / eq / cplx / interval answer types ----
+const FN_NAMES=["arcsin","arccos","arctan","asin","acos","atan","sqrt","cbrt","abs","sin","cos","tan","sec","csc","cot","ln","log","exp"];
+function normX(s){return String(s).toLowerCase().replace(/[−–]/g,"-").replace(/[×·]/g,"*").replace(/÷/g,"/").replace(/√/g,"sqrt").replace(/π/g,"pi").replace(/θ/g,"t")
+  .replace(/(⁻?)([⁰¹²³⁴⁵⁶⁷⁸⁹]+)/g,(_,neg,d)=>"^"+(neg?"-":"")+[...d].map(c=>SUPMAP[c]).join("")).replace(/\s+/g,"")}
+function tokX(s){const t=[];let i=0;while(i<s.length){const c=s[i];let m;
+  if((m=/^(\d+\.?\d*|\.\d+)/.exec(s.slice(i)))){t.push({k:"n",v:parseFloat(m[1])});i+=m[1].length;continue}
+  if(s.startsWith("pi",i)){t.push({k:"n",v:Math.PI,pi:1});i+=2;continue}
+  const fn=FN_NAMES.find(f=>s.startsWith(f,i));if(fn){t.push({k:"f",v:fn});i+=fn.length;continue}
+  if(/[a-z]/.test(c)){t.push({k:"v",v:c});i++;continue}
+  if("+-*/^()°,".includes(c)){t.push({k:c});i++;continue}
+  return null}return t}
+function parseExpr(str){const s=normX(str);if(!s)return null;const T=tokX(s);if(!T)return null;let p=0;const pk=()=>T[p]&&T[p].k;
+  const atomStart=()=>{const k=pk();return k==="n"||k==="v"||k==="f"||k==="("};
+  function expr(){let l=term();while(pk()==="+"||pk()==="-"){const o=T[p++].k;l={t:"b",o,l,r:term()}}return l}
+  function term(){let l=unary();for(;;){const k=pk();if(k==="*"||k==="/"){p++;l={t:"b",o:k,l,r:unary()}}else if(atomStart())l={t:"b",o:"*",l,r:unary()};else break}return l}
+  function unary(){if(pk()==="-"){p++;return {t:"u",e:unary()}}if(pk()==="+"){p++;return unary()}return power()}
+  function power(){let b=post();if(pk()==="^"){p++;b={t:"b",o:"^",l:b,r:unary()}}return b}
+  function post(){let a=atom();while(pk()==="°"){p++;a={t:"b",o:"*",l:a,r:{t:"n",v:Math.PI/180}}}return a}
+  function atom(){const k=pk();if(k==="n"){return {t:"n",v:T[p++].v}}if(k==="v")return {t:"v",n:T[p++].v};
+    if(k==="("){p++;const e=expr();if(pk()!==")")throw 0;p++;return e}
+    if(k==="f"){const name=T[p++].v;let pw=null;if(pk()==="^"){p++;pw=unary()}
+      let arg;if(pk()==="("){p++;arg=expr();if(pk()!==")")throw 0;p++}else arg=post();
+      const f={t:"f",n:name,a:arg};return pw?{t:"b",o:"^",l:f,r:pw}:f}
+    throw 0}
+  try{const e=expr();return p===T.length?e:null}catch(e){return null}}
+const FNS={sqrt:Math.sqrt,cbrt:Math.cbrt,abs:Math.abs,sin:Math.sin,cos:Math.cos,tan:Math.tan,sec:x=>1/Math.cos(x),csc:x=>1/Math.sin(x),cot:x=>1/Math.tan(x),
+  ln:Math.log,log:Math.log10,exp:Math.exp,asin:Math.asin,acos:Math.acos,atan:Math.atan,arcsin:Math.asin,arccos:Math.acos,arctan:Math.atan};
+function evalAst(a,env){switch(a.t){case "n":return a.v;case "v":return a.n in env?env[a.n]:a.n==="e"?Math.E:NaN;case "u":return -evalAst(a.e,env);
+  case "f":return FNS[a.n](evalAst(a.a,env));
+  case "b":{const l=evalAst(a.l,env),r=evalAst(a.r,env);return a.o==="+"?l+r:a.o==="-"?l-r:a.o==="*"?l*r:a.o==="/"?l/r:Math.pow(l,r)}}}
+function astVars(a,s=new Set()){if(a.t==="v"){if(a.n!=="e")s.add(a.n)}else if(a.t==="b"){astVars(a.l,s);astVars(a.r,s)}else if(a.t==="u")astVars(a.e,s);else if(a.t==="f")astVars(a.a,s);return s}
+// single-variable polynomial coefficients (ascending) or null
+function astPoly(a){const mul=(p,q)=>{const r=Array(p.length+q.length-1).fill(0);p.forEach((x,i)=>q.forEach((y,j)=>r[i+j]+=x*y));return r};
+  const add=(p,q,sg)=>{const r=Array(Math.max(p.length,q.length)).fill(0);p.forEach((x,i)=>r[i]+=x);q.forEach((x,i)=>r[i]+=sg*x);return r};
+  let V=null;function go(a){switch(a.t){case "n":return [a.v];case "v":if(V&&V!==a.n)throw 0;V=a.n;return [0,1];case "u":return go(a.e).map(x=>-x);
+    case "b":if(a.o==="+"||a.o==="-")return add(go(a.l),go(a.r),a.o==="+"?1:-1);if(a.o==="*")return mul(go(a.l),go(a.r));
+      if(a.o==="/"){const d=go(a.r);if(d.length!==1||!d[0])throw 0;return go(a.l).map(x=>x/d[0])}
+      if(a.o==="^"){const e=go(a.r);if(e.length!==1||e[0]<0||e[0]!==Math.floor(e[0])||e[0]>12)throw 0;let r=[1];for(let i=0;i<e[0];i++)r=mul(r,go(a.l));return r}throw 0;default:throw 0}}
+  try{const c=go(a);while(c.length>1&&Math.abs(c[c.length-1])<1e-12)c.pop();return c}catch(e){return null}}
+const BASEPTS=[1.7,2.3,0.6,3.1,1.1,2.9,0.45,1.35];
+function ptSets(vars,off=0){const out=[];for(let i=0;i<8;i++){const e={};vars.forEach((v,j)=>e[v]=BASEPTS[(i*3+j*5)%8]+off);out.push(e)}return out}
+function exprEquiv(A,B,off=0){const vars=[...new Set([...astVars(A),...astVars(B)])];let valid=0;
+  for(const e of ptSets(vars,off)){const a=evalAst(A,e),b=evalAst(B,e);if(!isFinite(a)||!isFinite(b)){if(isFinite(a)!==isFinite(b)&&vars.length)return false;continue}
+    if(Math.abs(a-b)>1e-9*Math.max(1,Math.abs(a),Math.abs(b)))return false;valid++}return valid>=3}
+function eqEquiv(sa,sb,off=0){const sp=s=>{const p=normX(s).split("=");if(p.length!==2)return null;const l=parseExpr(p[0]),r=parseExpr(p[1]);return l&&r?{t:"b",o:"-",l,r}:null};
+  const A=sp(sa),B=sp(sb);if(!A||!B)return false;const vars=[...new Set([...astVars(A),...astVars(B)])];let k=null,valid=0;
+  for(const e of ptSets(vars,off)){const a=evalAst(A,e),b=evalAst(B,e);if(!isFinite(a)||!isFinite(b))continue;
+    if(k===null){if(Math.abs(b)>1e-9){k=a/b;if(Math.abs(k)<1e-12)return false}else if(Math.abs(a)>1e-9)return false}
+    else if(Math.abs(a-k*b)>1e-8*Math.max(1,Math.abs(a)))return false;valid++}return k!==null&&valid>=3}
+function factorLeaves(a,out=[]){if(a.t==="u")factorLeaves(a.e,out);else if(a.t==="b"&&a.o==="*"){factorLeaves(a.l,out);factorLeaves(a.r,out)}
+  else if(a.t==="b"&&a.o==="/"&&astPoly(a.r)&&astPoly(a.r).length===1)factorLeaves(a.l,out);
+  else if(a.t==="b"&&a.o==="^"&&a.r.t==="n"&&Number.isInteger(a.r.v)&&a.r.v>=1&&a.r.v<=6&&!(a.l.t==="n")){for(let i=0;i<a.r.v;i++)factorLeaves(a.l,out)}else out.push(a);return out}
+function factorDegs(ast){const d=[];for(const lf of factorLeaves(ast)){const p=astPoly(lf);if(!p)return null;if(p.length>1)d.push(p.length-1)}return d.sort((a,b)=>a-b)}
+const splitTop=(s,re)=>{const out=[];let d=0,cur="";for(let i=0;i<s.length;i++){const c=s[i];if(c==="("||c==="[")d++;if(c===")"||c==="]")d--;
+  if(!d&&(c===","||c===";")){out.push(cur);cur=""}else cur+=c}out.push(cur);return out};
+function parseSet(str){let s=normX(str).replace(/[{}]/g,"").replace(/andor|or|and/g,",");
+  return splitTop(s).map(p=>p.replace(/^[a-z]=/,"")).filter(p=>p!=="").map(p=>{const a=parseExpr(p);return a?evalAst(a,{}):NaN})}
+const isNone=s=>/^(none|nosolution|norealsolution|norealsolutions|dne|∅|empty|emptyset)$/i.test(String(s).replace(/[\s{}]/g,""));
+function parseCplx(str){let s=normX(str).replace(/[()]/g,m=>m);if(!s)return null;
+  const terms=[];let cur="",d=0;for(let i=0;i<s.length;i++){const c=s[i];if(c==="(")d++;if(c===")")d--;if(!d&&(c==="+"||c==="-")&&cur!==""&&!/[*\/^]$/.test(cur)){terms.push(cur);cur=c}else cur+=c}terms.push(cur);
+  let re=0,im=0;for(const t of terms){if(/i$/.test(t)){let c=t.replace(/\*?i$/,"");if(c===""||c==="+")c="1";else if(c==="-")c="-1";const a=parseExpr(c);if(!a)return null;const v=evalAst(a,{});if(!isFinite(v))return null;im+=v}
+    else{const a=parseExpr(t);if(!a)return null;const v=evalAst(a,{});if(!isFinite(v))return null;re+=v}}return [re,im]}
+function parseIntervals(str){let s=normX(str).replace(/∞/g,"inf").replace(/infinity/g,"inf").replace(/∪|u(?=[\(\[])/g,"U");
+  const parts=s.split("U");const out=[];for(const p of parts){const m=p.match(/^([\(\[])(.+?),(.+?)([\)\]])$/);if(!m)return null;const f=x=>x==="inf"||x==="+inf"?Infinity:x==="-inf"?-Infinity:(()=>{const a=parseExpr(x);return a?evalAst(a,{}):NaN})();
+    const lo=f(m[2]),hi=f(m[3]);if(isNaN(lo)||isNaN(hi))return null;out.push([lo,m[1]==="[",hi,m[4]==="]"])}
+  return out.sort((a,b)=>a[0]-b[0]||b[1]-a[1])}
+const sameIv=(a,b)=>a&&b&&a.length===b.length&&a.every((x,i)=>{const y=b[i];const e=(p,q)=>p===q||Math.abs(p-q)<1e-9;return e(x[0],y[0])&&e(x[2],y[2])&&(x[0]===-Infinity||x[1]===y[1])&&(x[2]===Infinity||x[3]===y[3])});
+function numsIn(str){return (String(str).replace(/[−–]/g,"-").match(/[-+]?\d*\.?\d+(?:\/\d+)?/g)||[]).map(parseNum)}
+const sqfree=n=>{for(let k=2;k*k<=n;k++)if(n%(k*k)===0)return false;return true};
+function checkNew(q,raw){
+  const bad=(note)=>({ok:false,note});
+  if(q.type==="expr"){if(q.form==="sci")raw=raw.replace(/(\d)\s*[xX×]\s*(10)/,"$1*$2");const a=parseExpr(raw);if(!a)return bad("I couldn't read that. Use ^ for powers, sqrt(…), pi, and write products like 2x or (x+1)(x-3).");
+    const t=parseExpr(q.answer);const eqv=exprEquiv(a,t,q.off||0);if(!eqv)return {ok:false};
+    if(q.form==="factor"){const d=factorDegs(a);if(!d)return bad("Write the answer as a product of factors, e.g. (x+2)(x-3).");
+      const top=a.t==="u"?a.e:a;if(!(top.t==="b"&&(top.o==="*"||top.o==="^")))return bad("That equals the original, but it isn't written as a product of factors.");
+      for(const lf of factorLeaves(a)){const p=astPoly(lf);if(p&&p.length>1){if(p.some(c=>Math.abs(c-Math.round(c))>1e-9))return bad("Use integer coefficients inside each factor.");
+        const g=p.reduce((u,c)=>gcd(u,Math.round(c)),0);if(g>1)return bad("A common factor is still left inside a bracket — factor out the greatest common factor.")}}
+      if(JSON.stringify(d)!==JSON.stringify(q.fdeg))return bad("That's equal to the original, but it isn't completely factored in the form asked for.");}
+    if(q.form==="lowest"){if(!(a.t==="b"&&a.o==="/"))return bad("Write it as a single fraction in lowest terms.");const n=astPoly(a.l),d=astPoly(a.r);if(!n||!d)return bad("Write it as one fraction of polynomials.");
+      if(n.length+d.length-2!==q.dsum)return bad("Equivalent, but not fully simplified (cancel common factors).");}
+    if(q.form==="rad"){const n=normX(raw);for(const m of n.matchAll(/sqrt\(?(\d+)\)?/g))if(!sqfree(+m[1]))return bad("Equivalent, but the radical can be simplified further.");
+      if(/\/\(?[^+\-)]*sqrt/.test(n))return bad("Rationalize the denominator.");}
+    if(q.form==="sci"){const n=normX(raw).replace(/(\d)x10/,"$1*10").replace(/×/g,"*");const m=n.match(/^(\d+\.?\d*)\*10\^\(?(-?\d+)\)?$/);if(!m||+m[1]<1||+m[1]>=10)return bad("Write it as a number from 1 up to (not including) 10 times a power of ten, like 3.2 x 10^5.")}
+    if(q.form==="poly"){const p=astPoly(a);if(!p)return bad("Write it expanded and simplified, with no parentheses left to multiply.");if(/\(/.test(normX(raw))&&/\)[\(\d a-z]|[\da-z]\(/.test(normX(raw)))return bad("Expand all products.")}
+    return {ok:true}}
+  if(q.type==="eq"){if(!raw.includes("="))return bad("Write an equation with an = sign.");if(!/[a-z]/.test(raw.toLowerCase()))return bad("Write an equation.");
+    return {ok:eqEquiv(raw,q.answer,q.off||0)}}
+  if(q.type==="set"){const exp=q.answer;if(isNone(exp))return {ok:isNone(raw)};if(isNone(raw))return {ok:false};
+    const a=parseSet(raw),b=parseSet(exp);if(a.some(v=>!isFinite(v)))return bad("List the solutions separated by commas, like  -3, 2");
+    const u=l=>{l=l.map(v=>q.round!=null?+v.toFixed(q.round):v).sort((x,y)=>x-y);return l.filter((v,i)=>!i||Math.abs(v-l[i-1])>1e-9*Math.max(1,Math.abs(v)))};
+    const ua=u(a),ub=u(b);return {ok:ua.length===ub.length&&ua.every((v,i)=>Math.abs(v-ub[i])<=1e-9*Math.max(1,Math.abs(ub[i])))}}
+  if(q.type==="list"){const a=numsIn(raw),b=numsIn(q.answer);if(!a.length||a.some(isNaN))return bad("Type the numbers separated by commas, e.g. <3, -2>  or  [[1,2],[3,4]]");
+    return {ok:a.length===b.length&&a.every((v,i)=>near(v,b[i]))}}
+  if(q.type==="cplx"){const a=parseCplx(raw),b=parseCplx(q.answer);if(!a)return bad("Write a complex number like 3 + 4i or -2i.");return {ok:near(a[0],b[0])&&near(a[1],b[1])}}
+  if(q.type==="interval"){const a=parseIntervals(raw);if(!a)return bad("Use interval notation like (-inf, 3] or [2, 5) U (7, inf).");return {ok:sameIv(a,parseIntervals(q.answer))}}
   return {ok:false}}
 const showAns=q=>q.type==="mc"?q.choices[q.answer]:M(q.answer);
 const stripTags=t=>String(t).replace(/<[^>]*>/g,"");
@@ -158,11 +276,36 @@ function addExplain(a,b){const s=a+b;
 const RULE_ADD="Same signs: add absolute values, keep the sign. Different signs: subtract absolute values, keep the sign of the number farther from 0.";
 const eqMsg=(x)=>`Check: substitute back to make sure both sides match.`;
 // Unit (strand) groupings for the dashboard
+const COURSES=[
+ {id:"g7",title:"Grade 7",blurb:"Rational numbers, ratios, expressions, geometry and probability basics"},
+ {id:"g8",title:"Grade 8",blurb:"Exponents, radicals, linear functions, transformations, bivariate data"},
+ {id:"a1",title:"Algebra I",blurb:"Linear and quadratic functions, factoring, exponentials, statistics"},
+ {id:"geo",title:"Geometry",blurb:"Congruence, similarity, trigonometry, circles, coordinate geometry, volume"},
+ {id:"a2",title:"Algebra II",blurb:"Polynomials, complex numbers, rational/radical, exponential/log, trig, series, statistics"},
+ {id:"pc",title:"Precalculus",blurb:"Functions, trig identities, vectors, matrices, polar/parametric, limits"}];
+const COURSE_BY_ID=Object.fromEntries(COURSES.map(c=>[c.id,c]));
+// Unit (strand) groupings; `course` says where the unit lives on the Course screen
 const UNITS=[
- {id:"rn",title:"Grade 7 · Rational Numbers"},{id:"rp",title:"Grade 7 · Ratios & Proportions"},{id:"ee",title:"Grade 7 · Expressions & Equations"},
- {id:"a1eq",title:"Algebra I · Equations"},{id:"a1lin",title:"Algebra I · Linear Functions"},{id:"a1sys",title:"Algebra I · Systems"},{id:"a1exp",title:"Algebra I · Exponents & Polynomials"}];
-
-const TOPICS=[
+ {id:"rn",course:"g7",title:"Rational Numbers"},{id:"rp",course:"g7",title:"Ratios & Proportions"},{id:"ee",course:"g7",title:"Expressions & Equations"},
+ {id:"a1eq",course:"a1",title:"Equations"},{id:"a1lin",course:"a1",title:"Linear Functions"},{id:"a1sys",course:"a1",title:"Systems"},{id:"a1exp",course:"a1",title:"Exponents & Polynomials"}];
+const UNIT_BY_ID=()=>Object.fromEntries(UNITS.map(u=>[u.id,u]));
+// ---- authoring kit for the generators added in later files ----
+// mk(type,q,answer,rule,work,opts): builds a question with the standard Ask/Rule/Work/Answer steps. opts.u = unit suffix shown in the final step;
+// verification hints used only by test.js (js, pe, fx, jsc, jsl, inside, ineq, eqs...) ride along as extra fields.
+const mk=(type,q,ans,rule,work,o={})=>{const {ask,u,...rest}=o;return {type,q:M(q),answer:String(ans),steps:[ASK(ask||"Work out the answer."),RULE(rule),WORK(M(work)),ANS(M(String(ans))+(u||""))],...rest}};
+const rdn=(v,d=0)=>{const f=Math.pow(10,d);return String(Math.round((v+Math.sign(v)*1e-12)*f)/f)};
+const fx=(r,v="x")=>r===0?v:"("+v+(r<0?" + "+(-r):" - "+r)+")";             // (x - r)
+const lf=(a,r,v="x")=>a===1?"("+v+(r<0?" + "+(-r):" - "+r)+")":"("+cf(a,v)+(r<0?" + "+(-r):" - "+r)+")";
+const quad=(a,b,c,v="x")=>polyStr([[a,v+"^2"],[b,v],[c,""]]);
+const TOPICS=[];
+const T=(id,unit,std,title,prereqs,intro,points,gens)=>TOPICS.push({id,unit,std,title,prereqs,lesson:{intro,points},gens});
+const addUnits=(course,list)=>list.forEach(([id,title])=>UNITS.push({id,course,title}));
+const nzr=(a,b)=>rnz(a,b);
+function distinct(n,lo,hi){const s=new Set();while(s.size<n)s.add(ri(lo,hi));return [...s]}
+function distinctNZ(n,lo,hi){const s=new Set();while(s.size<n)s.add(rnz(lo,hi));return [...s]}
+const mcq=(q,correct,wrongs,rule,work,o={})=>{const ch=shuffle([correct,...wrongs]);return {type:"mc",q:M(q),choices:ch,answer:ch.indexOf(correct),
+  steps:[ASK(o.ask||"Choose the best answer."),RULE(rule),WORK(M(work)),ANS(M(correct))],...o}};
+TOPICS.push(
 // ---------------- Grade 7: Rational numbers ----------------
 {id:"int-addsub",unit:"rn",grade:7,std:"7.NS.1",title:"Add & subtract integers",prereqs:[],
  lesson:{intro:"Integers are the whole numbers and their negatives. Think of a number line: adding moves right (if positive) or left (if negative).",
@@ -532,13 +675,611 @@ const TOPICS=[
  ()=>{let a,b,c,d,e;do{[a,b,c,d,e]=[rnz(-5,6),rnz(-8,8),rnz(-9,9),rnz(-5,6),rnz(-7,7)]}while(a+d===0||b===0);
    const p1=[[a,"x^2"],[b,"x"]],p2=[[d,"x^2"],[e,"x"],[c,""]],r=[[a+d,"x^2"],[b+e,"x"],[c,""]];return {type:"poly",q:M(`Add: (${polyStr(p1)}) + (${polyStr(p2)})`),answer:polyStr(r),
    steps:[ASK("Add the polynomials (one has no constant term)."),RULE("Line up like terms; a missing term counts as 0."),WORK(M(`x²: ${a} + ${P(d)} = ${a+d}; x: ${b} + ${P(e)} = ${b+e}; constant: 0 + ${P(c)} = ${c}`)),ANS(M(polyStr(r)))]}}]}
-];
+);
+
+
+// ===== Grade 7 (rest) =====  standards tags are best-effort NYS NGLS labels
+addUnits("g7",[["g7nsx","Rational Number Extensions"],["g7rpx","Percents, Scale & Proportion Applications"],["g7eex","Equations & Expressions (cont.)"],["g7geo","Geometry: Angles, Area & Volume"],["g7sp","Statistics & Probability"]]);
+const DS=[2,4,5,8,10,20,25];
+T("abs-opp","g7nsx","7.NS.1","Absolute value & opposites",["int-addsub"],
+ "The absolute value of a number is its distance from 0 on the number line, so it is never negative. The opposite of a number is the number on the other side of 0 the same distance away.",
+ ["|a| is the distance from a to 0: |−7| = 7 and |7| = 7.","The opposite of a is −a. The opposite of −4 is 4.","The distance between a and b on a number line is |a − b|."],
+ [()=>{const a=rnz(-25,25);return mk("num",`Evaluate: |${a}|`,Math.abs(a),"Absolute value is distance from 0, so drop the sign.",`|${a}| = ${Math.abs(a)}`,{js:`Math.abs(${a})`})},
+  ()=>{const a=rnz(-15,15),b=rnz(-15,15);return mk("num",`Evaluate: |${a}| - |${b}|`,Math.abs(a)-Math.abs(b),"Find each absolute value first, then subtract.",`${Math.abs(a)} - ${Math.abs(b)} = ${Math.abs(a)-Math.abs(b)}`,{js:`Math.abs(${a})-Math.abs(${b})`})},
+  ()=>{const a=rnz(-20,20);let b;do{b=rnz(-20,20)}while(b===a);return mk("num",`How far apart are ${a} and ${b} on the number line?`,Math.abs(a-b),"Distance = |a − b|.",`|${a} - ${P(b)}| = |${a-b}| = ${Math.abs(a-b)}`,{js:`Math.abs(${a}-(${b}))`})},
+  ()=>{const a=rnz(-20,20);return mk("num",`Evaluate: -|${a}|`,-Math.abs(a),"Take the absolute value first, then apply the negative sign.",`|${a}| = ${Math.abs(a)}, so -|${a}| = ${-Math.abs(a)}`,{js:`-Math.abs(${a})`})}]);
+T("frac-dec","g7nsx","7.NS.2d","Fractions, decimals & percents",["frac-muldiv","dec-ops"],
+ "Every fraction can be written as a decimal by dividing the numerator by the denominator, and as a percent by multiplying that decimal by 100.",
+ ["a/b = a ÷ b: 3/8 = 0.375.","A decimal with k places is a fraction over 10ᵏ: 0.45 = 45/100 = 9/20 — reduce!","Percent means per 100: multiply a decimal by 100 to get a percent."],
+ [()=>{const d=pick(DS),n=ri(1,3*d);return mk("num",`Write ${n}/${d} as a decimal.`,rdn(n/d,4),"Divide the numerator by the denominator.",`${n} ÷ ${d} = ${rdn(n/d,4)}`,{js:`${n}/${d}`})},
+  ()=>{const d=pick(DS);let n;do{n=ri(1,d-1)}while(gcd(n,d)!==1);return mk("num",`Write ${rdn(n/d,4)} as a fraction in lowest terms.`,`${n}/${d}`,"Put the decimal over a power of 10 and reduce.",`${rdn(n/d,4)} = ${n}/${d} in lowest terms`,{js:`${n}/${d}`})},
+  ()=>{const d=ri(3,9),w=ri(1,6);let n;do{n=ri(1,d-1)}while(gcd(n,d)!==1);return mk("num",`Write ${w} ${n}/${d} as an improper fraction.`,`${w*d+n}/${d}`,"Multiply the whole number by the denominator and add the numerator.",`${w}×${d} + ${n} = ${w*d+n}, so ${w*d+n}/${d}`,{js:`${w}+${n}/${d}`})},
+  ()=>{const d=pick([2,4,5,8,10,20,25,50]),n=ri(1,d-1);return mk("num",`Write ${n}/${d} as a percent.`,rdn(100*n/d,3),"Convert to a decimal, then multiply by 100.",`${n}/${d} = ${rdn(n/d,5)}; × 100 = ${rdn(100*n/d,3)}%`,{u:"%",js:`${n}/${d}*100`})}]);
+T("rat-word","g7nsx","7.NS.3","Rational-number word problems",["frac-addsub","dec-ops","abs-opp"],
+ "Real situations — temperatures, bank balances, elevations — use positive and negative rational numbers. Translate the words into an expression, then evaluate.",
+ ["Gains, deposits and rises are positive; losses, withdrawals and drops are negative.","Change = final − start.","Use fractions or decimals consistently and check that the sign makes sense."],
+ [()=>{const a=rnz(-12,10),b=rnz(-12,10);return mk("num",`An elevation changes from ${a} m to ${b} m (relative to sea level). What is the change in elevation (final − start)?`,b-a,"Change = final − start.",`${b} - ${P(a)} = ${b-a}`,{js:`${b}-(${a})`,u:" m"})},
+  ()=>{const b=ri(20,90),w=ri(5,40),d=ri(5,50);return mk("num",`A bank account has $${b}. You withdraw $${w} and then deposit $${d}. What is the new balance?`,b-w+d,"Withdrawals subtract; deposits add.",`${b} - ${w} + ${d} = ${b-w+d}`,{js:`${b}-${w}+${d}`})},
+  ()=>{const t=ri(-9,4)*2,rate=ri(2,4),h=ri(2,5);return mk("num",`The temperature is ${t}°F and falls ${rate}°F each hour. What is the temperature after ${h} hours?`,t-rate*h,"Falling is repeated subtraction: start − rate × time.",`${t} - ${rate}×${h} = ${t-rate*h}`,{js:`${t}-${rate}*${h}`})},
+  ()=>{const a=ri(1,9),b=ri(1,9),c=ri(2,9),d=ri(2,9);const n=a*d-b*c;return mk("num",`A recipe uses ${a}/${c} cup of oil and then ${b}/${d} cup is removed. How much is left? (Compute ${a}/${c} - ${b}/${d})`,frs(n,c*d),"Use a common denominator, then subtract.",`${a*d}/${c*d} - ${b*c}/${c*d} = ${frs(n,c*d)}`,{js:`${a}/${c}-${b}/${d}`})}]);
+T("prop-rel","g7rpx","7.RP.2","Proportional relationships",["prop-solve"],
+ "Two quantities are proportional when their ratio y/x is always the same number k, the constant of proportionality. The equation is y = kx.",
+ ["In a table, k = y ÷ x for every row (they must all agree).","y = kx: to find y multiply x by k; to find x divide y by k.","k is the unit rate: the amount of y for 1 unit of x."],
+ [()=>{const p=ri(1,9),q=ri(1,4);const xs=[1,2,3].map(i=>q*i),ys=[1,2,3].map(i=>p*i);return mk("num",`A table shows x = ${xs.join(", ")} and y = ${ys.join(", ")}. What is the constant of proportionality k (y = kx)?`,frs(p,q),"k = y ÷ x.",`${ys[0]}/${xs[0]} = ${frs(p,q)}`,{js:`${p}/${q}`})},
+  ()=>{const k=ri(2,9),a=ri(2,6),c=ri(7,15);return mk("num",`y is proportional to x. When x = ${a}, y = ${k*a}. What is y when x = ${c}?`,k*c,"Find k = y ÷ x, then y = kx.",`k = ${k*a}/${a} = ${k}; y = ${k}×${c} = ${k*c}`,{js:`${k*a}/${a}*${c}`})},
+  ()=>{const k=pick([1.5,2.5,3.5,0.75,1.25,4.5]),x=ri(2,12);return mk("num",`Apples cost $${k} per pound, so the cost is y = ${k}x. What is the cost of ${x} pounds?`,rdn(k*x,3),"Substitute x into y = kx.",`y = ${k}×${x} = ${rdn(k*x,3)}`,{js:`${k}*${x}`,u:" dollars"})},
+  ()=>{const mph=ri(3,9)*5,h=ri(2,6),h2=ri(7,12);return mk("num",`A car travels ${mph*h} miles in ${h} hours at a constant speed. How many miles does it travel in ${h2} hours?`,mph*h2,"Unit rate = distance ÷ time; then multiply by the new time.",`rate = ${mph*h}/${h} = ${mph} mph; ${mph}×${h2} = ${mph*h2}`,{js:`${mph*h}/${h}*${h2}`})}]);
+T("pct-apps","g7rpx","7.RP.3","Discounts, tax, tips & markups",["percent","prop-rel"],
+ "Percent problems change a price by a percent of itself. Convert the percent to a decimal multiplier to do it in one step.",
+ ["Discount d%: new price = price × (1 − d/100). Tax or markup m%: price × (1 + m/100).","A tip is just a percent of the bill: tip = bill × rate.","To find an original price from a sale price, divide by the multiplier."],
+ [()=>{const p=ri(4,40)*5,d=pick([10,15,20,25,30,40,50]);return mk("num",`A jacket costs $${p} and is on sale for ${d}% off. What is the sale price (in dollars)?`,rdn(p*(100-d)/100,2),"Multiply by (1 − discount).",`${p} × ${(100-d)/100} = ${rdn(p*(100-d)/100,2)}`,{js:`${p}*(1-${d}/100)`})},
+  ()=>{const p=ri(4,40)*5,t=pick([5,6,7,8]);return mk("num",`An item costs $${p} before ${t}% sales tax. What is the total cost with tax (in dollars)?`,rdn(p*(100+t)/100,2),"Multiply by (1 + tax rate).",`${p} × ${(100+t)/100} = ${rdn(p*(100+t)/100,2)}`,{js:`${p}*(1+${t}/100)`})},
+  ()=>{const b=ri(2,20)*4,r=pick([15,20,25]);return mk("num",`Your restaurant bill is $${b}. How much is a ${r}% tip (in dollars)?`,rdn(b*r/100,2),"Tip = bill × rate.",`${b} × ${r/100} = ${rdn(b*r/100,2)}`,{js:`${b}*${r}/100`})},
+  ()=>{const w=ri(2,30)*2,m=pick([20,25,50,75,100]);return mk("num",`A store buys a toy for $${w} and marks it up ${m}%. What is the selling price (in dollars)?`,rdn(w*(100+m)/100,2),"Selling price = cost × (1 + markup).",`${w} × ${(100+m)/100} = ${rdn(w*(100+m)/100,2)}`,{js:`${w}*(1+${m}/100)`})},
+  ()=>{const d=pick([10,20,25,50]),o=ri(2,10)*20,s=o*(100-d)/100;return mk("num",`After a ${d}% discount, a bike costs $${s}. What was the original price (in dollars)?`,o,"Sale price = original × (1 − d); divide to undo it.",`${s} ÷ ${(100-d)/100} = ${o}`,{js:`${s}/(1-${d}/100)`})}]);
+T("pct-change","g7rpx","7.RP.3","Percent change & simple interest",["pct-apps"],
+ "Percent change compares the change in a quantity to its original amount. Simple interest is earned only on the starting amount.",
+ ["Percent change = (new − old) ÷ old × 100. Positive is an increase, negative a decrease.","Simple interest: I = P·r·t (rate as a decimal, t in years).","Percent error = |measured − actual| ÷ actual × 100."],
+ [()=>{const o=pick([20,25,40,50,80,100,200]),p=pick([10,20,25,50,75]);const n=o*(100+p)/100;return mk("num",`A price rises from $${o} to $${n}. What is the percent increase?`,p,"Percent change = change ÷ original × 100.",`(${n} - ${o})/${o} = ${n-o}/${o} = ${p/100}`,{u:"%",js:`(${n}-${o})/${o}*100`})},
+  ()=>{const o=pick([20,25,40,50,80,100,200]),p=pick([10,20,25,50,75]);const n=o*(100-p)/100;return mk("num",`A population drops from ${o} to ${n}. What is the percent decrease?`,p,"Percent decrease = (old − new) ÷ old × 100.",`(${o} - ${n})/${o} = ${o-n}/${o} = ${p/100}`,{u:"%",js:`(${o}-${n})/${o}*100`})},
+  ()=>{const P_=ri(5,50)*100,r=ri(2,8),t=ri(1,6);return mk("num",`How much simple interest is earned on $${P_} at ${r}% per year for ${t} years (in dollars)?`,P_*r*t/100,"I = P × r × t.",`${P_} × ${r/100} × ${t} = ${P_*r*t/100}`,{js:`${P_}*${r}/100*${t}`})},
+  ()=>{const A=pick([20,25,40,50,80,100,200]),e=ri(1,6);return mk("num",`A scale reads ${A+e} lb for an object that actually weighs ${A} lb. What is the percent error?`,rdn(e*100/A,3),"Percent error = |measured − actual| ÷ actual × 100.",`${e}/${A} × 100 = ${rdn(e*100/A,3)}`,{u:"%",js:`Math.abs(${A+e}-${A})/${A}*100`})},
+  ()=>{const P_=ri(5,40)*100,r=ri(2,6),t=ri(2,5);return mk("num",`You deposit $${P_} at ${r}% simple interest per year. What is the total balance after ${t} years (in dollars)?`,P_+P_*r*t/100,"Balance = P + P·r·t.",`${P_} + ${P_*r*t/100} = ${P_+P_*r*t/100}`,{js:`${P_}*(1+${r}/100*${t})`})}]);
+T("scale-draw","g7rpx","7.G.1","Scale drawings",["prop-solve","dec-ops"],
+ "A scale drawing is the same shape as the real object, with every length multiplied by the same scale factor.",
+ ["Write the scale as a ratio, e.g. 1 cm : 5 m, and set up a proportion.","Lengths scale by k; areas scale by k²; volumes by k³.","Keep units consistent."],
+ [()=>{const k=ri(2,12),L=pick([2,3,4,5,6.5,7.5,2.5]);return mk("num",`On a scale drawing, 1 cm represents ${k} m. A wall is ${L} cm long on the drawing. How long is the real wall (m)?`,rdn(k*L,3),"Multiply the drawing length by the scale.",`${L} × ${k} = ${rdn(k*L,3)}`,{js:`${k}*${L}`,u:" m"})},
+  ()=>{const k=ri(2,10),L=ri(2,12);return mk("num",`A room is ${k*L} m long. On a drawing where 1 cm represents ${k} m, how many cm long is it?`,L,"Divide the real length by the scale.",`${k*L} ÷ ${k} = ${L}`,{js:`${k*L}/${k}`,u:" cm"})},
+  ()=>{const k=ri(5,50),d=pick([1.5,2,2.5,3,3.5,4,4.5]);return mk("num",`On a map, 1 inch represents ${k} miles. Two cities are ${d} inches apart. What is the real distance (miles)?`,rdn(k*d,3),"Multiply the map distance by the scale.",`${d} × ${k} = ${rdn(k*d,3)}`,{js:`${k}*${d}`,u:" miles"})},
+  ()=>{const k=ri(2,6),A=ri(2,9);return mk("num",`A drawing is made at scale 1 : ${k}. A shape on the drawing has area ${A} cm². What is the area of the real shape (cm²)?`,A*k*k,"Areas scale by the square of the scale factor.",`${A} × ${k}² = ${A*k*k}`,{js:`${A}*${k}**2`})}]);
+T("distrib","g7eex","7.EE.1","Distributive property & factoring out a GCF",["expr-simplify"],
+ "The distributive property says a(b + c) = ab + ac. Read right to left, it lets you factor a common factor out of an expression.",
+ ["Expand: multiply the outside factor by every term inside, watching signs: −3(2x − 5) = −6x + 15.","Factor: find the greatest common factor of all terms and write it outside parentheses: 6x + 9 = 3(2x + 3).","Check by expanding your answer — you should get the original back."],
+ [()=>{const a=rnz(2,9),b=rnz(-7,7),c=rnz(-9,9);return mk("poly",`Expand: ${a}(${lin(b,c)})`,polyStr([[a*b,"x"],[a*c,""]]),"Multiply the outside number by each term inside.",`${a}·${P(b)}x = ${a*b}x; ${a}·${P(c)} = ${a*c}`,{pe:`${a}*(${b}*x+(${c}))`})},
+  ()=>{const a=-ri(2,9),b=rnz(-7,7),c=rnz(-9,9);return mk("poly",`Expand: ${a}(${lin(b,c)})`,polyStr([[a*b,"x"],[a*c,""]]),"Distribute the negative number to each term; signs flip.",`${P(a)}·${P(b)}x = ${a*b}x; ${P(a)}·${P(c)} = ${a*c}`,{pe:`(${a})*(${b}*x+(${c}))`})},
+  ()=>{const g=ri(2,9);let p,q;do{p=ri(1,6);q=rnz(-9,9)}while(gcd(p,q)!==1);return mk("expr",`Factor out the greatest common factor: ${lin(g*p,g*q)}`,`${g}(${lin(p,q)})`,"Find the GCF of the coefficients, write it outside, and divide each term by it.",`GCF = ${g}; ${g*p}x ÷ ${g} = ${cf(p,"x")}; ${g*q} ÷ ${g} = ${q}`,{form:"factor",fdeg:[1],pe:`${g*p}*x+(${g*q})`})},
+  ()=>{const a=ri(2,6),b=rnz(-6,6),c=ri(2,6),d=rnz(-6,6);return mk("poly",`Simplify: ${a}(${lin(1,b)}) - ${c}(${lin(1,d)})`.replace(/\(x\)/,"x"),polyStr([[a-c,"x"],[a*b-c*d,""]]),"Distribute each product, then combine like terms.",`${a}x ${P(a*b)} − ${c}x ${P(c*d)} ⇒ ${a-c}x + ${a*b-c*d}`,{pe:`${a}*(x+(${b}))-${c}*(x+(${d}))`})}]);
+T("eq-paren","g7eex","7.EE.4a","Equations with parentheses & fractions",["twostep-eq","distrib"],
+ "To solve an equation with parentheses or a fraction, first remove them (distribute or multiply by the denominator), then solve the resulting two-step equation.",
+ ["Distribute first: 3(x + 2) = 15 → 3x + 6 = 15.","Or divide both sides by the outside factor when it divides evenly: x + 2 = 5.","For x/4 + 3 = 8, undo the +3 first, then multiply both sides by 4."],
+ [()=>{const x0=rnz(-9,9),p=ri(2,6),q=rnz(-8,8),r=p*(x0+q);return mk("num",`Solve for x: ${p}(x + ${q}) = ${r}`,x0,"Distribute (or divide by the outside factor), then solve.",`${p}x + ${p*q} = ${r} ⇒ ${p}x = ${r-p*q} ⇒ x = ${x0}`,{eqs:[`${p}*(x+(${q}))=${r}`]})},
+  ()=>{const x0=rnz(-8,8),p=ri(2,5),a=rnz(-5,5),b=rnz(-9,9),r=p*(a*x0+b);return mk("num",`Solve for x: ${p}(${lin(a,b)}) = ${r}`,x0,"Distribute, then use inverse operations.",`${p*a}x + ${p*b} = ${r} ⇒ ${p*a}x = ${r-p*b} ⇒ x = ${x0}`,{eqs:[`${p}*(${a}*x+(${b}))=${r}`]})},
+  ()=>{const a=ri(2,8),x0=a*rnz(-6,6),b=rnz(-9,9),c=x0/a+b;return mk("num",`Solve for x: x/${a} + ${b} = ${c}`.replace("+ -","- "),x0,"Undo the addition, then multiply both sides by the denominator.",`x/${a} = ${c-b} ⇒ x = ${a}×${c-b} = ${x0}`,{eqs:[`x/${a}+(${b})=${c}`]})},
+  ()=>{const p=ri(2,6),x0=rnz(-9,9),q=rnz(-9,9),r=(x0+q)/p;if(!Number.isInteger(r))return TOPIC_BY_ID["eq-paren"]?TOPIC_BY_ID["eq-paren"].gens[3]():mk("num","x",0,"","");return mk("num",`Solve for x: (x + ${q})/${p} = ${r}`.replace("+ -","- "),x0,"Multiply both sides by the denominator, then isolate x.",`x + ${q} = ${r*p} ⇒ x = ${x0}`,{eqs:[`(x+(${q}))/${p}=${r}`]})}]);
+T("angle-rel","g7geo","7.G.5","Angle relationships",["twostep-eq"],
+ "Pairs of angles can be related: complementary angles add to 90°, supplementary angles add to 180°, vertical angles are equal, and the angles around a point add to 360°.",
+ ["Complementary: a + b = 90°.   Supplementary (a straight line): a + b = 180°.","Vertical angles (opposite angles where two lines cross) are equal.","Angles around a point total 360°. Use an equation when the angles contain x."],
+ [()=>{const a=ri(5,85);return mk("num",`What is the complement of a ${a}° angle?`,90-a,"Complementary angles add to 90°.",`90 - ${a} = ${90-a}`,{js:`90-${a}`,u:"°"})},
+  ()=>{const a=ri(5,175);return mk("num",`What is the supplement of a ${a}° angle?`,180-a,"Supplementary angles add to 180°.",`180 - ${a} = ${180-a}`,{js:`180-${a}`,u:"°"})},
+  ()=>{const x0=ri(4,20),a=ri(2,5);let c;do{c=ri(1,6)}while(c===a);const b=ri(0,20),d=(a-c)*x0+b;if(d<0)return TOPIC_BY_ID["angle-rel"].gens[2]();return mk("num",`Two vertical angles measure (${lin(a,b)})° and (${lin(c,d)})°. Find x.`,x0,"Vertical angles are equal: set the expressions equal.",`${lin(a,b)} = ${lin(c,d)} ⇒ ${a-c}x = ${d-b} ⇒ x = ${x0}`,{eqs:[`${a}*x+${b}=${c}*x+${d}`]})},
+  ()=>{let x0,a,c,b,d;do{x0=ri(5,20);a=ri(1,5);c=ri(1,5);b=ri(0,30);d=180-(a+c)*x0-b}while(d<0);return mk("num",`Two angles that form a straight line measure (${lin(a,b)})° and (${lin(c,d)})°. Find x.`,x0,"They are supplementary: the sum is 180°.",`${lin(a,b)} + ${lin(c,d)} = 180 ⇒ ${a+c}x = ${180-b-d} ⇒ x = ${x0}`,{eqs:[`${a}*x+${b}+${c}*x+${d}=180`]})},
+  ()=>{const a=ri(40,120),b=ri(40,120),c=ri(30,100);if(a+b+c>=360)return TOPIC_BY_ID["angle-rel"].gens[4]();return mk("num",`Three angles around a point measure ${a}°, ${b}° and ${c}° with a fourth angle. Find the fourth angle.`,360-a-b-c,"Angles around a point add to 360°.",`360 - (${a}+${b}+${c}) = ${360-a-b-c}`,{js:`360-${a+b+c}`,u:"°"})}]);
+T("tri-angles","g7geo","8.G.5","Triangle angle sum & exterior angles",["angle-rel"],
+ "The three interior angles of any triangle add to 180°. An exterior angle equals the sum of the two remote interior angles.",
+ ["Interior angles: A + B + C = 180°.","Isosceles triangle: the two base angles are equal; equilateral: all 60°.","Exterior angle = sum of the two interior angles not next to it."],
+ [()=>{const a=ri(20,80),b=ri(20,90);return mk("num",`Two angles of a triangle are ${a}° and ${b}°. Find the third angle.`,180-a-b,"Interior angles of a triangle add to 180°.",`180 - ${a} - ${b} = ${180-a-b}`,{js:`180-${a}-${b}`,u:"°"})},
+  ()=>{const base=ri(20,80);return mk("num",`An isosceles triangle has a vertex angle of ${180-2*base}°. What is each base angle?`,base,"The base angles are equal and all three angles total 180°.",`(180 - ${180-2*base}) ÷ 2 = ${base}`,{js:`(180-${180-2*base})/2`,u:"°"})},
+  ()=>{const a=ri(25,80),b=ri(25,90);return mk("num",`Two remote interior angles of a triangle measure ${a}° and ${b}°. What is the exterior angle next to the third angle?`,a+b,"Exterior angle = sum of the remote interior angles.",`${a} + ${b} = ${a+b}`,{js:`${a}+${b}`,u:"°"})},
+  ()=>{const x0=ri(20,40),p=ri(5,30),q=180-3*x0-p;return mk("num",`The angles of a triangle measure x°, (x + ${p})° and (x + ${q})°. Find x.`,x0,"Set the sum of the angles equal to 180.",`3x + ${p+q} = 180 ⇒ x = ${x0}`,{eqs:[`x+(x+${p})+(x+${q})=180`]})}]);
+T("area-2d","g7geo","7.G.6","Area of triangles, quadrilaterals & composite figures",["frac-muldiv","dec-ops"],
+ "Area measures the surface inside a shape in square units. Break complicated shapes into rectangles and triangles.",
+ ["Triangle: A = ½·b·h. Parallelogram: A = b·h. Trapezoid: A = ½(b₁ + b₂)·h.","Height is perpendicular to the base.","Composite figure: add the areas of the pieces, or subtract a removed piece."],
+ [()=>{const b=ri(3,20),h=ri(2,16);return mk("num",`Find the area of a triangle with base ${b} and height ${h}.`,rdn(b*h/2,2),"A = ½ b h.",`½ × ${b} × ${h} = ${rdn(b*h/2,2)}`,{js:`0.5*${b}*${h}`})},
+  ()=>{const b1=ri(3,12),b2=ri(3,12),h=ri(2,10);return mk("num",`A trapezoid has parallel sides ${b1} and ${b2} and height ${h}. Find its area.`,rdn((b1+b2)*h/2,2),"A = ½(b₁ + b₂)h.",`½(${b1}+${b2})×${h} = ${rdn((b1+b2)*h/2,2)}`,{js:`(${b1}+${b2})*${h}/2`})},
+  ()=>{const b=ri(3,15),h=ri(2,12);return mk("num",`A parallelogram has base ${b} and height ${h}. Find its area.`,b*h,"A = b × h.",`${b} × ${h} = ${b*h}`,{js:`${b}*${h}`})},
+  ()=>{const a=ri(8,16),b=ri(8,16),c=ri(2,6),d=ri(2,6);return mk("num",`An L-shaped figure is a ${a} by ${b} rectangle with a ${c} by ${d} corner removed. Find its area.`,a*b-c*d,"Area = whole rectangle − removed piece.",`${a}×${b} - ${c}×${d} = ${a*b-c*d}`,{js:`${a}*${b}-${c}*${d}`})},
+  ()=>{const b=ri(3,12),h=ri(2,12);return mk("num",`A triangle has area ${b*h} and base ${2*b}. What is its height?`,h,"From A = ½bh, h = 2A ÷ b.",`h = 2×${b*h} ÷ ${2*b} = ${h}`,{js:`2*${b*h}/${2*b}`})}]);
+T("circle-basic","g7geo","7.G.4","Circumference & area of circles",["area-2d"],
+ "A circle's circumference is the distance around it and its area is the space inside. Both use π ≈ 3.14. 'In terms of π' means leave π as a symbol.",
+ ["Circumference: C = 2πr = πd.   Area: A = πr².","The diameter is twice the radius.","In terms of π: C = 14π. With 3.14: C = 14 × 3.14 = 43.96. Type pi for π."],
+ [()=>{const r=ri(2,15);return mk("expr",`Find the circumference of a circle with radius ${r}. Leave your answer in terms of π.`,`${2*r}pi`,"C = 2πr.",`2 × π × ${r} = ${2*r}π`,{pe:`2*${r}*Math.PI`})},
+  ()=>{const r=ri(2,12);return mk("expr",`Find the area of a circle with radius ${r}. Leave your answer in terms of π.`,`${r*r}pi`,"A = πr².",`π × ${r}² = ${r*r}π`,{pe:`Math.PI*${r}*${r}`})},
+  ()=>{const r=ri(2,15);return mk("num",`Find the circumference of a circle with radius ${r} using π = 3.14.`,rdn(3.14*2*r,2),"C = 2πr.",`2 × 3.14 × ${r} = ${rdn(3.14*2*r,2)}`,{js:`3.14*2*${r}`})},
+  ()=>{const r=ri(2,12);return mk("num",`Find the area of a circle with radius ${r} using π = 3.14.`,rdn(3.14*r*r,2),"A = πr².",`3.14 × ${r}² = ${rdn(3.14*r*r,2)}`,{js:`3.14*${r}*${r}`})},
+  ()=>{const r=ri(3,15);return mk("num",`A circle has circumference ${2*r}π. What is its radius?`,r,"C = 2πr, so r = C ÷ (2π).",`${2*r}π ÷ 2π = ${r}`,{js:`${2*r}/2`})}]);
+T("vol-prism","g7geo","7.G.6","Volume & surface area of prisms and pyramids",["area-2d"],
+ "Volume is how much space a solid holds (cubic units); surface area is the total area of its faces (square units).",
+ ["Prism: V = (area of base) × height. Rectangular prism: V = lwh.","Pyramid: V = ⅓ × (base area) × height.","Surface area of a rectangular prism: 2(lw + lh + wh)."],
+ [()=>{const l=ri(2,12),w=ri(2,10),h=ri(2,10);return mk("num",`Find the volume of a rectangular prism ${l} by ${w} by ${h}.`,l*w*h,"V = l × w × h.",`${l}×${w}×${h} = ${l*w*h}`,{js:`${l}*${w}*${h}`})},
+  ()=>{const l=ri(2,10),w=ri(2,9),h=ri(2,9);return mk("num",`Find the surface area of a rectangular prism ${l} by ${w} by ${h}.`,2*(l*w+l*h+w*h),"SA = 2(lw + lh + wh).",`2(${l*w} + ${l*h} + ${w*h}) = ${2*(l*w+l*h+w*h)}`,{js:`2*(${l}*${w}+${l}*${h}+${w}*${h})`})},
+  ()=>{const b=ri(3,10),h=ri(2,9),L=ri(3,12);return mk("num",`A triangular prism has a triangular base with base ${2*b} and height ${h}, and the prism is ${L} long. Find its volume.`,b*h*L,"V = (area of base) × length; triangle area = ½bh.",`base area = ½×${2*b}×${h} = ${b*h}; V = ${b*h}×${L} = ${b*h*L}`,{js:`0.5*${2*b}*${h}*${L}`})},
+  ()=>{const s=ri(2,9),h=ri(2,9);return mk("num",`A square pyramid has base edge ${s} and height ${h}. Find its volume.`,frs(s*s*h,3),"V = ⅓ × base area × height (give a fraction if needed).",`⅓ × ${s*s} × ${h} = ${s*s*h}/3 = ${frs(s*s*h,3)}`,{js:`${s}*${s}*${h}/3`})},
+  ()=>{const l=ri(2,10),w=ri(2,9),h=ri(2,9);return mk("num",`A rectangular prism has volume ${l*w*h}, length ${l} and width ${w}. What is its height?`,h,"h = V ÷ (l × w).",`${l*w*h} ÷ ${l*w} = ${h}`,{js:`${l*w*h}/(${l}*${w})`})}]);
+T("prob-simple","g7sp","7.SP.5","Probability of simple events",["frac-addsub"],
+ "Probability measures how likely an event is, from 0 (impossible) to 1 (certain). For equally likely outcomes, P = favourable outcomes ÷ total outcomes.",
+ ["P(event) = (number of favourable outcomes) / (total outcomes). Write it as a reduced fraction.","P(not A) = 1 − P(A).","The probabilities of all the outcomes add to 1."],
+ [()=>{const r=ri(1,8),b=ri(1,8),g=ri(1,8);return mk("num",`A bag has ${r} red, ${b} blue and ${g} green marbles. What is the probability of drawing a red marble?`,frs(r,r+b+g),"P = favourable ÷ total.",`${r}/(${r}+${b}+${g}) = ${frs(r,r+b+g)}`,{js:`${r}/${r+b+g}`})},
+  ()=>{const r=ri(1,8),b=ri(1,8),g=ri(1,8);return mk("num",`A bag has ${r} red, ${b} blue and ${g} green marbles. What is the probability of NOT drawing a red marble?`,frs(b+g,r+b+g),"P(not A) = 1 − P(A): count the non-red marbles.",`(${b}+${g})/${r+b+g} = ${frs(b+g,r+b+g)}`,{js:`1-${r}/${r+b+g}`})},
+  ()=>{const c=pick([["an even number",[2,4,6]],["a prime number",[2,3,5]],["greater than 4",[5,6]],["a multiple of 3",[3,6]],["less than 3",[1,2]],["not a 1",[2,3,4,5,6]]]);return mk("num",`A fair six-sided die is rolled. What is the probability of rolling ${c[0]}?`,frs(c[1].length,6),"Count the favourable faces out of 6.",`${c[1].join(", ")} → ${c[1].length}/6 = ${frs(c[1].length,6)}`,{js:`[1,2,3,4,5,6].filter(v=>${JSON.stringify(c[1])}.includes(v)).length/6`})},
+  ()=>{const c=pick([["a heart",13],["an ace",4],["a face card (J, Q, K)",12],["a red card",26],["the king of spades",1],["a black queen",2]]);return mk("num",`One card is drawn from a standard 52-card deck. What is the probability it is ${c[0]}?`,frs(c[1],52),"P = favourable ÷ 52.",`${c[1]}/52 = ${frs(c[1],52)}`,{js:`${c[1]}/52`})},
+  ()=>{const n=ri(6,12);const odd=Math.ceil(n/2);return mk("num",`A spinner has ${n} equal sections numbered 1 to ${n}. What is the probability of landing on an odd number?`,frs(odd,n),"Count the odd numbers from 1 to n.",`odd numbers: ${odd}; P = ${odd}/${n} = ${frs(odd,n)}`,{js:`Array.from({length:${n}},(_,i)=>i+1).filter(v=>v%2===1).length/${n}`})}]);
+T("prob-compound","g7sp","7.SP.8","Compound events & sample spaces",["prob-simple","frac-muldiv"],
+ "A compound event combines two or more simple events. A sample space lists all possible outcomes; for independent events, multiply the probabilities.",
+ ["Counting principle: m choices then n choices gives m × n outcomes.","Independent events: P(A and B) = P(A) × P(B).","Without replacement, the second probability changes: the totals each drop by 1."],
+ [()=>{const n=ri(2,5);return mk("num",`A fair coin is flipped ${n} times. What is the probability that all ${n} flips are heads?`,frs(1,Math.pow(2,n)),"Multiply ½ for each independent flip.",`(1/2)^${n} = 1/${Math.pow(2,n)}`,{js:`0.5**${n}`})},
+  ()=>{const a=ri(1,3),b=ri(a+1,5),c=ri(1,3),d=ri(c+1,6);return mk("num",`Spinner A lands on blue with probability ${a}/${b}; spinner B lands on blue with probability ${c}/${d}. What is the probability both land on blue?`,frs(a*c,b*d),"Independent events: multiply.",`${a}/${b} × ${c}/${d} = ${frs(a*c,b*d)}`,{js:`${a}/${b}*${c}/${d}`})},
+  ()=>{const r=ri(2,6),b=ri(2,6);const t=r+b;return mk("num",`A bag has ${r} red and ${b} blue marbles. Two are drawn without replacement. What is the probability both are red?`,frs(r*(r-1),t*(t-1)),"Multiply P(first red) by P(second red), with one fewer marble in the bag.",`${r}/${t} × ${r-1}/${t-1} = ${frs(r*(r-1),t*(t-1))}`,{js:`${r}/${t}*${r-1}/${t-1}`})},
+  ()=>{const s=ri(2,6),p=ri(2,5),h=ri(2,4);return mk("num",`You have ${s} shirts, ${p} pairs of pants and ${h} hats. How many different outfits (one of each) are possible?`,s*p*h,"Counting principle: multiply the number of choices.",`${s}×${p}×${h} = ${s*p*h}`,{js:`${s}*${p}*${h}`})},
+  ()=>{const k=ri(2,12);const cnt=[1,2,3,4,5,6].reduce((a,x)=>a+[1,2,3,4,5,6].filter(y=>x+y===k).length,0);return mk("num",`Two fair dice are rolled. What is the probability that the sum is ${k}?`,frs(cnt,36),"List the pairs that give the sum; there are 36 equally likely outcomes.",`${cnt} favourable pairs out of 36 = ${frs(cnt,36)}`,{js:`[1,2,3,4,5,6].flatMap(a=>[1,2,3,4,5,6].map(b=>a+b)).filter(s=>s===${k}).length/36`})}]);
+T("exp-prob","g7sp","7.SP.6","Experimental probability & predictions",["prob-simple","prop-solve"],
+ "Experimental (relative-frequency) probability comes from what actually happened in trials. We use it to predict future results.",
+ ["Experimental P = (times the event happened) ÷ (number of trials).","Expected count = probability × number of trials.","More trials usually bring the experimental probability closer to the theoretical one."],
+ [()=>{const n=ri(10,40),r=ri(1,n-1);return mk("num",`A spinner landed on red ${r} times in ${n} spins. What is the experimental probability of red?`,frs(r,n),"Experimental P = successes ÷ trials.",`${r}/${n} = ${frs(r,n)}`,{js:`${r}/${n}`})},
+  ()=>{const p=ri(1,9),q=ri(10,50),N=q*ri(2,20);return mk("num",`A factory finds ${p} of every ${q} items are defective. How many defective items are expected in ${N} items?`,p*N/q,"Expected = probability × number of items.",`${p}/${q} × ${N} = ${p*N/q}`,{js:`${p}/${q}*${N}`})},
+  ()=>{const a=ri(5,20),b=ri(5,20),c=ri(5,20),n=a+b+c;return mk("num",`In ${n} trials the results were red ${a}, blue ${b}, green ${c}. What is the experimental probability of blue?`,frs(b,n),"Relative frequency = count ÷ total trials.",`${b}/${n} = ${frs(b,n)}`,{js:`${b}/${a+b+c}`})},
+  ()=>{const n=pick([60,120,180,240,300]),a=Math.round(n/6)+ri(-8,8);return mk("num",`A fair die is rolled ${n} times and a six appears ${a} times. How far is this from the number of sixes you would expect (absolute difference)?`,Math.abs(a-n/6),"Expected sixes = n ÷ 6; then take |actual − expected|.",`expected = ${n/6}; |${a} - ${n/6}| = ${Math.abs(a-n/6)}`,{js:`Math.abs(${a}-${n}/6)`})}]);
+T("stat-center","g7sp","6.SP.5","Mean, median, mode & range",["dec-ops"],
+ "Measures of center summarise a data set with one number: the mean (balance point), median (middle) and mode (most common). The range measures spread.",
+ ["Mean = sum ÷ count.   Median = middle value of the sorted list (average the two middles if the count is even).","Mode = most frequent value.   Range = maximum − minimum.","Always sort the data before finding the median."],
+ [()=>{const n=ri(5,7);let a;do{a=Array.from({length:n},()=>ri(2,30))}while(a.reduce((x,y)=>x+y)%n!==0);const s=a.reduce((x,y)=>x+y);return mk("num",`Find the mean: ${a.join(", ")}`,s/n,"Mean = sum ÷ number of values.",`sum = ${s}; ${s} ÷ ${n} = ${s/n}`,{js:`[${a}].reduce((x,y)=>x+y)/${n}`})},
+  ()=>{const n=pick([5,7,9]);const a=Array.from({length:n},()=>ri(1,40));const s=a.slice().sort((x,y)=>x-y);return mk("num",`Find the median: ${a.join(", ")}`,s[(n-1)/2],"Sort the list; the median is the middle value.",`sorted: ${s.join(", ")}; middle = ${s[(n-1)/2]}`,{js:`[${a}].sort((x,y)=>x-y)[${(n-1)/2}]`})},
+  ()=>{const n=pick([6,8]);const a=Array.from({length:n},()=>ri(1,40));const s=a.slice().sort((x,y)=>x-y);const m=(s[n/2-1]+s[n/2])/2;return mk("num",`Find the median: ${a.join(", ")}`,m,"Sort the list; with an even count, average the two middle values.",`sorted: ${s.join(", ")}; (${s[n/2-1]} + ${s[n/2]})/2 = ${m}`,{js:`([${a}].sort((x,y)=>x-y)[${n/2-1}]+[${a}].sort((x,y)=>x-y)[${n/2}])/2`})},
+  ()=>{const m=ri(2,20),a=[m,m,m];for(let i=0;i<4;i++){let v;do{v=ri(1,25)}while(v===m);a.push(v)}const sh=shuffle(a);return mk("num",`Find the mode: ${sh.join(", ")}`,m,"The mode is the value that appears most often.",`${m} appears 3 times; every other value appears once or twice`,{js:`${m}`})},
+  ()=>{const a=Array.from({length:ri(5,8)},()=>ri(1,60));return mk("num",`Find the range: ${a.join(", ")}`,Math.max(...a)-Math.min(...a),"Range = max − min.",`${Math.max(...a)} - ${Math.min(...a)} = ${Math.max(...a)-Math.min(...a)}`,{js:`Math.max(${a})-Math.min(${a})`})},
+  ()=>{const k=ri(4,6),m=ri(60,90);const sc=Array.from({length:k-1},()=>ri(55,100));const need=m*k-sc.reduce((x,y)=>x+y);if(need<0||need>130)return TOPIC_BY_ID["stat-center"].gens[5]();return mk("num",`Your first ${k-1} test scores are ${sc.join(", ")}. What score do you need on test ${k} to have a mean of ${m}?`,need,"Needed total = mean × count; subtract what you have.",`${m}×${k} = ${m*k}; ${m*k} - ${sc.reduce((x,y)=>x+y)} = ${need}`,{js:`${m}*${k}-[${sc}].reduce((x,y)=>x+y)`})}]);
+T("stat-spread","g7sp","7.SP.4","Quartiles, IQR & mean absolute deviation",["stat-center"],
+ "Quartiles split sorted data into four parts. The interquartile range (IQR = Q3 − Q1) measures the spread of the middle half. MAD is the average distance from the mean.",
+ ["Q1 is the median of the lower half; Q3 is the median of the upper half (exclude the median when the count is odd).","IQR = Q3 − Q1.  Outlier fences: Q1 − 1.5·IQR and Q3 + 1.5·IQR.","MAD = average of |value − mean|."],
+ [()=>{const n=pick([8,9]);const a=Array.from({length:n},()=>ri(1,50));const s=a.slice().sort((x,y)=>x-y);const q1=(s[1]+s[2])/2,q3=n===8?(s[5]+s[6])/2:(s[6]+s[7])/2;
+   return mk("num",`Find the IQR of: ${a.join(", ")}`,q3-q1,"Sort; Q1 = median of the lower half, Q3 = median of the upper half; IQR = Q3 − Q1.",`sorted: ${s.join(", ")}; Q1 = ${q1}, Q3 = ${q3}; IQR = ${q3-q1}`,{js:`(${q3})-(${q1})`})},
+  ()=>{const n=8;const a=Array.from({length:n},()=>ri(1,60));const s=a.slice().sort((x,y)=>x-y);return mk("num",`Find the first quartile Q1 of: ${a.join(", ")}`,(s[1]+s[2])/2,"Q1 is the median of the lower half of the sorted data.",`sorted: ${s.join(", ")}; lower half ${s.slice(0,4).join(", ")}; Q1 = ${(s[1]+s[2])/2}`,{js:`([${a}].sort((x,y)=>x-y)[1]+[${a}].sort((x,y)=>x-y)[2])/2`})},
+  ()=>{let a;do{a=Array.from({length:5},()=>ri(2,30))}while(a.reduce((x,y)=>x+y)%5!==0);const m=a.reduce((x,y)=>x+y)/5;const d=a.reduce((x,y)=>x+Math.abs(y-m),0);return mk("num",`Find the mean absolute deviation (MAD) of: ${a.join(", ")}`,rdn(d/5,2),"Find the mean, then average the distances |x − mean|.",`mean = ${m}; distances: ${a.map(v=>Math.abs(v-m)).join(", ")}; sum ${d}; ${d}/5 = ${rdn(d/5,2)}`,{js:`[${a}].reduce((s,v)=>s+Math.abs(v-${m}),0)/5`})},
+  ()=>{const q1=ri(10,30),i=ri(4,20),q3=q1+i;return mk("num",`A data set has Q1 = ${q1} and Q3 = ${q3}. What is the upper outlier fence, Q3 + 1.5 × IQR?`,rdn(q3+1.5*i,2),"IQR = Q3 − Q1; fence = Q3 + 1.5·IQR.",`IQR = ${i}; ${q3} + 1.5×${i} = ${rdn(q3+1.5*i,2)}`,{js:`${q3}+1.5*(${q3}-${q1})`})}]);
+T("sampling","g7sp","7.SP.2","Random sampling & population inference",["prop-solve","prob-simple"],
+ "A random sample that represents the population lets you predict the whole population from a small part.",
+ ["A representative sample is chosen at random from the whole population; convenient or self-selected samples are biased.","Sample proportion = (count in sample) ÷ (sample size).","Predicted population count = sample proportion × population size."],
+ [()=>{const n=ri(20,50),k=ri(3,n-3),N=n*ri(10,40);return mk("num",`In a random sample of ${n} students, ${k} prefer pizza. About how many of the ${N} students at the school prefer pizza?`,k*N/n,"Scale the sample proportion up to the population.",`${k}/${n} × ${N} = ${k*N/n}`,{js:`${k}/${n}*${N}`})},
+  ()=>{const n=ri(2,10)*10,N=ri(5,40)*100,pct=ri(10,90);return mk("num",`A random survey of ${n} voters found ${pct}% support a proposal. About how many of ${N} voters support it?`,rdn(pct/100*N,2),"Population estimate = percent × population size.",`${pct}% of ${N} = ${rdn(pct/100*N,2)}`,{js:`${pct}/100*${N}`})},
+  ()=>{const N=ri(5,30)*100;const good="randomly choosing students from the school's full roster",wrong=["surveying only the school basketball team","asking the first 15 students who arrive at school","surveying students who volunteer in a sign-up poll"];return mcq(`To learn which lunch the ${N} students of a school like best, which sample is most likely to be representative?`,good.charAt(0).toUpperCase()+good.slice(1),wrong.map(w=>w.charAt(0).toUpperCase()+w.slice(1)),"A random sample from the whole population avoids bias.","Only the roster-based random sample gives every student an equal chance.")}]);
+
+// ===== Grade 8 =====
+addUnits("g8",[["g8ee","Exponents, Roots & Scientific Notation"],["g8pyth","Pythagorean Theorem & Distance"],["g8eq","Equations & Systems"],["g8fn","Functions & Linear Models"],["g8tr","Transformations, Angles & Volume"],["g8sp","Bivariate Data"]]);
+const radStr=n=>{let k=1,m=n;for(let f=2;f*f<=m;f++)while(m%(f*f)===0){m/=f*f;k*=f}return m===1?String(k):(k===1?"":k)+"sqrt("+m+")"};
+const SQ=n=>Number.isInteger(Math.sqrt(n));
+const digits=(m,e)=>{const d=String(Math.round(m*10));if(e>=1)return d+"0".repeat(e-1);if(e===0)return (d[0]+"."+d.slice(1)).replace(/\.$/,"");return "0."+"0".repeat(-e-1)+d};
+const siStr=(mn,md,bn,bd)=>{const m=frs(mn,md),b=frs(bn,bd);const t=m==="0"?"":m==="1"?"x":m==="-1"?"-x":m+"x";return "y = "+(b==="0"?(t||"0"):t?(b[0]==="-"?t+" - "+b.slice(1):t+" + "+b):b)};
+const TRI=[[3,4,5],[5,12,13],[8,15,17],[7,24,25],[6,8,10],[9,12,15],[20,21,29]];
+T("sci-not","g8ee","8.EE.3","Scientific notation",["exp-neg-zero","dec-ops"],
+ "Scientific notation writes very large or very small numbers as a number from 1 up to 10 times a power of ten, so m × 10ⁿ with 1 ≤ m < 10.",
+ ["Move the decimal point until one non-zero digit is in front: 45,000,000 = 4.5 × 10⁷ (moved 7 places left, exponent +7).","Numbers smaller than 1 get negative exponents: 0.00032 = 3.2 × 10⁻⁴.","Multiply: multiply the front numbers, add exponents; then fix the front number if it is 10 or more. Type as 4.5 x 10^7."],
+ [()=>{const m=ri(11,99)/10,e=pick([ri(3,9),-ri(3,8)]);return mk("expr",`Write ${digits(m,e)} in scientific notation.`,`${m} * 10^${e}`,"Place the decimal after the first non-zero digit and count the places moved.",`${digits(m,e)} = ${m} × 10^${e}`,{form:"sci",pe:`${m}*10**(${e})`})},
+  ()=>{const m=ri(11,99)/10,e=pick([ri(2,7),-ri(2,6)]);return mk("num",`Write ${m} × 10^${e} in standard (decimal) form.`,digits(m,e),"A positive exponent moves the decimal right; a negative exponent moves it left.",`${m} × 10^${e} = ${digits(m,e)}`,{js:`${m}*10**(${e})`})},
+  ()=>{const a=ri(2,9),b=ri(2,6),p=ri(2,8),q=ri(2,8);const prod=a*b;const m=prod>=10?prod/10:prod,e=p+q+(prod>=10?1:0);return mk("expr",`Compute and write in scientific notation: (${a} × 10^${p})(${b} × 10^${q})`,`${m} * 10^${e}`,"Multiply the front numbers, add the exponents, then renormalise so the front number is between 1 and 10.",`${a}×${b} = ${prod}; 10^${p}×10^${q} = 10^${p+q}; result ${m} × 10^${e}`,{form:"sci",pe:`(${a}*10**${p})*(${b}*10**${q})`})},
+  ()=>{const b=ri(1,4),k=ri(2,Math.floor(9/b)),p=ri(6,12),q=ri(1,5);const a=b*k;return mk("expr",`Compute and write in scientific notation: (${a} × 10^${p}) ÷ (${b} × 10^${q})`,`${k} * 10^${p-q}`,"Divide the front numbers and subtract the exponents.",`${a}÷${b} = ${k}; 10^${p}÷10^${q} = 10^${p-q}`,{form:"sci",pe:`(${a}*10**${p})/(${b}*10**${q})`})},
+  ()=>{const b=ri(1,4),k=ri(2,Math.floor(9/b)),p=ri(5,9),q=ri(1,4);return mk("num",`How many times as large is ${b*k} × 10^${p} as ${b} × 10^${q}?`,k*Math.pow(10,p-q),"Divide: (front ÷ front) × 10^(difference of exponents).",`${k} × 10^${p-q} = ${k*Math.pow(10,p-q)}`,{js:`(${b*k}*10**${p})/(${b}*10**${q})`})}]);
+T("exp-num","g8ee","8.EE.1","Exponent rules with numbers",["exp-neg-zero"],
+ "The exponent rules work with numeric bases too, and let you evaluate hard-looking expressions without a calculator.",
+ ["aᵐ · aⁿ = aᵐ⁺ⁿ;  aᵐ ÷ aⁿ = aᵐ⁻ⁿ;  (aᵐ)ⁿ = aᵐⁿ.","(a/b)ⁿ = aⁿ/bⁿ and (a/b)⁻ⁿ = (b/a)ⁿ.","Reduce exponents first, then evaluate: 2⁵·2² ÷ 2⁴ = 2³ = 8."],
+ [()=>{const b=pick([2,3,5]),x=ri(2,6),y=ri(2,6),z=ri(2,8);const e=x+y-z;const ans=e>=0?String(Math.pow(b,e)):`1/${Math.pow(b,-e)}`;return mk("num",`Evaluate: (${b}^${x} · ${b}^${y}) ÷ ${b}^${z}`,ans,"Add exponents for the product, subtract for the quotient.",`${b}^(${x}+${y}-${z}) = ${b}^${e} = ${ans}`,{js:`${b}**${x}*${b}**${y}/${b}**${z}`})},
+  ()=>{const b=pick([2,3,4,5]),x=ri(2,4),y=ri(2,3);return mk("num",`Evaluate: (${b}^${x})^${y}`,Math.pow(b,x*y),"Power of a power: multiply the exponents.",`${b}^(${x}×${y}) = ${b}^${x*y} = ${Math.pow(b,x*y)}`,{js:`(${b}**${x})**${y}`})},
+  ()=>{const a=ri(1,5),b=ri(a+1,7);if(gcd(a,b)!==1)return TOPIC_BY_ID["exp-num"].gens[2]();const n=pick([-3,-2,2,3]);const num=n>0?Math.pow(a,n):Math.pow(b,-n),den=n>0?Math.pow(b,n):Math.pow(a,-n);return mk("num",`Evaluate: (${a}/${b})^${n}`,frs(num,den),"Raise numerator and denominator to the power; a negative exponent flips the fraction.",`${n>0?"":"flip: ("+b+"/"+a+")^"+(-n)+" ; "}${num}/${den}`,{js:`(${a}/${b})**${n}`})},
+  ()=>{const b=pick([2,3,5]),p=ri(2,5),q=ri(2,5),k=p+q;const t=pick(["prod","quot","pow"]);
+     if(t==="prod")return mk("num",`Solve for n: ${b}^${p} · ${b}^${q} = ${b}^n`,k,"Add the exponents on the left.",`${p} + ${q} = ${k}`,{js:`${p}+${q}`});
+     if(t==="quot")return mk("num",`Solve for n: ${b}^${k} ÷ ${b}^${p} = ${b}^n`,q,"Subtract the exponents on the left.",`${k} - ${p} = ${q}`,{js:`${k}-${p}`});
+     return mk("num",`Solve for n: (${b}^${p})^${q} = ${b}^n`,p*q,"Multiply the exponents on the left.",`${p} × ${q} = ${p*q}`,{js:`${p}*${q}`})}]);
+T("sqrt-basic","g8ee","8.EE.2","Square roots & cube roots",["exp-prod"],
+ "A square root undoes squaring and a cube root undoes cubing. Equations x² = p have two solutions (±√p); x³ = p has exactly one.",
+ ["√(k²) = k for k ≥ 0 (the principal root); a positive number has two square roots, ±.","∛(k³) = k, and a negative number has a real cube root: ∛(−8) = −2.","x² = 49 → x = ±7.  x³ = 64 → x = 4."],
+ [()=>{const k=ri(2,20);return mk("num",`Evaluate: sqrt(${k*k})`,k,"Find the number whose square is under the root.",`${k}² = ${k*k}, so √${k*k} = ${k}`,{js:`Math.sqrt(${k*k})`})},
+  ()=>{const k=ri(1,10)*pick([1,-1]);return mk("num",`Evaluate: cbrt(${k*k*k})`,k,"Find the number whose cube is under the root.",`(${k})³ = ${k*k*k}`,{js:`Math.cbrt(${k*k*k})`})},
+  ()=>{const k=ri(2,15);return mk("set",`Solve for x: x^2 = ${k*k}`,`${-k}, ${k}`,"Take both the positive and negative square root.",`x = ±√${k*k} = ±${k}`,{fx:`x*x-${k*k}`,nroots:2})},
+  ()=>{const k=ri(2,9)*pick([1,-1]);return mk("num",`Solve for x: x^3 = ${k*k*k}`,k,"Take the cube root (only one real solution).",`x = ∛${k*k*k} = ${k}`,{eqs:[`x*x*x=${k*k*k}`]})},
+  ()=>{const a=ri(1,9),b=ri(a+1,10);if(gcd(a,b)!==1)return TOPIC_BY_ID["sqrt-basic"].gens[4]();return mk("num",`Evaluate: sqrt(${a*a}/${b*b})`,frs(a,b),"Take the square root of the numerator and denominator separately.",`√${a*a} = ${a}; √${b*b} = ${b}; ${a}/${b}`,{js:`Math.sqrt(${a*a}/${b*b})`})}]);
+T("irrational","g8ee","8.NS.2","Irrational numbers & estimating roots",["sqrt-basic","frac-dec"],
+ "A rational number can be written as a fraction of integers (terminating or repeating decimals). Irrational numbers like √2 and π have decimals that never end or repeat.",
+ ["√n is rational only when n is a perfect square (√49 = 7); otherwise it is irrational.","Estimate √n by finding the perfect squares on each side: 36 < 40 < 49, so √40 is between 6 and 7.","Square-root estimates: test tenths, e.g. 6.3² = 39.69, so √40 ≈ 6.3."],
+ [()=>{let n;do{n=ri(2,99)}while(SQ(n)||Math.abs((Math.sqrt(n)*10)%1-0.5)<0.07);return mk("num",`Estimate sqrt(${n}) to the nearest tenth.`,rdn(Math.sqrt(n),1),"Bracket between perfect squares, then refine by testing tenths.",`${Math.floor(Math.sqrt(n))}² = ${Math.floor(Math.sqrt(n))**2} < ${n} < ${(Math.floor(Math.sqrt(n))+1)**2}; √${n} ≈ ${rdn(Math.sqrt(n),1)}`,{js:`Math.sqrt(${n})`,jtol:0.0500001})},
+  ()=>{let n;do{n=ri(5,150)}while(SQ(n));const f=Math.floor(Math.sqrt(n));return mk("num",`sqrt(${n}) lies between two consecutive integers. What is the smaller one?`,f,"Find the largest perfect square not exceeding the number.",`${f}² = ${f*f} ≤ ${n} < ${(f+1)**2}`,{js:`Math.floor(Math.sqrt(${n}))`})},
+  ()=>{let n;do{n=ri(2,60)}while(SQ(n));const irr=pick([`√${n}`,"π",`√${n+1>1&&!SQ(n+1)?n+1:n}`]);const rat=shuffle([`√${pick([4,9,16,25,36,49,64,81])}`,`${ri(1,9)}/${ri(2,9)}`,`0.${ri(1,9)}${ri(1,9)}`,`−${ri(1,9)}.${ri(1,9)}`,`${pick(["0.333…","0.121212…","0.25"])}`]);const wr=[];for(const r of rat){if(!wr.includes(r)&&r!==irr)wr.push(r);if(wr.length===3)break}
+     return mcq("Which of these numbers is irrational?",irr,wr,"Irrational numbers have non-terminating, non-repeating decimals (non-perfect-square roots and π).","The others are perfect-square roots, fractions, or terminating/repeating decimals.")},
+  ()=>{const m=ri(3,12);let n;do{n=ri(m*m-m,m*m+m)}while(n===m*m);return mcq(`Which is greater: √${n} or ${m}?`,n>m*m?`√${n}`:`${m}`,[n>m*m?`${m}`:`√${n}`],"Compare the squares: √n > m exactly when n > m².",`${m}² = ${m*m}; compare with ${n}`)}]);
+T("pyth","g8pyth","8.G.7","Pythagorean theorem",["sqrt-basic","twostep-eq"],
+ "In a right triangle with legs a and b and hypotenuse c (the side opposite the right angle), a² + b² = c².",
+ ["Hypotenuse: c = √(a² + b²).  Missing leg: a = √(c² − b²).","Pythagorean triples to recognise: 3-4-5, 5-12-13, 8-15-17, 7-24-25 and their multiples.","Not a perfect square? Simplify the radical, e.g. √50 = 5√2. Type sqrt(50) as 5sqrt(2)."],
+ [()=>{const [a,b,c]=pick(TRI),k=ri(1,3);return mk("num",`A right triangle has legs ${a*k} and ${b*k}. Find the hypotenuse.`,c*k,"c² = a² + b².",`${a*k}² + ${b*k}² = ${(a*k)**2+(b*k)**2}; c = ${c*k}`,{js:`Math.sqrt(${a*k}**2+${b*k}**2)`})},
+  ()=>{const [a,b,c]=pick(TRI),k=ri(1,3);return mk("num",`A right triangle has hypotenuse ${c*k} and one leg ${a*k}. Find the other leg.`,b*k,"a² = c² − b².",`${c*k}² - ${a*k}² = ${(c*k)**2-(a*k)**2}; leg = ${b*k}`,{js:`Math.sqrt(${c*k}**2-${a*k}**2)`})},
+  ()=>{let a,b;do{a=ri(1,12);b=ri(1,12)}while(a===b);return mk("expr",`Find the hypotenuse of a right triangle with legs ${a} and ${b}. Give the answer as a simplified radical (or integer).`,radStr(a*a+b*b),"c = √(a² + b²), then simplify the radical.",`${a}² + ${b}² = ${a*a+b*b}; c = ${radStr(a*a+b*b).replace(/sqrt\((\d+)\)/,"√$1")}`,{form:"rad",pe:`Math.sqrt(${a*a+b*b})`})},
+  ()=>{const [a,b,c]=pick(TRI.slice(0,4)),k=ri(1,3);return mk("num",`A ${c*k}-foot ladder leans against a wall with its base ${a*k} feet from the wall. How high up the wall does it reach (feet)?`,b*k,"The ladder is the hypotenuse; solve for the leg.",`${c*k}² - ${a*k}² = ${(c*k)**2-(a*k)**2}; height = ${b*k}`,{js:`Math.sqrt(${c*k}**2-${a*k}**2)`})},
+  ()=>{const [a,b,c]=pick(TRI),k=ri(1,3);return mk("num",`A rectangle is ${a*k} cm by ${b*k} cm. How long is its diagonal (cm)?`,c*k,"The diagonal is the hypotenuse of a right triangle with the sides as legs.",`√(${a*k}² + ${b*k}²) = ${c*k}`,{js:`Math.hypot(${a*k},${b*k})`})}]);
+T("pyth-apps","g8pyth","8.G.8","Distance & the converse of the Pythagorean theorem",["pyth","irrational"],
+ "The Pythagorean theorem gives the distance between two points: make a right triangle whose legs are the horizontal and vertical changes.",
+ ["Distance = √((x₂ − x₁)² + (y₂ − y₁)²).","Converse: if a² + b² = c² for the sides of a triangle, it is a right triangle (c longest).","Simplify radical answers: √72 = 6√2."],
+ [()=>{const [a,b,c]=pick(TRI.slice(0,4)),k=ri(1,2);const x1=ri(-6,6),y1=ri(-6,6),sx=pick([-1,1]),sy=pick([-1,1]);const x2=x1+sx*a*k,y2=y1+sy*b*k;return mk("num",`Find the distance between (${x1}, ${y1}) and (${x2}, ${y2}).`,c*k,"Distance = √(Δx² + Δy²).",`Δx = ${x2-x1}, Δy = ${y2-y1}; √(${(a*k)**2} + ${(b*k)**2}) = ${c*k}`,{js:`Math.hypot(${x2}-(${x1}),${y2}-(${y1}))`})},
+  ()=>{let dx,dy;do{dx=ri(1,9);dy=ri(1,9)}while(dx===dy);const x1=ri(-5,5),y1=ri(-5,5);return mk("expr",`Find the distance between (${x1}, ${y1}) and (${x1+dx}, ${y1-dy}) as a simplified radical (or integer).`,radStr(dx*dx+dy*dy),"Use the distance formula and simplify the radical.",`Δx = ${dx}, Δy = ${-dy}; √(${dx*dx} + ${dy*dy}) = √${dx*dx+dy*dy}`,{form:"rad",pe:`Math.hypot(${dx},${dy})`})},
+  ()=>{const [a,b,c]=pick(TRI),k=ri(1,3);const right=Math.random()<0.5;const cc=right?c*k:c*k+pick([-1,1]);const sides=shuffle([a*k,b*k,cc]);return mcq(`A triangle has sides ${sides.join(", ")}. Is it a right triangle?`,right?"Yes":"No",[right?"No":"Yes"],"Check whether a² + b² = c² with c the longest side.",`${a*k}² + ${b*k}² = ${(a*k)**2+(b*k)**2}; ${cc}² = ${cc*cc}; ${right?"equal":"not equal"}`,{js:`(${(a*k)**2+(b*k)**2}===${cc*cc})===${right}`})},
+  ()=>{const [a,b,c]=pick(TRI.slice(0,4)),k=ri(1,3);return mk("num",`An isosceles triangle has two equal sides of length ${c*k} and base ${2*a*k}. Find its height to the base.`,b*k,"The height splits the base in half, forming a right triangle with the equal side as hypotenuse.",`half base = ${a*k}; h = √(${c*k}² − ${a*k}²) = ${b*k}`,{js:`Math.sqrt(${c*k}**2-${a*k}**2)`})}]);
+T("eq-both","g8eq","8.EE.7","Equations with variables on both sides",["eq-paren","multistep-eq"],
+ "When the variable appears on both sides, collect the variable terms on one side and the constants on the other, then solve. Some equations have no solution or infinitely many.",
+ ["Subtract the smaller variable term from both sides to get one x-term.","If the variables cancel and the statement is false (3 = 5) there is no solution; if true (4 = 4) there are infinitely many.","Always check by substituting back."],
+ [()=>{let a,c;do{a=ri(1,8);c=ri(-5,8)}while(a===c);const x0=rnz(-9,9),b=ri(-12,12),d=(a-c)*x0+b;return mk("num",`Solve for x: ${lin(a,b)} = ${lin(c,d)}`,x0,"Collect x terms on one side and constants on the other.",`${a-c}x = ${d-b} ⇒ x = ${x0}`,{eqs:[`${a}*x+(${b})=${c}*x+(${d})`]})},
+  ()=>{let p,a;do{p=ri(2,6);a=ri(-3,7)}while(p===a);const x0=rnz(-8,8),q=rnz(-6,6),d=(p-a)*x0+p*q;return mk("num",`Solve for x: ${p}(x + ${q}) = ${lin(a,d)}`.replace("+ -","- "),x0,"Distribute first, then collect like terms.",`${p}x + ${p*q} = ${lin(a,d)} ⇒ ${p-a}x = ${d-p*q} ⇒ x = ${x0}`,{eqs:[`${p}*(x+(${q}))=${a}*x+(${d})`]})},
+  ()=>{const t=pick(["one","none","inf"]);const a=ri(2,7),b=ri(-8,8);let q;
+     if(t==="one"){const c=a+pick([-1,1])*ri(1,3);const d=ri(-8,8);q=`${lin(a,b)} = ${lin(c,d)}`}else if(t==="none"){q=`${lin(a,b)} = ${lin(a,b+pick([-1,1])*ri(1,5))}`}else{q=`${lin(a,b)} = ${lin(a,b)}`}
+     const ans=t==="one"?"One solution":t==="none"?"No solution":"Infinitely many solutions";return mcq(`How many solutions does ${q} have?`,ans,["One solution","No solution","Infinitely many solutions"].filter(x=>x!==ans),"Simplify: if the x-terms cancel, a false statement means no solution and a true one means infinitely many.",t==="one"?"The x-coefficients differ, so exactly one x works.":t==="none"?"The x terms cancel, leaving false constants.":"Both sides are identical.")},
+  ()=>{let a,c;do{a=ri(2,6);c=ri(2,6)}while(a===c);const L=lcm(a,c),x0=L*rnz(-3,3),b=ri(-6,6),d=x0/a-x0/c+b;return mk("num",`Solve for x: x/${a} + ${b} = x/${c} + ${d}`.replace("+ -","- "),x0,"Collect the x terms, then clear the fractions with the LCD.",`x(1/${a} − 1/${c}) = ${d-b} ⇒ x = ${x0}`,{eqs:[`x/${a}+(${b})=x/${c}+(${d})`]})},
+  ()=>{const F1=ri(10,40),F2=ri(0,9),r1=ri(2,6);let r2;do{r2=ri(7,15)}while(r2<=r1);const n=ri(2,10);const F2b=F1+(r1-r2)*n;if(F2b<0||F2b>60)return TOPIC_BY_ID["eq-both"].gens[4]();return mk("num",`Plan A costs $${F1} plus $${r1} per visit. Plan B costs $${F2b} plus $${r2} per visit. After how many visits do the plans cost the same?`,n,"Set the costs equal and solve.",`${F1} + ${r1}n = ${F2b} + ${r2}n ⇒ ${F1-F2b} = ${r2-r1}n ⇒ n = ${n}`,{eqs:[`${F1}+${r1}*x=${F2b}+${r2}*x`]})}]);
+T("sys-intro","g8eq","8.EE.8","Systems of equations: solutions & number of solutions",["slope-int"],
+ "A solution of a system satisfies every equation. Graphically it is where the lines cross; parallel lines never meet and identical lines overlap everywhere.",
+ ["Check a point by substituting into both equations.","Different slopes → exactly one solution. Same slope, different intercept → none. Same slope and intercept → infinitely many.","Two equations y = … can be solved by setting the right sides equal."],
+ [()=>{const x=ri(-5,5),y=ri(-5,5);const a1=ri(1,4),b1=ri(1,4),a2=ri(1,4),b2=-ri(1,4);const c1=a1*x+b1*y,c2=a2*x+b2*y;const yes=Math.random()<0.5;const px=yes?x:x+pick([-1,1]);return mcq(`Is (${px}, ${y}) a solution of the system ${a1}x + ${b1}y = ${c1} and ${lin(a2,0)} ${b2<0?"-":"+"} ${Math.abs(b2)}y = ${c2}?`.replace("x + 0","x"),yes?"Yes":"No",[yes?"No":"Yes"],"Substitute the point into BOTH equations; it must satisfy both.",`${a1}(${px}) + ${b1}(${y}) = ${a1*px+b1*y}; ${a2}(${px}) ${b2<0?"−":"+"} ${Math.abs(b2)}(${y}) = ${a2*px+b2*y}; ${yes?"both match":"at least one fails"}`,{js:`((${a1*px+b1*y}===${c1})&&(${a2*px+b2*y}===${c2}))===${yes}`})},
+  ()=>{const t=pick(["one","none","inf"]);const m=rnz(-5,5),b=ri(-6,6);let m2,b2;if(t==="one"){do{m2=rnz(-5,5)}while(m2===m);b2=ri(-6,6)}else if(t==="none"){m2=m;do{b2=ri(-6,6)}while(b2===b)}else{m2=m;b2=b}
+     const ans=t==="one"?"One solution":t==="none"?"No solution":"Infinitely many solutions";return mcq(`How many solutions does the system y = ${lin(m,b,"x")} and y = ${lin(m2,b2,"x")} have?`,ans,["One solution","No solution","Infinitely many solutions"].filter(x=>x!==ans),"Compare slopes and y-intercepts.",t==="one"?"The slopes differ.":t==="none"?"Same slope, different intercepts: parallel lines.":"Same slope and same intercept: the same line.")},
+  ()=>{const x=ri(-5,6),y=ri(-6,8);let m1,m2;do{m1=rnz(-3,3);m2=rnz(-3,3)}while(m1===m2);const b1=y-m1*x,b2=y-m2*x;return mk("pair",`Solve the system by setting the right sides equal: y = ${lin(m1,b1)} and y = ${lin(m2,b2)}`,`(${x}, ${y})`,"Set the two expressions for y equal, solve for x, then find y.",`${lin(m1,b1)} = ${lin(m2,b2)} ⇒ ${m1-m2}x = ${b2-b1} ⇒ x = ${x}; y = ${y}`,{eqs:[`y=${m1}*x+(${b1})`,`y=${m2}*x+(${b2})`]})}]);
+T("lin-graph","g8eq","8.EE.6","Slope & intercepts of a line",["slope","multistep-eq"],
+ "A line Ax + By = C can be read through its slope and intercepts. Setting x = 0 gives the y-intercept; setting y = 0 gives the x-intercept.",
+ ["Solve for y to get slope-intercept form y = mx + b: slope m, y-intercept b.","y-intercept: let x = 0 (so y = C/B).  x-intercept: let y = 0 (so x = C/A).","From Ax + By = C: slope = −A/B."],
+ [()=>{const A=rnz(-6,6),B=rnz(-6,6),C=ri(-12,12);return mk("num",`Find the slope of the line ${polyStr([[A,"x"],[B,"y"]])} = ${C}.`,frs(-A,B),"Solve for y: slope = −A/B.",`${B}y = ${-A}x + ${C} ⇒ slope = ${frs(-A,B)}`,{js:`-(${A})/(${B})`})},
+  ()=>{const A=rnz(-6,6),B=rnz(-6,6),C=rnz(-12,12);return mk("num",`Find the y-intercept of ${polyStr([[A,"x"],[B,"y"]])} = ${C}.`,frs(C,B),"Set x = 0 and solve for y.",`${B}y = ${C} ⇒ y = ${frs(C,B)}`,{js:`${C}/(${B})`})},
+  ()=>{const A=rnz(-6,6),B=rnz(-6,6),C=rnz(-12,12);return mk("num",`Find the x-intercept of ${polyStr([[A,"x"],[B,"y"]])} = ${C}.`,frs(C,A),"Set y = 0 and solve for x.",`${A}x = ${C} ⇒ x = ${frs(C,A)}`,{js:`${C}/(${A})`})},
+  ()=>{const A=rnz(-6,6),B=rnz(-6,6),C=ri(-12,12);return mk("eq",`Write ${polyStr([[A,"x"],[B,"y"]])} = ${C} in slope-intercept form (y = mx + b).`,siStr(-A,B,C,B),"Isolate y and divide every term by its coefficient.",`${B}y = ${-A}x + ${C} ⇒ ${siStr(-A,B,C,B)}`,{pe:`y-(${-A}/${B}*x+${C}/${B})`})}]);
+T("func-concept","g8fn","8.F.1","What is a function?",["func-eval"],
+ "A function assigns to each input exactly one output. A relation fails to be a function if one input is paired with two different outputs.",
+ ["Check a set of ordered pairs: no x-value may repeat with a different y-value.","On a graph, use the vertical-line test: a vertical line must never cross the graph twice.","Evaluate from a table by reading the output next to the input."],
+ [()=>{const isF=Math.random()<0.5;const xs=distinct(4,-5,6);const pairs=xs.map(x=>[x,ri(-5,8)]);if(!isF)pairs[3]=[xs[0],pairs[0][1]+pick([-2,-1,1,2,3])];const s=shuffle(pairs).map(p=>`(${p[0]}, ${p[1]})`).join(", ");return mcq(`Is the relation {${s}} a function?`,isF?"Yes":"No",[isF?"No":"Yes"],"A function never assigns two different outputs to the same input.",isF?"Every x-value appears once.":`The input ${xs[0]} appears with two different outputs.`,{js:`new Set([${pairs.map(p=>p[0])}]).size===${pairs.length}===${isF}`})},
+  ()=>{const xs=[1,2,3,4,5].slice(0,4).map(x=>x+ri(0,2)*0);const ys=xs.map(()=>ri(-9,20));const k=ri(0,3);return mk("num",`A function f is given by the table: f(${xs[0]}) = ${ys[0]}, f(${xs[1]}) = ${ys[1]}, f(${xs[2]}) = ${ys[2]}, f(${xs[3]}) = ${ys[3]}. What is f(${xs[k]})... `.replace("... ","")+`Give the output when the input is ${xs[k]}.`,ys[k],"Read the output paired with the input.",`f(${xs[k]}) = ${ys[k]}`,{js:`[${ys}][${k}]`})},
+  ()=>{const a=rnz(-5,6),b=ri(-9,9),x0=rnz(-6,8),out=a*x0+b;return mk("num",`The function is f(x) = ${lin(a,b)}. For what input x is f(x) = ${out}?`,x0,"Set the rule equal to the output and solve for x.",`${lin(a,b)} = ${out} ⇒ ${a}x = ${out-b} ⇒ x = ${x0}`,{eqs:[`${a}*x+(${b})=${out}`]})},
+  ()=>{const c=pick([["y = 2x + 3","Yes"],["y = x^2","Yes"],["y = |x|","Yes"],["x = 5","No"],["x^2 + y^2 = 25","No"],["x = y^2","No"],["y = 7","Yes"],["y = 1/x","Yes"]]);return mcq(`Does ${c[0]} define y as a function of x?`,c[1],[c[1]==="Yes"?"No":"Yes"],"For each x there must be exactly one y (vertical-line test).",c[1]==="Yes"?"Each x gives only one y.":"Some x-values give two y-values (or a whole line of them).")}]);
+T("func-compare","g8fn","8.F.2","Comparing functions",["func-concept","slope-int"],
+ "Functions can be given in different forms — equations, tables, graphs, words. To compare them, find the same features (rate of change, initial value) for each.",
+ ["Rate of change = slope = Δy ÷ Δx; initial value = output when input is 0.","From two table points: m = (y₂ − y₁)/(x₂ − x₁); then b = y₁ − m·x₁.","Compare rates by comparing slopes; compare values by evaluating both functions at the same input."],
+ [()=>{const m1=ri(1,9),b1=ri(-5,5);let m2;do{m2=ri(1,9)}while(m2===m1);const x1=ri(0,4),x2=x1+ri(1,3),b2=ri(-5,10);const y1=m2*x1+b2,y2=m2*x2+b2;const A=m1>m2?"Function A":"Function B";return mcq(`Function A: y = ${lin(m1,b1)}. Function B passes through (${x1}, ${y1}) and (${x2}, ${y2}). Which has the greater rate of change?`,A,[m1>m2?"Function B":"Function A"],"Find each slope and compare.",`A: slope ${m1}. B: (${y2}−${y1})/(${x2}−${x1}) = ${m2}.`,{js:`(${m1}>${m2})===${m1>m2}`})},
+  ()=>{const m=rnz(-5,6),b=ri(-9,9),x1=ri(1,4),x2=x1+ri(1,3);const y1=m*x1+b,y2=m*x2+b;return mk("num",`A linear function passes through (${x1}, ${y1}) and (${x2}, ${y2}). What is its initial value (y-intercept)?`,b,"Find the slope, then b = y − m·x.",`m = ${(y2-y1)/(x2-x1)}; b = ${y1} − ${m}×${x1} = ${b}`,{js:`${y1}-((${y2}-${y1})/(${x2}-${x1}))*${x1}`})},
+  ()=>{const a=rnz(-4,6),b=ri(-8,8),m=rnz(-4,6),c=ri(-8,8),x=ri(-4,6);return mk("num",`Function A is f(x) = ${lin(a,b)}. Function B is g(x) = ${lin(m,c)}. What is f(${x}) − g(${x})?`,(a*x+b)-(m*x+c),"Evaluate each function, then subtract.",`f(${x}) = ${a*x+b}; g(${x}) = ${m*x+c}; difference ${(a*x+b)-(m*x+c)}`,{js:`(${a}*${x}+(${b}))-(${m}*${x}+(${c}))`})}]);
+T("lin-model","g8fn","8.F.4","Linear models: rate of change & initial value",["slope-int","prop-rel"],
+ "A linear model y = mx + b describes a situation with a constant rate of change m and a starting (initial) value b.",
+ ["m = rate of change (cost per item, speed, growth per week); b = amount when x = 0.","Total after x units: y = mx + b. To find x from y, solve mx + b = y.","From two data points find m = Δy/Δx, then b = y − mx."],
+ [()=>{const F=ri(5,50),r=ri(2,12),n=ri(2,15);return mk("num",`A gym charges a $${F} sign-up fee plus $${r} per month. What is the total cost after ${n} months (dollars)?`,F+r*n,"y = rate × time + initial amount.",`${r}×${n} + ${F} = ${F+r*n}`,{js:`${F}+${r}*${n}`})},
+  ()=>{const F=ri(5,50),r=ri(2,12),n=ri(2,15);return mk("num",`A gym charges a $${F} sign-up fee plus $${r} per month. After how many months have you paid $${F+r*n} in total?`,n,"Set mx + b equal to the total and solve for x.",`${r}x + ${F} = ${F+r*n} ⇒ x = ${n}`,{eqs:[`${r}*x+${F}=${F+r*n}`]})},
+  ()=>{const m=ri(2,9),t1=ri(1,4),t2=t1+ri(2,5),h1=ri(3,20);return mk("num",`A plant was ${h1} cm tall after ${t1} weeks and ${h1+m*(t2-t1)} cm tall after ${t2} weeks. How many cm per week does it grow?`,m,"Rate = change in height ÷ change in time.",`(${h1+m*(t2-t1)} − ${h1})/(${t2} − ${t1}) = ${m}`,{js:`(${h1+m*(t2-t1)}-${h1})/(${t2}-${t1})`})},
+  ()=>{const r=ri(2,9),t=ri(2,8),h0=ri(3,30);return mk("num",`A candle burns down ${r} cm each hour. After ${t} hours it is ${h0} cm tall. How tall was it at the start? (Burning lowers the height.)`,h0+r*t,"Initial = current + (rate × time).",`${h0} + ${r}×${t} = ${h0+r*t}`,{js:`${h0}+${r}*${t}`})},
+  ()=>{const F=ri(2,30),r=ri(2,15);return mk("eq",`A taxi charges $${F} to start plus $${r} per mile. Write an equation for the cost y after x miles.`,`y = ${r}x + ${F}`,"y = (rate)x + (initial amount).",`y = ${r}x + ${F}`,{pe:`y-(${r}*x+${F})`})}]);
+T("nonlin","g8fn","8.F.3","Linear vs. nonlinear functions",["func-concept","slope"],
+ "A function is linear when its rate of change is constant: equal steps in x always produce equal steps in y. Otherwise it is nonlinear.",
+ ["In a table with equally spaced x-values, check that the differences in y are all equal.","Linear equations look like y = mx + b: x only to the first power.","y = x², y = 1/x or y = 2ˣ are nonlinear."],
+ [()=>{const lin_=Math.random()<0.5;const m=rnz(-4,5),b=ri(-5,8);const ys=[0,1,2,3].map(i=>lin_?m*i+b:i*i*(m>0?1:-1)+b);return mcq(`Is the function with x = 0, 1, 2, 3 and y = ${ys.join(", ")} linear?`,lin_?"Yes":"No",[lin_?"No":"Yes"],"Check whether the y-differences are constant.",`differences: ${ys[1]-ys[0]}, ${ys[2]-ys[1]}, ${ys[3]-ys[2]}`,{js:`(${ys[1]-ys[0]}===${ys[2]-ys[1]}&&${ys[2]-ys[1]}===${ys[3]-ys[2]})===${lin_}`})},
+  ()=>{const c=pick([["y = 3x − 2","Linear"],["y = x^2 + 1","Nonlinear"],["y = 4/x","Nonlinear"],["y = 5","Linear"],["y = 2^x","Nonlinear"],["y = −x/2 + 7","Linear"],["y = x^3","Nonlinear"],["3x + 4y = 12","Linear"]]);return mcq(`Is ${c[0]} linear or nonlinear?`,c[1],[c[1]==="Linear"?"Nonlinear":"Linear"],"Linear equations have x and y to the first power only.",c[1]==="Linear"?"It can be written as y = mx + b.":"The variable is squared, cubed, in a denominator, or in an exponent.")},
+  ()=>{const m=rnz(-5,6),b=ri(-6,8);const ys=[0,1,2,3].map(i=>m*i+b);return mk("num",`The table is linear: x = 0, 1, 2, 3 and y = ${ys[0]}, ${ys[1]}, ?, ${ys[3]}. Find the missing y-value.`,ys[2],"A linear function has a constant difference between consecutive y-values.",`difference = ${ys[1]-ys[0]}; ${ys[1]} + ${ys[1]-ys[0]} = ${ys[2]}`,{js:`${b}+2*(${ys[1]}-${ys[0]})`})}]);
+const TR=(q,ans,eqs,rule,work)=>mk("pair",q,ans,rule,work,{eqs});
+T("translate","g8tr","8.G.3","Translations",["int-addsub"],
+ "A translation slides every point of a figure the same distance in the same direction. Add the horizontal shift to x and the vertical shift to y.",
+ ["Rule: (x, y) → (x + a, y + b). Right/up are positive, left/down negative.","Translations preserve side lengths, angles and orientation, so the image is congruent.","To find the shift, subtract: (a, b) = (x′ − x, y′ − y)."],
+ [()=>{const x=ri(-8,8),y=ri(-8,8),a=rnz(-6,6),b=rnz(-6,6);return TR(`Translate the point (${x}, ${y}) by the rule (x, y) → (x ${a<0?"-":"+"} ${Math.abs(a)}, y ${b<0?"-":"+"} ${Math.abs(b)}). What is the image?`,`(${x+a}, ${y+b})`,[`x=${x}+(${a})`,`y=${y}+(${b})`],"Add the shifts to the coordinates.",`(${x}${a<0?"-":"+"}${Math.abs(a)}, ${y}${b<0?"-":"+"}${Math.abs(b)}) = (${x+a}, ${y+b})`)},
+  ()=>{const x=ri(-8,8),y=ri(-8,8),a=rnz(-7,7),b=rnz(-7,7);return TR(`A point A(${x}, ${y}) is translated to A′(${x+a}, ${y+b}). Find the translation as an ordered pair (horizontal shift, vertical shift).`,`(${a}, ${b})`,[`x=${x+a}-(${x})`,`y=${y+b}-(${y})`],"Shift = image − original in each coordinate.",`${x+a} − ${P(x)} = ${a}; ${y+b} − ${P(y)} = ${b}`)},
+  ()=>{const h=ri(1,7),v=ri(1,7),x=ri(-6,6),y=ri(-6,6),d1=pick(["left","right"]),d2=pick(["up","down"]);const dx=d1==="left"?-h:h,dy=d2==="up"?v:-v;return TR(`Translate the point (${x}, ${y}) ${h} units ${d1} and ${v} units ${d2}. What is the image?`,`(${x+dx}, ${y+dy})`,[`x=${x}+(${dx})`,`y=${y}+(${dy})`],"Left/down subtract; right/up add.",`x: ${x} ${dx<0?"−":"+"} ${h} = ${x+dx}; y: ${y} ${dy<0?"−":"+"} ${v} = ${y+dy}`)},
+  ()=>{const A=[ri(-5,5),ri(-5,5)],a=rnz(-5,5),b=rnz(-5,5),B=[A[0]+ri(1,5),A[1]+ri(-4,4)];return TR(`Triangle vertex B is at (${B[0]}, ${B[1]}). The triangle is translated so that A(${A[0]}, ${A[1]}) moves to A′(${A[0]+a}, ${A[1]+b}). Where does B go?`,`(${B[0]+a}, ${B[1]+b})`,[`x=${B[0]}+(${a})`,`y=${B[1]}+(${b})`],"Every point moves by the same shift: find it from A → A′, then apply it to B.",`shift = (${a}, ${b}); B′ = (${B[0]+a}, ${B[1]+b})`)}]);
+T("reflect","g8tr","8.G.3","Reflections",["translate"],
+ "A reflection flips a figure over a line (the mirror). Each point and its image are the same distance from the line, on opposite sides.",
+ ["Over the x-axis: (x, y) → (x, −y).  Over the y-axis: (x, y) → (−x, y).","Over the line y = x: (x, y) → (y, x).","Over a vertical line x = k: x → 2k − x (y unchanged); over y = k: y → 2k − y."],
+ [()=>{const x=rnz(-8,8),y=rnz(-8,8);return TR(`Reflect (${x}, ${y}) over the x-axis.`,`(${x}, ${-y})`,[`x=${x}`,`(y+(${y}))/2=0`],"Over the x-axis the y-coordinate changes sign.",`(${x}, −${P(y)}) = (${x}, ${-y})`)},
+  ()=>{const x=rnz(-8,8),y=rnz(-8,8);return TR(`Reflect (${x}, ${y}) over the y-axis.`,`(${-x}, ${y})`,[`y=${y}`,`(x+(${x}))/2=0`],"Over the y-axis the x-coordinate changes sign.",`(−${P(x)}, ${y}) = (${-x}, ${y})`)},
+  ()=>{const x=ri(-8,8),y=ri(-8,8);return TR(`Reflect (${x}, ${y}) over the line y = x.`,`(${y}, ${x})`,[`x+y=${x}+(${y})`,`x-y=-(${x})+(${y})`],"Reflecting over y = x swaps the coordinates.",`(${x}, ${y}) → (${y}, ${x})`)},
+  ()=>{const x=ri(-8,8),y=ri(-8,8),k=ri(-5,5);return TR(`Reflect (${x}, ${y}) over the vertical line x = ${k}.`,`(${2*k-x}, ${y})`,[`(x+(${x}))/2=${k}`,`y=${y}`],"New x = 2k − x; y stays the same.",`2(${k}) − ${P(x)} = ${2*k-x}`)},
+  ()=>{const x=ri(-8,8),y=ri(-8,8),k=ri(-5,5);return TR(`Reflect (${x}, ${y}) over the horizontal line y = ${k}.`,`(${x}, ${2*k-y})`,[`x=${x}`,`(y+(${y}))/2=${k}`],"New y = 2k − y; x stays the same.",`2(${k}) − ${P(y)} = ${2*k-y}`)}]);
+T("rotate","g8tr","8.G.3","Rotations about the origin",["reflect"],
+ "A rotation turns a figure about a fixed point (here the origin) through a given angle. Counterclockwise is the positive direction.",
+ ["90° counterclockwise: (x, y) → (−y, x).","180°: (x, y) → (−x, −y).   270° counterclockwise (= 90° clockwise): (x, y) → (y, −x).","Rotations preserve distance from the origin and the shape of the figure."],
+ [()=>{const a=rnz(-8,8),b=rnz(-8,8);return TR(`Rotate (${a}, ${b}) 90° counterclockwise about the origin.`,`(${-b}, ${a})`,[`x*${a}+y*${b}=0`,`x*(${b})-y*(${a})=-(${a*a+b*b})`],"90° counterclockwise: (x, y) → (−y, x).",`(−${P(b)}, ${a}) = (${-b}, ${a})`)},
+  ()=>{const a=rnz(-8,8),b=rnz(-8,8);return TR(`Rotate (${a}, ${b}) 180° about the origin.`,`(${-a}, ${-b})`,[`x=-(${a})`,`y=-(${b})`],"180°: both coordinates change sign.",`(−${P(a)}, −${P(b)}) = (${-a}, ${-b})`)},
+  ()=>{const a=rnz(-8,8),b=rnz(-8,8);return TR(`Rotate (${a}, ${b}) 270° counterclockwise about the origin.`,`(${b}, ${-a})`,[`x*${a}+y*${b}=0`,`x*(${b})-y*(${a})=${a*a+b*b}`],"270° counterclockwise: (x, y) → (y, −x).",`(${b}, −${P(a)}) = (${b}, ${-a})`)},
+  ()=>{const a=rnz(-8,8),b=rnz(-8,8);return TR(`Rotate (${a}, ${b}) 90° clockwise about the origin.`,`(${b}, ${-a})`,[`x*${a}+y*${b}=0`,`x*(${b})-y*(${a})=${a*a+b*b}`],"90° clockwise is the same as 270° counterclockwise: (x, y) → (y, −x).",`(${b}, −${P(a)}) = (${b}, ${-a})`)}]);
+T("dilate","g8tr","8.G.3","Dilations",["translate","frac-muldiv"],
+ "A dilation enlarges or shrinks a figure by a scale factor k from a center (here the origin). The image is similar to the original.",
+ ["Rule from the origin: (x, y) → (kx, ky).  k > 1 enlarges; 0 < k < 1 shrinks.","Lengths multiply by k; areas multiply by k².","Scale factor = image length ÷ original length."],
+ [()=>{const x=rnz(-6,6),y=rnz(-6,6),k=ri(2,5);return TR(`Dilate (${x}, ${y}) by scale factor ${k} from the origin.`,`(${k*x}, ${k*y})`,[`x=${k}*(${x})`,`y=${k}*(${y})`],"Multiply both coordinates by k.",`(${k}×${P(x)}, ${k}×${P(y)}) = (${k*x}, ${k*y})`)},
+  ()=>{const d=ri(2,4),x=d*rnz(-4,4),y=d*rnz(-4,4);return TR(`Dilate (${x}, ${y}) by scale factor 1/${d} from the origin.`,`(${x/d}, ${y/d})`,[`x=(${x})/${d}`,`y=(${y})/${d}`],"A scale factor below 1 shrinks: divide the coordinates.",`(${x}/${d}, ${y}/${d}) = (${x/d}, ${y/d})`)},
+  ()=>{const k=pick([2,3,4,5,[1,2],[1,3],[2,3],[3,2]]);const kn=Array.isArray(k)?k[0]:k,kd=Array.isArray(k)?k[1]:1;const L=kd*ri(2,6);const L2=L*kn/kd;return mk("num",`A segment of length ${L} is dilated and its image has length ${L2}. What is the scale factor?`,frs(kn,kd),"Scale factor = image length ÷ original length.",`${L2}/${L} = ${frs(kn,kd)}`,{js:`${L2}/${L}`})},
+  ()=>{const A=ri(2,12),k=ri(2,5);return mk("num",`A triangle with area ${A} is dilated by scale factor ${k}. What is the area of the image?`,A*k*k,"Areas scale by k².",`${A} × ${k}² = ${A*k*k}`,{js:`${A}*${k}**2`})}]);
+T("transform-seq","g8tr","8.G.2","Sequences of transformations & congruence",["rotate","dilate"],
+ "Two figures are congruent if a sequence of translations, reflections and rotations maps one onto the other; they are similar if dilations are also allowed. Apply the steps in order.",
+ ["Work one transformation at a time, using the image of the first as the input of the second.","Rigid motions (translation, reflection, rotation) keep lengths and angles; dilations keep angles but change lengths.","Orientation can flip: a reflection reverses it."],
+ [()=>{const x=ri(-6,6),y=ri(-6,6),a=rnz(-5,5),b=rnz(-5,5);return TR(`Reflect (${x}, ${y}) over the x-axis, then translate by (${a}, ${b}). What is the final image?`,`(${x+a}, ${-y+b})`,[`x=${x}+(${a})`,`y=-(${y})+(${b})`],"Apply the reflection first, then the translation.",`reflect: (${x}, ${-y}); translate: (${x+a}, ${-y+b})`)},
+  ()=>{const x=rnz(-6,6),y=rnz(-6,6);return TR(`Rotate (${x}, ${y}) 90° counterclockwise about the origin, then reflect over the y-axis. What is the final image?`,`(${y}, ${x})`,[`x=${y}`,`y=${x}`],"Rotate: (x, y) → (−y, x); reflect over the y-axis: negate x.",`rotate: (${-y}, ${x}); reflect: (${y}, ${x})`)},
+  ()=>{const x=rnz(-5,5),y=rnz(-5,5),k=ri(2,4),a=rnz(-5,5),b=rnz(-5,5);return TR(`Dilate (${x}, ${y}) by scale factor ${k} from the origin, then translate by (${a}, ${b}). What is the final image?`,`(${k*x+a}, ${k*y+b})`,[`x=${k}*(${x})+(${a})`,`y=${k}*(${y})+(${b})`],"Dilate first, then translate.",`dilate: (${k*x}, ${k*y}); translate: (${k*x+a}, ${k*y+b})`)},
+  ()=>{const q=pick([["Translation","Dilation (scale factor 2)",true],["Reflection","Dilation (scale factor 1/2)",true],["Rotation","Dilation (scale factor 3)",true]]);return mcq(`Which transformation does NOT preserve side lengths (so it does not always produce a congruent figure)?`,q[1],["Translation","Reflection","Rotation"],"Rigid motions preserve distance; dilations (k ≠ 1) do not.","A dilation by k multiplies every length by k.")}]);
+T("angles-parallel","g8tr","8.G.5","Parallel lines cut by a transversal",["angle-rel"],
+ "When a transversal crosses two parallel lines, the eight angles form equal and supplementary pairs.",
+ ["Equal: corresponding, alternate interior, alternate exterior and vertical angles.","Supplementary (sum 180°): same-side (co-)interior angles and linear pairs.","With algebra, set equal or set the sum to 180°, and solve for x."],
+ [()=>{const a=ri(40,140);const r=pick([["corresponding",a],["alternate interior",a],["alternate exterior",a],["vertical",a],["same-side interior",180-a]]);return mk("num",`Two parallel lines are cut by a transversal. One angle measures ${a}°. What is the measure of its ${r[0]} angle?`,r[1],r[0]==="same-side interior"?"Same-side interior angles are supplementary.":`${r[0][0].toUpperCase()+r[0].slice(1)} angles are equal.`,`${r[0]} angle = ${r[1]}°`,{js:`${r[0]==="same-side interior"?`180-${a}`:a}`,u:"°"})},
+  ()=>{const x0=ri(8,30),a=ri(2,5);let c;do{c=ri(1,4)}while(c===a);const b=ri(0,20),d=(a-c)*x0+b;if(d<0)return TOPIC_BY_ID["angles-parallel"].gens[1]();return mk("num",`Parallel lines are cut by a transversal. Two alternate interior angles measure (${lin(a,b)})° and (${lin(c,d)})°. Find x.`,x0,"Alternate interior angles are equal.",`${lin(a,b)} = ${lin(c,d)} ⇒ x = ${x0}`,{eqs:[`${a}*x+${b}=${c}*x+${d}`]})},
+  ()=>{let a,c,b,d,x0;do{x0=ri(8,25);a=ri(1,4);c=ri(1,4);b=ri(0,25);d=180-(a+c)*x0-b}while(d<0);return mk("num",`Parallel lines are cut by a transversal. Two same-side interior angles measure (${lin(a,b)})° and (${lin(c,d)})°. Find x.`,x0,"Same-side interior angles add to 180°.",`${lin(a,b)} + ${lin(c,d)} = 180 ⇒ ${a+c}x = ${180-b-d} ⇒ x = ${x0}`,{eqs:[`${a}*x+${b}+${c}*x+${d}=180`]})},
+  ()=>{const a=ri(35,80);return mk("num",`Lines p and q are parallel. A transversal makes a ${a}° angle with p. Another angle on the same side, forming a linear pair with the angle corresponding to it on q, measures how many degrees?`,180-a,"The corresponding angle on q is also "+a+"°; a linear pair adds to 180°.",`180 − ${a} = ${180-a}`,{js:`180-${a}`,u:"°"})}]);
+T("scatter","g8sp","8.SP.1","Scatterplots, association & lines of fit",["slope-int","stat-center"],
+ "A scatterplot shows two variables. If y tends to rise as x rises the association is positive; if it falls, negative; if there is no pattern, none. A line of fit models the trend.",
+ ["Positive association: points trend up to the right; negative: down to the right.","Use the line y = mx + b to predict: substitute x.","Residual = actual y − predicted y. The slope is the predicted change in y per 1 unit of x."],
+ [()=>{const d=pick(["pos","neg","none"]);let xs,ys,r;for(let t=0;t<200;t++){xs=Array.from({length:8},(_,i)=>i+1);const s=d==="pos"?ri(2,4):d==="neg"?-ri(2,4):0;ys=xs.map(x=>10+s*x+ri(-3,3)*(d==="none"?4:1));const mx=xs.reduce((a,b)=>a+b)/8,my=ys.reduce((a,b)=>a+b)/8;let sxy=0,sxx=0,syy=0;xs.forEach((x,i)=>{sxy+=(x-mx)*(ys[i]-my);sxx+=(x-mx)**2;syy+=(ys[i]-my)**2});r=syy?sxy/Math.sqrt(sxx*syy):0;if((d==="pos"&&r>0.8)||(d==="neg"&&r<-0.8)||(d==="none"&&Math.abs(r)<0.3))break}
+     const ans=d==="pos"?"Positive association":d==="neg"?"Negative association":"No association";const pts=xs.map((x,i)=>`(${x}, ${ys[i]})`).join(" ");return mcq(`Points of a scatterplot: ${pts}. What kind of association does it show?`,ans,["Positive association","Negative association","No association"].filter(x=>x!==ans),"Look at the overall trend of y as x increases.",d==="pos"?"y generally increases as x increases.":d==="neg"?"y generally decreases as x increases.":"There is no consistent trend.")},
+  ()=>{const m=pick([1.5,2,2.5,3,0.5,-1,-2,4]),b=ri(-5,30),x=ri(2,12);return mk("num",`A line of fit is y = ${m}x + ${b}`.replace("+ -","- ")+`. Predict y when x = ${x}.`,rdn(m*x+b,3),"Substitute x into the equation.",`${m}×${x} + ${b} = ${rdn(m*x+b,3)}`,{js:`${m}*${x}+${b}`})},
+  ()=>{const m=pick([2,3,4,5,1.5,2.5]);return mk("num",`A line of fit for study time x (hours) and score y is y = ${m}x + 52. By how many points does the model predict the score rises for each extra hour?`,m,"The slope is the change in y per 1 unit of x.",`slope = ${m}`,{js:`${m}`})},
+  ()=>{const m=ri(2,5),b=ri(5,25),x=ri(2,10),act=m*x+b+ri(-6,6);if(act===m*x+b)return TOPIC_BY_ID["scatter"].gens[3]();return mk("num",`The line of fit is y = ${m}x + ${b}. A data point is (${x}, ${act}). What is the residual (actual − predicted)?`,act-(m*x+b),"Residual = actual y − predicted y.",`predicted = ${m*x+b}; ${act} − ${m*x+b} = ${act-(m*x+b)}`,{js:`${act}-(${m}*${x}+${b})`})}]);
+T("two-way","g8sp","8.SP.4","Two-way tables & relative frequency",["prob-simple","percent"],
+ "A two-way table counts how many people fall in each combination of two categories. Relative frequencies compare a count to a total.",
+ ["Relative frequency = count ÷ total (the grand total, a row total, or a column total depending on the question).","Joint: both categories. Marginal: one category's total.","Conditional: restrict to one group first, then take the fraction within it."],
+ [()=>{const a=ri(5,20),b=ri(5,20),c=ri(5,20),d=ri(5,20),N=a+b+c+d;return mk("num",`Boys: ${a} like pizza and ${b} do not. Girls: ${c} like pizza and ${d} do not. What fraction of all students are boys who like pizza?`,frs(a,N),"Joint relative frequency = cell ÷ grand total.",`${a}/${N} = ${frs(a,N)}`,{js:`${a}/${a+b+c+d}`})},
+  ()=>{const a=ri(5,20),b=ri(5,20),c=ri(5,20),d=ri(5,20),N=a+b+c+d;return mk("num",`Boys: ${a} like pizza and ${b} do not. Girls: ${c} like pizza and ${d} do not. What fraction of all students like pizza?`,frs(a+c,N),"Marginal relative frequency = column total ÷ grand total.",`(${a}+${c})/${N} = ${frs(a+c,N)}`,{js:`(${a}+${c})/${a+b+c+d}`})},
+  ()=>{const a=ri(5,20),b=ri(5,20),c=ri(5,20),d=ri(5,20);return mk("num",`Boys: ${a} like pizza and ${b} do not. Girls: ${c} like pizza and ${d} do not. Among the girls, what fraction like pizza?`,frs(c,c+d),"Conditional: use only the girls as the total.",`${c}/(${c}+${d}) = ${frs(c,c+d)}`,{js:`${c}/(${c}+${d})`})},
+  ()=>{const a=ri(2,10)*2,b=ri(2,10)*2,c=ri(2,10)*2,d=ri(2,10)*2,N=a+b+c+d;const pct=100*(a+b)/N;return mk("num",`In a survey, ${a} teens and ${c} adults said yes; ${b} teens and ${d} adults said no. What percent of the people surveyed are teens? (Round to the nearest tenth.)`,rdn(pct,1),"Teens ÷ total × 100.",`(${a}+${b})/${N} × 100 = ${rdn(pct,1)}%`,{u:"%",js:`(${a}+${b})/${a+b+c+d}*100`,jtol:0.0500001})}]);
+T("cyl-cone-sph","g8tr","8.G.9","Volume of cylinders, cones & spheres",["vol-prism","circle-basic","exp-prod"],
+ "These round solids use π. A cone is one third of the cylinder with the same base and height, and a sphere's volume depends only on its radius.",
+ ["Cylinder: V = πr²h.   Cone: V = ⅓πr²h.   Sphere: V = ⁴⁄₃πr³.","Use the radius (half the diameter!).","Leave answers in terms of π (type pi) unless told to round."],
+ [()=>{const r=ri(2,9),h=ri(2,12);return mk("expr",`Find the volume of a cylinder with radius ${r} and height ${h}. Leave the answer in terms of π.`,`${r*r*h}pi`,"V = πr²h.",`π × ${r}² × ${h} = ${r*r*h}π`,{pe:`Math.PI*${r}**2*${h}`})},
+  ()=>{const r=ri(2,9),m=ri(1,5);const h=3*m;return mk("expr",`Find the volume of a cone with radius ${r} and height ${h}. Leave the answer in terms of π.`,`${r*r*m}pi`,"V = ⅓πr²h.",`⅓ × π × ${r}² × ${h} = ${r*r*m}π`,{pe:`Math.PI*${r}**2*${h}/3`})},
+  ()=>{const r=ri(1,8);const n=4*r*r*r;const c=n%3===0?`${n/3}pi`:`(${n}/3)pi`;return mk("expr",`Find the volume of a sphere with radius ${r}. Leave the answer in terms of π.`,c,"V = ⁴⁄₃πr³.",`⁴⁄₃ × π × ${r}³ = ${c}`,{pe:`4/3*Math.PI*${r}**3`})},
+  ()=>{const r=ri(2,8),h=ri(2,12);return mk("num",`A cylinder has volume ${r*r*h}π and radius ${r}. What is its height?`,h,"V = πr²h, so h = V ÷ (πr²).",`${r*r*h}π ÷ (π×${r*r}) = ${h}`,{js:`${r*r*h}/(${r}**2)`})},
+  ()=>{const d=2*ri(2,8),h=ri(2,10);return mk("num",`A can has diameter ${d} and height ${h}. Using π = 3.14, find its volume (round to the nearest hundredth).`,rdn(3.14*(d/2)**2*h,2),"Radius = diameter ÷ 2; then V = πr²h.",`r = ${d/2}; 3.14 × ${(d/2)**2} × ${h} = ${rdn(3.14*(d/2)**2*h,2)}`,{js:`3.14*(${d}/2)**2*${h}`})}]);
+
+// ===== Algebra I (rest) =====
+addUnits("a1",[["a1ineq","Inequalities"],["a1fn","Functions & Rates of Change"],["a1seq","Sequences & Exponential Functions"],["a1poly","Polynomials & Factoring"],["a1quad","Quadratic Functions & Equations"],["a1rad","Radicals & Real Numbers"],["a1stat","Statistics & Data"]]);
+const bf=(m,p)=>"("+lin(m,p)+")";
+const rparts=n=>{let k=1,m=n;for(let f=2;f*f<=m;f++)while(m%(f*f)===0){m/=f*f;k*=f}return [k,m]};
+const rs=(c,n)=>{const [k,m]=rparts(n);const cc=c*k;return m===1?String(cc):(cc===1?"":cc===-1?"-":cc)+"sqrt("+m+")"};
+const cmpSym={"<":"<",">":">","<=":"≤",">=":"≥"};
+const flip=o=>({"<":">",">":"<","<=":">=",">=":"<="}[o]);
+const IVL=(a,ac,b,bc)=>`${ac?"[":"("}${a}, ${b}${bc?"]":")"}`;
+T("abs-eq","a1eq","A.REI.3","Absolute value equations",["multistep-eq","abs-opp"],
+ "The equation |A| = r asks for numbers whose distance from 0 is r, so A = r or A = −r. Solve both equations.",
+ ["Isolate the absolute value first: |x| + 3 = 8 → |x| = 5.","Split: |A| = r (r > 0) means A = r or A = −r. Two solutions are possible.","|A| = negative number has no solution; type none."],
+ [()=>{const q=rnz(-9,9),r=ri(1,9);return mk("set",`Solve: |x + ${q}| = ${r}`.replace("+ -","- "),`${-q+r}, ${-q-r}`,"Split into x + q = r and x + q = −r.",`x ${q<0?"-":"+"} ${Math.abs(q)} = ${r} → x = ${-q+r}; x ${q<0?"-":"+"} ${Math.abs(q)} = ${-r} → x = ${-q-r}`,{fx:`Math.abs(x+(${q}))-${r}`,nroots:2})},
+  ()=>{const a=ri(2,4),x1=ri(-3,6),d=ri(1,4);const b=-a*(x1-d),r=a*d;return mk("set",`Solve: |${lin(a,b)}| = ${r}`,`${x1}, ${x1-2*d}`,"Write ax + b = r and ax + b = −r.",`${lin(a,b)} = ${r} → x = ${x1}; ${lin(a,b)} = ${-r} → x = ${x1-2*d}`,{fx:`Math.abs(${a}*x+(${b}))-${r}`,nroots:2})},
+  ()=>{const c=ri(1,9),d=c+ri(1,9);return mk("set",`Solve: |x| + ${c} = ${d}`,`${-(d-c)}, ${d-c}`,"Isolate |x| first, then split.",`|x| = ${d} − ${c} = ${d-c}, so x = ±${d-c}`,{fx:`Math.abs(x)+${c}-${d}`,nroots:2})},
+  ()=>{const q=rnz(-8,8),k=ri(1,9);return mk("set",`Solve: |x + ${q}| = -${k}`.replace("+ -","- "),"none","An absolute value can never be negative.",`|anything| ≥ 0, so |x ${q<0?"−":"+"} ${Math.abs(q)}| = −${k} has no solution`,{fx:`Math.abs(x+(${q}))+${k}`})}]);
+T("ineq-multi","a1ineq","A.REI.3","Multi-step inequalities",["ineq","multistep-eq"],
+ "Solve inequalities like equations, with one big rule: when you multiply or divide both sides by a negative number, the inequality sign flips.",
+ ["Collect variable terms on one side and constants on the other.","Multiplying/dividing by a negative reverses the sign: −2x > 6 → x < −3.","Answer like x > 3 or x <= -2."],
+ [()=>{let a,c;do{a=ri(-6,7);c=ri(-6,7)}while(a===c);const n=rnz(-8,8),b=ri(-9,9),d=(a-c)*n+b;const op=pick(["<",">","<=",">="]);const ans=(a-c)>0?op:flip(op);return mk("ineq",`Solve: ${lin(a,b)} ${op} ${lin(c,d)}`,`x ${ans} ${n}`,"Collect x terms on one side; flip the sign if you divide by a negative.",`${a-c}x ${op} ${d-b} → x ${ans} ${n}${(a-c)<0?" (divided by a negative, so the sign flips)":""}`,{ineq:`${a}*x+(${b})${op}${c}*x+(${d})`})},
+  ()=>{const a=rnz(-5,5),n=rnz(-8,8),q=rnz(-6,6),r=a*(n+q);const op=pick(["<",">","<=",">="]);const ans=a>0?op:flip(op);return mk("ineq",`Solve: ${a}(x + ${q}) ${op} ${r}`.replace("+ -","- "),`x ${ans} ${n}`,"Distribute, isolate x, and flip the sign when dividing by a negative.",`${a}x + ${a*q} ${op} ${r} → ${a}x ${op} ${r-a*q} → x ${ans} ${n}`,{ineq:`${a}*(x+(${q}))${op}${r}`})},
+  ()=>{const a=ri(2,7),b=ri(-9,9),n=rnz(-8,8),c=-a*n+b;const op=pick(["<",">","<=",">="]);const ans=flip(op);return mk("ineq",`Solve: ${polyStr([[-a,"x"],[b,""]])} ${op} ${c}`,`x ${ans} ${n}`,"Subtract b, then divide by the negative coefficient and flip the sign.",`${-a}x ${op} ${c-b} → x ${ans} ${n}`,{ineq:`-${a}*x+(${b})${op}${c}`})},
+  ()=>{const k=ri(2,6),b=ri(-8,8),m=rnz(-6,6),n=k*m;const c=-n/k+b;const op=pick(["<",">","<=",">="]);return mk("ineq",`Solve: -x/${k} + ${b} ${op} ${c}`.replace("+ -","- "),`x ${flip(op)} ${n}`,"Move the constant, then multiply by −k (flip the sign).",`-x/${k} ${op} ${c-b} → x ${flip(op)} ${-k*(c-b)}`,{ineq:`-x/${k}+(${b})${op}${c}`})}]);
+T("compound-ineq","a1ineq","A.REI.3","Compound inequalities",["ineq-multi"],
+ "A compound inequality joins two inequalities. 'And' (a double inequality) is the overlap; 'or' is the union. Write answers in interval notation.",
+ ["L < ax + b < U: do the same operation to all three parts. Dividing by a negative flips both signs and swaps the ends.","Interval notation: ( ) for strict, [ ] for inclusive; use inf for ∞. Type (-2, 4].","x < p or x > q gives (-inf, p) U (q, inf)."],
+ [()=>{const a=ri(2,5),b=ri(-6,6),x1=ri(-6,2),x2=x1+ri(2,7),s1=Math.random()<0.5,s2=Math.random()<0.5;const L=a*x1+b,U=a*x2+b;return mk("interval",`Solve and write in interval notation: ${L} ${s1?"<":"<="} ${lin(a,b)} ${s2?"<":"<="} ${U}`,IVL(x1,!s1,x2,!s2),"Subtract b from all three parts, then divide by a.",`${L-b} ${s1?"<":"≤"} ${a}x ${s2?"<":"≤"} ${U-b} → ${x1} ${s1?"<":"≤"} x ${s2?"<":"≤"} ${x2}`,{inside:`(x${s1?">":">="}${x1})&&(x${s2?"<":"<="}${x2})`})},
+  ()=>{const a=-ri(2,5),b=ri(-6,6),x1=ri(-6,2),x2=x1+ri(2,6),s=Math.random()<0.5;const L=a*x2+b,U=a*x1+b;return mk("interval",`Solve and write in interval notation: ${L} ${s?"<":"<="} ${lin(a,b)} ${s?"<":"<="} ${U}`,IVL(x1,!s,x2,!s),"Divide by the negative coefficient: the inequality signs reverse, so reverse the order of the ends.",`${L-b} ${s?"<":"≤"} ${a}x ${s?"<":"≤"} ${U-b} → ${x1} ${s?"<":"≤"} x ${s?"<":"≤"} ${x2}`,{inside:`(x${s?">":">="}${x1})&&(x${s?"<":"<="}${x2})`})},
+  ()=>{const p=ri(-6,2),q=p+ri(2,8),b1=ri(-5,5),a2=ri(2,4),b2=ri(-5,5);return mk("interval",`Solve and write in interval notation: x + ${b1} < ${p+b1} or ${a2}x + ${b2} > ${a2*q+b2}`.replace("+ -","- "),`(-inf, ${p}) U (${q}, inf)`,"Solve each inequality separately; 'or' means the union.",`x < ${p} or x > ${q}`,{inside:`(x<${p})||(x>${q})`})}]);
+T("lin-ineq2","a1ineq","A.REI.12","Linear inequalities in two variables",["ineq-multi","lin-graph"],
+ "The solutions of y > mx + b form a half-plane. The boundary line is dashed for < and > and solid for ≤ and ≥; test a point to decide which side to shade.",
+ ["Boundary: replace the inequality sign with =. Solid line if ≤ or ≥; dashed if < or >.","Shade above the line for y > or y ≥; below for y < or y ≤ (after solving for y).","Dividing by a negative number flips the inequality when solving for y."],
+ [()=>{const m=rnz(-4,4),b=ri(-6,6),px=ri(-5,5);let py=ri(-8,8);if(py===m*px+b)py++;const op=pick(["<",">"]);const yes=op===">"?py>m*px+b:py<m*px+b;return mcq(`Is (${px}, ${py}) a solution of y ${op} ${lin(m,b)}?`,yes?"Yes":"No",[yes?"No":"Yes"],"Substitute the point and see whether the inequality is true.",`${py} ${op} ${m}(${px}) + ${b} = ${m*px+b}? ${yes?"True":"False"}`,{js:`(${py}${op}${m*px+b})===${yes}`})},
+  ()=>{const op=pick(["<",">","<=",">="]),m=rnz(-4,4),b=ri(-6,6);const ans=op.length===2?"Solid":"Dashed";return mcq(`Is the boundary line of y ${op} ${lin(m,b)} solid or dashed?`,ans,[ans==="Solid"?"Dashed":"Solid"],"≤ and ≥ include the line (solid); < and > do not (dashed).",`The sign is ${cmpSym[op]}, so the line is ${ans.toLowerCase()}.`)},
+  ()=>{const A=rnz(-5,5),B=rnz(-5,5),C=ri(-9,9),op=pick(["<",">","<=",">="]);const eff=B>0?op:flip(op);const ans=eff[0]===">"?"Above the line":"Below the line";return mcq(`The solution of ${polyStr([[A,"x"],[B,"y"]])} ${op} ${C} is shaded. Is the shading above or below the boundary line (in the usual y-up graph)?`,ans,[ans==="Above the line"?"Below the line":"Above the line"],"Solve for y; dividing by a negative coefficient of y flips the sign.",`y ${cmpSym[eff]} ... so shade ${ans.toLowerCase()}`)},
+  ()=>{const m1=rnz(-3,3),b1=ri(-5,5),m2=rnz(-3,3),b2=ri(-5,5);const px=ri(-5,5);let py=ri(-8,8);if(py===m1*px+b1||py===m2*px+b2)py+=7;const o1=pick(["<",">"]),o2=pick(["<",">"]);const t1=o1===">"?py>m1*px+b1:py<m1*px+b1,t2=o2===">"?py>m2*px+b2:py<m2*px+b2;const yes=t1&&t2;return mcq(`Is (${px}, ${py}) a solution of the system y ${o1} ${lin(m1,b1)} and y ${o2} ${lin(m2,b2)}?`,yes?"Yes":"No",[yes?"No":"Yes"],"A point solves a system only if it satisfies every inequality.",`1st: ${py} ${o1} ${m1*px+b1} is ${t1}; 2nd: ${py} ${o2} ${m2*px+b2} is ${t2}`,{js:`((${py}${o1}${m1*px+b1})&&(${py}${o2}${m2*px+b2}))===${yes}`})}]);
+T("point-slope","a1lin","A.CED.2","Point-slope & standard form",["slope-int"],
+ "A line can be written several ways: slope-intercept y = mx + b, point-slope y − y₁ = m(x − x₁), and standard form Ax + By = C. Any equivalent form is accepted.",
+ ["Point-slope: through (x₁, y₁) with slope m: y − y₁ = m(x − x₁).","Two points: slope m = (y₂ − y₁)/(x₂ − x₁), then use either point.","Standard form: clear fractions so A, B, C are integers: 2x + 3y = 6."],
+ [()=>{const m=rnz(-5,5),x1=rnz(-6,6),y1=rnz(-6,6);return mk("eq",`Write an equation of the line through (${x1}, ${y1}) with slope ${m}.`,`y ${y1<0?"+":"-"} ${Math.abs(y1)} = ${m}(x ${x1<0?"+":"-"} ${Math.abs(x1)})`,"Point-slope form: y − y₁ = m(x − x₁).",`y − ${P(y1)} = ${m}(x − ${P(x1)})`,{pe:`y-(${y1})-(${m})*(x-(${x1}))`})},
+  ()=>{const m=rnz(-4,4),b=ri(-8,8),x1=ri(-4,2),x2=x1+ri(1,4);const y1=m*x1+b,y2=m*x2+b;return mk("eq",`Write the equation of the line through (${x1}, ${y1}) and (${x2}, ${y2}) in slope-intercept form.`,siStr(m,1,b,1),"Find the slope, then solve for b with one point.",`m = (${y2} − ${P(y1)})/(${x2} − ${P(x1)}) = ${m}; b = ${y1} − ${m}(${x1}) = ${b}`,{pe:`y-(${m}*x+(${b}))`})},
+  ()=>{let p,q;do{p=rnz(-5,5);q=ri(2,5)}while(gcd(p,q)!==1);const r=ri(-5,5);return mk("eq",`Write y = (${p}/${q})x ${r<0?"-":"+"} ${Math.abs(r)} in standard form Ax + By = C with integer coefficients.`,`${polyStr([[-p,"x"],[q,"y"]])} = ${q*r}`,"Multiply every term by the denominator, then move the x term to the left.",`${q}y = ${p}x + ${q*r} → ${polyStr([[-p,"x"],[q,"y"]])} = ${q*r}`,{pe:`${-p}*x+${q}*y-${q*r}`})},
+  ()=>{const m=rnz(-5,5),x1=ri(-5,5),y1=ri(-8,8);return mk("num",`Find the x-intercept of the line through (${x1}, ${y1}) with slope ${m}.`,frs(m*x1-y1,m),"Write the equation, set y = 0 and solve for x.",`y − ${P(y1)} = ${m}(x − ${P(x1)}); set y = 0 → x = ${frs(m*x1-y1,m)}`,{js:`${x1}-(${y1})/(${m})`})}]);
+T("parallel-perp","a1lin","G.GPE.5","Parallel & perpendicular lines",["point-slope"],
+ "Parallel lines have equal slopes. Perpendicular lines have slopes that are negative reciprocals (their product is −1).",
+ ["Parallel: m₁ = m₂.   Perpendicular: m₂ = −1/m₁.","To write the line through a point, use the new slope and the point.","From Ax + By = C the slope is −A/B."],
+ [()=>{const A=rnz(-6,6),B=rnz(-6,6),C=ri(-9,9);return mk("num",`Find the slope of any line parallel to ${polyStr([[A,"x"],[B,"y"]])} = ${C}.`,frs(-A,B),"Parallel lines share the same slope: −A/B.",`slope = −(${A})/(${B}) = ${frs(-A,B)}`,{js:`-(${A})/(${B})`})},
+  ()=>{const p=rnz(-7,7),q=ri(1,6);return mk("num",`A line has slope ${frs(p,q)}. What is the slope of a line perpendicular to it?`,frs(-q,p),"Take the negative reciprocal.",`−1 ÷ (${frs(p,q)}) = ${frs(-q,p)}`,{js:`-1/(${p}/${q})`})},
+  ()=>{const m=rnz(-5,5),b=ri(-8,8),x1=ri(-5,5),y1=ri(-8,8);return mk("eq",`Write the equation of the line through (${x1}, ${y1}) that is parallel to y = ${lin(m,b)}.`,siStr(m,1,y1-m*x1,1),"Use the same slope and solve for the new intercept.",`b = ${y1} − ${m}(${x1}) = ${y1-m*x1}`,{pe:`y-(${m}*x+(${y1-m*x1}))`})},
+  ()=>{const k=rnz(-5,5),b=ri(-8,8),x1=ri(-5,5),y1=ri(-8,8);return mk("eq",`Write the equation of the line through (${x1}, ${y1}) that is perpendicular to y = (${frs(-1,k)})x ${b<0?"-":"+"} ${Math.abs(b)}.`,siStr(k,1,y1-k*x1,1),"The perpendicular slope is the negative reciprocal; then solve for b.",`slope = ${k}; b = ${y1} − ${k}(${x1}) = ${y1-k*x1}`,{pe:`y-(${k}*x+(${y1-k*x1}))`})}]);
+T("domain-range","a1fn","F.IF.5","Domain & range",["func-eval","ineq-multi"],
+ "The domain is the set of allowed inputs; the range is the set of outputs. Square roots need non-negative insides and denominators can't be 0.",
+ ["√(expression): the expression must be ≥ 0.   1/(expression): the expression must not be 0.","Range of x² + c: y ≥ c (the vertex is the lowest point); of −x² + c: y ≤ c.","Write intervals like [2, inf) or (-inf, 3) U (3, inf)."],
+ [()=>{const a=rnz(-8,8);return mk("interval",`Find the domain of f(x) = sqrt(x ${a<0?"+":"-"} ${Math.abs(a)}).`,`[${a}, inf)`,"The radicand must be at least 0.",`x ${a<0?"+":"-"} ${Math.abs(a)} ≥ 0 → x ≥ ${a}`,{inside:`x>=${a}`})},
+  ()=>{const a=rnz(-8,8);return mk("interval",`Find the domain of f(x) = 1/(x ${a<0?"+":"-"} ${Math.abs(a)}).`,`(-inf, ${a}) U (${a}, inf)`,"The denominator cannot be 0.",`x ${a<0?"+":"-"} ${Math.abs(a)} ≠ 0 → x ≠ ${a}`,{inside:`x!==${a}`})},
+  ()=>{const c=rnz(-9,9),neg=Math.random()<0.5;return mk("interval",`Find the range of f(x) = ${neg?"-":""}x^2 ${c<0?"-":"+"} ${Math.abs(c)}.`,neg?`(-inf, ${c}]`:`[${c}, inf)`,neg?"An upside-down parabola's vertex is its highest point.":"A parabola opening up has its vertex as the lowest point.",`vertex at (0, ${c}); ${neg?"y ≤":"y ≥"} ${c}`,{inside:neg?`x<=${c}`:`x>=${c}`})},
+  ()=>{const a=rnz(-8,8);return mk("interval",`Find the domain of f(x) = sqrt(${a} - x).`,`(-inf, ${a}]`,"The radicand must be at least 0; solving flips the sign.",`${a} − x ≥ 0 → x ≤ ${a}`,{inside:`x<=${a}`})}]);
+T("fn-ops","a1fn","F.BF.1","Combining functions",["func-eval","poly-add"],
+ "Functions can be added, subtracted and multiplied like expressions: (f + g)(x) = f(x) + g(x), (f·g)(x) = f(x)·g(x).",
+ ["(f + g)(x) = f(x) + g(x);  (f − g)(x) = f(x) − g(x) (distribute the minus).","(f · g)(x) = f(x) · g(x): multiply and combine like terms.","To evaluate (f + g)(k), find f(k) and g(k) and add."],
+ [()=>{const a=ri(-5,5),b=ri(-6,6),c=rnz(-4,4),d=ri(-5,5),e=ri(-6,6);return mk("poly",`If f(x) = ${lin(a,b)} and g(x) = ${quad(c,d,e)}, find (f + g)(x).`,quad(c,a+d,b+e),"Add the two expressions and combine like terms.",`${c}x² + (${a}+${P(d)})x + (${b}+${P(e)})`,{pe:`(${a}*x+${b})+(${c}*x*x+${d}*x+${e})`})},
+  ()=>{const a=ri(-5,5),b=ri(-6,6),c=rnz(-4,4),d=ri(-5,5),e=ri(-6,6);return mk("poly",`If f(x) = ${lin(a,b)} and g(x) = ${quad(c,d,e)}, find (g − f)(x).`,quad(c,d-a,e-b),"Subtract f(x) from g(x): change every sign of f(x).",`${c}x² + (${d}−${P(a)})x + (${e}−${P(b)})`,{pe:`(${c}*x*x+${d}*x+${e})-(${a}*x+${b})`})},
+  ()=>{const a=rnz(-4,4),b=rnz(-6,6),c=rnz(-4,4),d=rnz(-6,6);return mk("poly",`If f(x) = ${lin(a,b)} and g(x) = ${lin(c,d)}, find (f · g)(x).`,quad(a*c,a*d+b*c,b*d),"Multiply the binomials (FOIL) and combine like terms.",`${a*c}x² + (${a*d}+${b*c})x + ${b*d}`,{pe:`(${a}*x+${b})*(${c}*x+${d})`})},
+  ()=>{const a=rnz(-4,4),b=ri(-6,6),c=rnz(-3,3),d=ri(-5,5),e=ri(-6,6),k=ri(-4,4);return mk("num",`If f(x) = ${lin(a,b)} and g(x) = ${quad(c,d,e)}, find (f + g)(${k}).`,a*k+b+c*k*k+d*k+e,"Evaluate f(k) and g(k), then add.",`f(${k}) = ${a*k+b}; g(${k}) = ${c*k*k+d*k+e}`,{js:`(${a}*(${k})+(${b}))+(${c}*(${k})**2+${d}*(${k})+(${e}))`})}]);
+T("avg-rate","a1fn","F.IF.6","Average rate of change",["func-eval","slope"],
+ "The average rate of change of f from x = a to x = b is the slope of the line between the two points: (f(b) − f(a)) / (b − a).",
+ ["Evaluate f at both ends of the interval.","Divide the change in output by the change in input.","In context it is a rate: miles per hour, dollars per year, ..."],
+ [()=>{const a=rnz(-3,3),b=ri(-6,6),c=ri(-8,8),x1=ri(-3,1),x2=x1+ri(1,4);const f=x=>a*x*x+b*x+c;return mk("num",`Find the average rate of change of f(x) = ${quad(a,b,c)} from x = ${x1} to x = ${x2}.`,frs(f(x2)-f(x1),x2-x1),"(f(b) − f(a)) ÷ (b − a).",`f(${x1}) = ${f(x1)}, f(${x2}) = ${f(x2)}; ${f(x2)-f(x1)}/${x2-x1}`,{js:`(${a}*(${x2})**2+${b}*(${x2})+${c}-(${a}*(${x1})**2+${b}*(${x1})+${c}))/((${x2})-(${x1}))`})},
+  ()=>{const xs=[0,2,4,6],ys=[ri(0,20)];for(let i=1;i<4;i++)ys.push(ys[i-1]+ri(-5,15));const i1=ri(0,1),i2=ri(2,3);return mk("num",`A table gives f(${xs[0]}) = ${ys[0]}, f(${xs[1]}) = ${ys[1]}, f(${xs[2]}) = ${ys[2]}, f(${xs[3]}) = ${ys[3]}. Find the average rate of change from x = ${xs[i1]} to x = ${xs[i2]}.`,frs(ys[i2]-ys[i1],xs[i2]-xs[i1]),"Change in f ÷ change in x.",`(${ys[i2]} − ${P(ys[i1])})/(${xs[i2]} − ${xs[i1]})`,{js:`(${ys[i2]}-(${ys[i1]}))/(${xs[i2]}-${xs[i1]})`})},
+  ()=>{const a=ri(1,5),b=ri(2,4),x2=ri(2,4);const f=x=>a*Math.pow(b,x);return mk("num",`Find the average rate of change of f(x) = ${a}·${b}^x from x = 0 to x = ${x2}.`,frs(f(x2)-f(0),x2),"(f(b) − f(a)) ÷ (b − a).",`f(0) = ${a}, f(${x2}) = ${f(x2)}; ${f(x2)-a}/${x2}`,{js:`(${a}*${b}**${x2}-${a})/${x2}`})},
+  ()=>{const t1=ri(1,3),t2=t1+ri(2,4),v=ri(20,60),d1=ri(10,80);return mk("num",`A car is ${d1} miles from home after ${t1} hours and ${d1+v*(t2-t1)} miles from home after ${t2} hours. What is its average speed (mph)?`,v,"Average speed = change in distance ÷ change in time.",`(${d1+v*(t2-t1)} − ${d1})/(${t2} − ${t1}) = ${v}`,{js:`(${d1+v*(t2-t1)}-${d1})/(${t2}-${t1})`})}]);
+T("piecewise-abs","a1fn","F.IF.7b","Piecewise & absolute value functions",["func-eval","abs-eq"],
+ "A piecewise function uses different rules on different parts of its domain. The absolute value function y = a|x − h| + k is V-shaped with its vertex at (h, k).",
+ ["Pick the rule whose condition the input satisfies, then evaluate it.","y = a|x − h| + k: vertex (h, k); a < 0 opens downward.","Evaluate |ax + b| by computing the inside first, then dropping the sign."],
+ [()=>{const a=rnz(-3,3),b=ri(-5,5),c=ri(-2,3),d=rnz(-3,3),e=ri(-6,6),x=ri(-4,6);const v=x<c?a*x+b:d*x+e;return mk("num",`f(x) = ${lin(a,b)} if x < ${c}; f(x) = ${lin(d,e)} if x ≥ ${c}. Find f(${x}).`,v,"Choose the rule that matches x, then evaluate.",`${x} ${x<c?"<":"≥"} ${c}, so use ${x<c?lin(a,b):lin(d,e)}: ${v}`,{js:`${x}<${c}?${a}*${x}+${b}:${d}*${x}+${e}`})},
+  ()=>{const a=rnz(-3,3),b=ri(-8,8),c=ri(-6,6),x=ri(-6,6);return mk("num",`Evaluate f(x) = |${lin(a,b)}| ${c<0?"-":"+"} ${Math.abs(c)} at x = ${x}.`,Math.abs(a*x+b)+c,"Compute the inside, take the absolute value, then add.",`|${a}(${x}) + ${b}| + ${c} = |${a*x+b}| + ${c} = ${Math.abs(a*x+b)+c}`,{js:`Math.abs(${a}*${x}+(${b}))+(${c})`})},
+  ()=>{const a=pick([1,2,3,-1,-2]),h=rnz(-6,6),k=rnz(-6,6);return mk("pair",`Find the vertex of y = ${a===1?"":a===-1?"-":a}|x ${h<0?"+":"-"} ${Math.abs(h)}| ${k<0?"-":"+"} ${Math.abs(k)}.`,`(${h}, ${k})`,"For y = a|x − h| + k the vertex is (h, k).",`h = ${h}, k = ${k}`,{eqs:[`x=${h}`,`y=${k}`]})}]);
+T("seq-arith","a1seq","F.BF.2","Arithmetic sequences",["func-eval","slope"],
+ "In an arithmetic sequence each term is found by adding the same number d (the common difference).",
+ ["Explicit formula: aₙ = a₁ + (n − 1)d.   Recursive: aₙ = aₙ₋₁ + d.","d = any term minus the term before it.","To find which term equals a value L, solve a₁ + (n − 1)d = L."],
+ [()=>{const a=ri(-10,20),d=rnz(-6,8),n=ri(6,20);return mk("num",`An arithmetic sequence has first term ${a} and common difference ${d}. Find term number ${n}.`,a+(n-1)*d,"aₙ = a₁ + (n − 1)d.",`${a} + (${n}−1)(${d}) = ${a+(n-1)*d}`,{js:`${a}+(${n}-1)*(${d})`})},
+  ()=>{const a=ri(-8,15),d=rnz(-6,7);const t=[0,1,2,3].map(i=>a+i*d).join(", ");return mk("expr",`Write an explicit formula for the nth term of the arithmetic sequence ${t}, … (use the letter n).`,polyStr([[d,"n"],[a-d,""]]),"aₙ = a₁ + (n − 1)d, then simplify.",`${a} + (n−1)(${d}) = ${polyStr([[d,"n"],[a-d,""]])}`,{vars:["n"],pe:`${d}*n+(${a-d})`})},
+  ()=>{const a=ri(-10,10),d=rnz(-6,6),n=ri(8,25);const L=a+(n-1)*d;return mk("num",`In the arithmetic sequence ${a}, ${a+d}, ${a+2*d}, …, which term number equals ${L}?`,n,"Solve a₁ + (n − 1)d = L for n.",`${a} + (n−1)(${d}) = ${L} → n − 1 = ${(L-a)/d} → n = ${n}`,{eqs:[`${a}+(x-1)*(${d})=${L}`]})},
+  ()=>{const a=ri(-10,10),d=rnz(-7,7),p=ri(2,5),q=p+ri(2,5);return mk("num",`In an arithmetic sequence, term number ${p} is ${a+(p-1)*d} and term number ${q} is ${a+(q-1)*d}. Find the common difference.`,d,"d = (difference in terms) ÷ (difference in positions).",`(${a+(q-1)*d} − ${P(a+(p-1)*d)})/(${q} − ${p}) = ${d}`,{js:`(${a+(q-1)*d}-(${a+(p-1)*d}))/(${q}-${p})`})},
+  ()=>{const a=ri(-5,10),d=rnz(-5,6),n=ri(5,8);return mk("num",`A sequence starts at ${a}, and each term is the previous term ${d<0?"minus":"plus"} ${Math.abs(d)}. Find term number ${n}.`,a+(n-1)*d,"Apply the recursive rule repeatedly (adding d each step).",`term ${n} = ${a} + ${n-1}(${d}) = ${a+(n-1)*d}`,{js:`${a}+${n-1}*(${d})`})}]);
+T("seq-geo","a1seq","F.BF.2","Geometric sequences",["seq-arith","exp-neg-zero"],
+ "In a geometric sequence each term is found by multiplying by the same number r (the common ratio).",
+ ["Explicit formula: aₙ = a₁ · rⁿ⁻¹.   Recursive: aₙ = r · aₙ₋₁.","r = any term ÷ the term before it.","Ratios can be fractions or negative."],
+ [()=>{const a=ri(1,6),r=pick([2,3,-2,-3,4]),n=ri(4,7);return mk("num",`A geometric sequence has first term ${a} and common ratio ${r}. Find term number ${n}.`,a*Math.pow(r,n-1),"aₙ = a₁ · rⁿ⁻¹.",`${a} × ${P(r)}^${n-1} = ${a*Math.pow(r,n-1)}`,{js:`${a}*(${r})**${n-1}`})},
+  ()=>{const a=ri(1,6),r=pick([2,3,4,5,-2,-3]);return mk("num",`What is the common ratio of the geometric sequence ${a}, ${a*r}, ${a*r*r}, ${a*r*r*r}, …?`,r,"r = a term ÷ the previous term.",`${a*r} ÷ ${a} = ${r}`,{js:`${a*r*r}/${a*r}`})},
+  ()=>{const a=ri(1,7),r=pick([2,3,4,5]);return mk("expr",`Write an explicit formula for the nth term of the geometric sequence ${a}, ${a*r}, ${a*r*r}, … (use the letter n).`,`${a}(${r})^(n-1)`,"aₙ = a₁ · rⁿ⁻¹.",`aₙ = ${a}(${r})^(n−1)`,{vars:["n"],pe:`${a}*${r}**(n-1)`})},
+  ()=>{const k=ri(5,8),a=Math.pow(2,k);const n=ri(4,k+1);return mk("num",`A geometric sequence starts ${a}, ${a/2}, ${a/4}, … Find term number ${n}.`,frs(a,Math.pow(2,n-1)),"r = 1/2; aₙ = a₁ rⁿ⁻¹.",`${a} × (1/2)^${n-1} = ${frs(a,Math.pow(2,n-1))}`,{js:`${a}*0.5**${n-1}`})}]);
+T("exp-growth","a1seq","F.LE.2","Exponential growth & decay",["seq-geo","percent"],
+ "An exponential function f(t) = a·bᵗ multiplies by the growth factor b for each unit of time. Growth: b > 1; decay: 0 < b < 1.",
+ ["Percent growth r: b = 1 + r (5% → 1.05). Percent decay r: b = 1 − r (20% → 0.8).","f(t) = a·bᵗ: a is the starting amount (the y-intercept).","Half-life: multiply by ½ each period: A·(½)^(t/h)."],
+ [()=>{const a=ri(1,6),b=pick([2,3]),t=ri(3,6);return mk("num",`f(t) = ${a}·${b}^t. Find f(${t}).`,a*Math.pow(b,t),"Substitute t and evaluate the power first.",`${a} × ${b}^${t} = ${a*Math.pow(b,t)}`,{js:`${a}*${b}**${t}`})},
+  ()=>{const P_=ri(2,20)*100,r=ri(3,9),t=ri(2,6);const v=P_*Math.pow(1+r/100,t);if(Math.abs((v*100)%1-0.5)<0.03)return TOPIC_BY_ID["exp-growth"].gens[1]();return mk("num",`$${P_} is invested at ${r}% interest compounded yearly. How much is it worth after ${t} years? (Round to the nearest cent.)`,rdn(v,2),"A = P(1 + r)ᵗ.",`${P_} × ${1+r/100}^${t} = ${rdn(v,2)}`,{js:`${P_}*(1+${r}/100)**${t}`,jtol:0.0050001})},
+  ()=>{const r=ri(2,9)*pick([1,2,5]),up=Math.random()<0.5;return mk("num",`A quantity ${up?"grows":"decays"} ${r}% each year. What is the yearly ${up?"growth":"decay"} factor b?`,rdn(1+(up?1:-1)*r/100,4),up?"Growth factor b = 1 + r.":"Decay factor b = 1 − r.",`b = 1 ${up?"+":"−"} ${r/100} = ${rdn(1+(up?1:-1)*r/100,4)}`,{js:`1${up?"+":"-"}${r}/100`})},
+  ()=>{const k=ri(2,5),h=ri(2,8),A=Math.pow(2,k)*ri(2,9);return mk("num",`A sample has ${A} grams and a half-life of ${h} years. How many grams remain after ${k*h} years?`,A/Math.pow(2,k),"There are k half-lives; halve the amount k times.",`${k*h}/${h} = ${k} half-lives; ${A} × (1/2)^${k} = ${A/Math.pow(2,k)}`,{js:`${A}*0.5**(${k*h}/${h})`})},
+  ()=>{const d=ri(2,6),k=ri(2,5),P_=ri(2,9)*10;return mk("num",`A bacteria population doubles every ${d} hours. If it starts at ${P_}, what is it after ${d*k} hours?`,P_*Math.pow(2,k),"Number of doublings = hours ÷ d; multiply by 2 that many times.",`${d*k}/${d} = ${k} doublings; ${P_} × 2^${k} = ${P_*Math.pow(2,k)}`,{js:`${P_}*2**(${d*k}/${d})`})}]);
+T("exp-vs-lin","a1seq","F.LE.1","Linear vs. exponential models",["exp-growth","lin-model"],
+ "Linear functions add a constant amount each step; exponential functions multiply by a constant factor. Eventually an exponential with b > 1 beats any linear function.",
+ ["Constant differences → linear. Constant ratios → exponential.","Table with x = 0, 1, 2: y = a·bˣ where a = y(0) and b = y(1) ÷ y(0).","Compare models by evaluating them at the same x-values."],
+ [()=>{const lin_=Math.random()<0.5;const a=ri(2,6);const ys=[0,1,2,3].map(i=>lin_?a+3*i:a*Math.pow(3,i));return mcq(`A table has x = 0, 1, 2, 3 and y = ${ys.join(", ")}. Is the relationship linear or exponential?`,lin_?"Linear":"Exponential",[lin_?"Exponential":"Linear"],"Constant differences → linear; constant ratios → exponential.",lin_?"the differences are all 3":"the ratios are all 3",{js:`(${ys[1]}-${ys[0]}===${ys[2]}-${ys[1]})===${lin_}`})},
+  ()=>{const a=ri(1,4),m=ri(5,12),c=ri(0,10);let n=0;while(a*Math.pow(2,n)<=m*n+c)n++;return mk("num",`Compare f(x) = ${a}·2^x and g(x) = ${m}x + ${c}. What is the smallest whole number x for which f(x) > g(x)?`,n,"Make a table of values and find the first x where the exponential is larger.",`f(${n}) = ${a*Math.pow(2,n)} > g(${n}) = ${m*n+c}, and it was not larger at x = ${n-1}`,{js:`(()=>{let n=0;while(!(${a}*2**n>${m}*n+${c}))n++;return n})()`})},
+  ()=>{const a=ri(2,7),b=ri(2,4);return mk("eq",`A table gives y = ${a} at x = 0, y = ${a*b} at x = 1 and y = ${a*b*b} at x = 2. Write the exponential equation y = a·b^x.`,`y = ${a}(${b})^x`,"a = y at x = 0; b = the ratio between consecutive y-values.",`a = ${a}; b = ${a*b}/${a} = ${b}`,{pe:`y-${a}*${b}**x`})}]);
+T("poly-mult","a1poly","A.APR.1","Multiplying polynomials",["poly-add","distrib"],
+ "To multiply polynomials, multiply every term of one by every term of the other (distributive property / FOIL), then combine like terms.",
+ ["Binomial × binomial (FOIL): (x + 3)(x − 5) = x² − 5x + 3x − 15 = x² − 2x − 15.","Special products: (a + b)² = a² + 2ab + b² and (a + b)(a − b) = a² − b².","Write the answer from highest to lowest power."],
+ [()=>{const a=rnz(-5,5),b=rnz(-4,4),c=rnz(-4,4),d=ri(-6,6);return mk("poly",`Expand: ${a}x(${quad(b,c,d)})`,polyStr([[a*b,"x^3"],[a*c,"x^2"],[a*d,"x"]]),"Distribute the monomial to every term.",`${a}x·${P(b)}x² = ${a*b}x³; ${a}x·${P(c)}x = ${a*c}x²; ${a}x·${P(d)} = ${a*d}x`,{pe:`${a}*x*(${b}*x*x+${c}*x+${d})`})},
+  ()=>{const p=rnz(-9,9),q=rnz(-9,9);return mk("poly",`Expand: (x ${p<0?"-":"+"} ${Math.abs(p)})(x ${q<0?"-":"+"} ${Math.abs(q)})`,quad(1,p+q,p*q),"FOIL: first, outer, inner, last; combine the middle terms.",`x² + (${p}+${P(q)})x + ${p}·${P(q)} = ${quad(1,p+q,p*q)}`,{pe:`(x+(${p}))*(x+(${q}))`})},
+  ()=>{const a=ri(2,5),b=rnz(-6,6),c=ri(1,5),d=rnz(-6,6);return mk("poly",`Expand: (${lin(a,b)})(${lin(c,d)})`,quad(a*c,a*d+b*c,b*d),"FOIL, then combine like terms.",`${a*c}x² + (${a*d}+${P(b*c)})x + ${b*d}`,{pe:`(${a}*x+(${b}))*(${c}*x+(${d}))`})},
+  ()=>{const a=ri(1,4),b=rnz(-8,8);return mk("poly",`Expand: (${lin(a,b)})^2`,quad(a*a,2*a*b,b*b),"(A + B)² = A² + 2AB + B².",`(${a}x)² + 2(${a}x)(${b}) + ${b}² = ${quad(a*a,2*a*b,b*b)}`,{pe:`(${a}*x+(${b}))**2`})},
+  ()=>{const a=ri(1,5),b=ri(1,9);return mk("poly",`Expand: (${cf(a,"x")} + ${b})(${cf(a,"x")} - ${b})`,quad(a*a,0,-b*b),"Difference of squares: (A + B)(A − B) = A² − B².",`(${a}x)² − ${b}² = ${quad(a*a,0,-b*b)}`,{pe:`(${a}*x+${b})*(${a}*x-${b})`})},
+  ()=>{const a=rnz(-5,5),b=rnz(-4,4),c=rnz(-6,6);return mk("poly",`Expand: (x ${a<0?"-":"+"} ${Math.abs(a)})(${quad(1,b,c)})`,polyStr([[1,"x^3"],[a+b,"x^2"],[a*b+c,"x"],[a*c,""]]),"Multiply each term of the trinomial by x and by the constant, then combine.",`x³ + (${b}+${P(a)})x² + (${c}+${P(a*b)})x + ${P(a*c)}`,{pe:`(x+(${a}))*(x*x+${b}*x+${c})`})}]);
+T("fn-transform","a1fn","F.BF.3","Transformations of functions",["func-eval","poly-mult"],
+ "Adding to the output moves a graph up/down; adding inside the input moves it left/right; multiplying stretches or flips it.",
+ ["f(x) + k shifts up k; f(x − h) shifts right h (the sign inside is opposite to the direction).","k·f(x) stretches vertically by |k|; −f(x) reflects over the x-axis.","For y = |x − h| + k or y = (x − h)² + k the vertex is (h, k)."],
+ [()=>{const h=rnz(-5,5),k=rnz(-6,6);return mk("poly",`The graph of f(x) = x² is shifted ${Math.abs(h)} units ${h>0?"right":"left"} and ${Math.abs(k)} units ${k>0?"up":"down"}. Write the new function g(x) in expanded form.`,quad(1,-2*h,h*h+k),"g(x) = (x − h)² + k with h the rightward shift; expand.",`(x − ${P(h)})² + ${P(k)} = ${quad(1,-2*h,h*h+k)}`,{pe:`(x-(${h}))**2+(${k})`})},
+  ()=>{const a=rnz(-4,4),b=ri(-6,6),k=rnz(-6,6);return mk("poly",`If f(x) = ${lin(a,b)}, write g(x) = f(x) + (${k}) as a simplified expression.`,lin(a,b+k),"Adding k to the output adds k to the constant term.",`${lin(a,b)} + ${P(k)} = ${lin(a,b+k)}`,{pe:`${a}*x+${b}+${k}`})},
+  ()=>{const a=rnz(-4,4),b=ri(-6,6),h=rnz(-5,5);return mk("poly",`If f(x) = ${lin(a,b)}, write g(x) = f(x ${h<0?"+":"-"} ${Math.abs(h)}) as a simplified expression.`,lin(a,b-a*h),"Replace x by (x − h) and simplify.",`${a}(x − ${P(h)}) + ${b} = ${lin(a,b-a*h)}`,{pe:`${a}*(x-(${h}))+${b}`})},
+  ()=>{const a=pick([2,3,-1,-2,4]),h=rnz(-5,5),k=ri(-6,6);return mk("pair",`The graph of y = ${a===1?"":a===-1?"-":a}(x ${h<0?"+":"-"} ${Math.abs(h)})^2 ${k<0?"-":"+"} ${Math.abs(k)} is a parabola. What is its vertex?`,`(${h}, ${k})`,"For y = a(x − h)² + k the vertex is (h, k); read the sign of h carefully.",`h = ${h}, k = ${k}`,{eqs:[`x=${h}`,`y=${k}`]})}]);
+T("factor-gcf","a1poly","A.SSE.2","Factoring out the greatest common factor",["poly-mult","distrib"],
+ "Factoring undoes multiplying. First pull out the greatest common factor (GCF) of all the terms, including any common power of x.",
+ ["GCF = largest number dividing all coefficients × lowest power of x in every term.","6x² + 9x = 3x(2x + 3). Check by expanding.","Grouping: x³ + 2x² + 3x + 6 = x²(x + 2) + 3(x + 2) = (x + 2)(x² + 3)."],
+ [()=>{const g=ri(2,6);let p,q;do{p=ri(1,5);q=rnz(-7,7)}while(gcd(p,q)!==1);return mk("expr",`Factor completely: ${polyStr([[g*p,"x^2"],[g*q,"x"]])}`,`${g}x(${lin(p,q)})`,"Take out the GCF of the coefficients and the lowest power of x.",`GCF = ${g}x; ${g*p}x² ÷ ${g}x = ${cf(p,"x")}; ${g*q}x ÷ ${g}x = ${q}`,{form:"factor",fdeg:[1,1],pe:`${g*p}*x*x+${g*q}*x`})},
+  ()=>{const g=ri(1,5);let a,b,c;do{a=ri(1,3);b=ri(1,4);c=ri(1,4)}while(b*b-4*a*c>=0||gcd(gcd(a,b),c)!==1);return mk("expr",`Factor out the GCF: ${polyStr([[g*a,"x^3"],[g*b,"x^2"],[g*c,"x"]])}`,`${g===1?"":g}x(${quad(a,b,c)})`,"Factor out the GCF of coefficients and the lowest power of x; the quadratic left over can't be factored further.",`GCF = ${g===1?"":g}x`,{form:"factor",fdeg:[1,2],pe:`${g*a}*x**3+${g*b}*x**2+${g*c}*x`})},
+  ()=>{const g=ri(2,6);let p,q;do{p=ri(1,5);q=ri(1,7)}while(gcd(p,q)!==1);return mk("expr",`Factor out a negative GCF: ${polyStr([[-g*p,"x^2"],[-g*q,"x"]])}`,`-${g}x(${lin(p,q)})`,"Factor out −GCF so the leading term inside is positive.",`GCF = −${g}x; ${-g*p}x² ÷ (−${g}x) = ${cf(p,"x")}; ${-g*q}x ÷ (−${g}x) = ${q}`,{form:"factor",fdeg:[1,1],pe:`-${g*p}*x*x-${g*q}*x`})},
+  ()=>{const a=ri(1,6),b=ri(1,6);return mk("expr",`Factor by grouping: x^3 + ${a}x^2 + ${b}x + ${a*b}`,`(x + ${a})(x^2 + ${b})`,"Group in pairs, factor each pair, then factor out the common binomial.",`x²(x + ${a}) + ${b}(x + ${a}) = (x + ${a})(x² + ${b})`,{form:"factor",fdeg:[1,2],pe:`x**3+${a}*x**2+${b}*x+${a*b}`})}]);
+const F11=(p,q)=>`${fx(-p)}${fx(-q)}`;   // (x + p)(x + q)
+T("factor-trinomial","a1poly","A.SSE.3a","Factoring x² + bx + c",["factor-gcf"],
+ "To factor x² + bx + c, find two numbers p and q with p·q = c and p + q = b. Then x² + bx + c = (x + p)(x + q).",
+ ["List factor pairs of c; choose the pair that adds to b.","If c > 0, p and q have the same sign (the sign of b). If c < 0, they have opposite signs.","Check by multiplying (FOIL)."],
+ [()=>{const p=ri(1,9),q=ri(1,9);return mk("expr",`Factor: ${quad(1,p+q,p*q)}`,F11(p,q),"Find p, q with p·q = c and p + q = b.",`${p}·${q} = ${p*q} and ${p}+${q} = ${p+q}`,{form:"factor",fdeg:[1,1],pe:`x*x+${p+q}*x+${p*q}`})},
+  ()=>{const p=ri(1,9),q=ri(1,9);return mk("expr",`Factor: ${quad(1,-(p+q),p*q)}`,F11(-p,-q),"c > 0 and b < 0, so both numbers are negative.",`(−${p})(−${q}) = ${p*q}; (−${p})+(−${q}) = ${-(p+q)}`,{form:"factor",fdeg:[1,1],pe:`x*x-${p+q}*x+${p*q}`})},
+  ()=>{const p=ri(1,9);let q;do{q=ri(1,9)}while(q===p);const s=Math.random()<0.5?1:-1;const a=s*p,b=-s*q;return mk("expr",`Factor: ${quad(1,a+b,a*b)}`,F11(a,b),"c < 0, so one number is positive and one negative; their sum is b.",`${a}·${P(b)} = ${a*b}; ${a}+${P(b)} = ${a+b}`,{form:"factor",fdeg:[1,1],pe:`x*x+${a+b}*x+${a*b}`})},
+  ()=>{const p=ri(2,12),q=ri(2,12);const s=pick([[1,1],[-1,-1],[1,-1],[-1,1]]);const a=s[0]*p,b=s[1]*q;return mk("expr",`Factor: ${quad(1,a+b,a*b)}`,F11(a,b),"Find two numbers with product c and sum b.",`${a}·${P(b)} = ${a*b}; ${a}+${P(b)} = ${a+b}`,{form:"factor",fdeg:[1,1],pe:`x*x+${a+b}*x+${a*b}`})}]);
+T("factor-a","a1poly","A.SSE.3a","Factoring ax² + bx + c",["factor-trinomial"],
+ "When the leading coefficient is not 1, find two numbers whose product is a·c and sum is b, split the middle term, and factor by grouping — or test factor pairs.",
+ ["Multiply a·c, find two numbers m, n with m·n = ac and m + n = b.","Split bx into mx + nx and factor by grouping.","Check with FOIL; always take out a GCF first."],
+ [()=>{let m,n,p,q;do{m=ri(2,5);n=ri(1,3);p=ri(1,7);q=ri(1,7)}while(gcd(m,p)!==1||gcd(n,q)!==1||gcd(gcd(m*n,m*q+n*p),p*q)!==1);return mk("expr",`Factor: ${quad(m*n,m*q+n*p,p*q)}`,`${bf(m,p)}${bf(n,q)}`,"Find two numbers with product ac and sum b, split the middle term, group.",`ac = ${m*n*p*q}; split ${m*q+n*p}x into ${m*q}x + ${n*p}x; factor by grouping`,{form:"factor",fdeg:[1,1],pe:`${m*n}*x*x+${m*q+n*p}*x+${p*q}`})},
+  ()=>{let m,n,p,q;do{m=ri(2,5);n=ri(1,3);p=-ri(1,7);q=-ri(1,7)}while(gcd(m,p)!==1||gcd(n,q)!==1||gcd(gcd(m*n,m*q+n*p),p*q)!==1);return mk("expr",`Factor: ${quad(m*n,m*q+n*p,p*q)}`,`${bf(m,p)}${bf(n,q)}`,"Both constants are negative since c > 0 and b < 0.",`ac = ${m*n*p*q}; split ${m*q+n*p}x into ${m*q}x + ${n*p}x; group`,{form:"factor",fdeg:[1,1],pe:`${m*n}*x*x+${m*q+n*p}*x+${p*q}`})},
+  ()=>{let m,n,p,q;do{m=ri(2,6);n=ri(1,3);p=rnz(-7,7);q=rnz(-7,7)}while(gcd(m,p)!==1||gcd(n,q)!==1||gcd(gcd(m*n,m*q+n*p),p*q)!==1||m*q+n*p===0);return mk("expr",`Factor: ${quad(m*n,m*q+n*p,p*q)}`,`${bf(m,p)}${bf(n,q)}`,"Try factor pairs of a and c so the outer + inner terms give b.",`${m}x·${P(q)}+${P(p)}·${n}x = ${m*q+n*p}x`,{form:"factor",fdeg:[1,1],pe:`${m*n}*x*x+${m*q+n*p}*x+${p*q}`})}]);
+T("factor-dos","a1poly","A.SSE.2","Difference of squares & perfect-square trinomials",["factor-trinomial"],
+ "Two special patterns factor quickly: a² − b² = (a − b)(a + b), and a² ± 2ab + b² = (a ± b)².",
+ ["Difference of squares: A² − B² = (A − B)(A + B). A sum of squares does not factor.","Perfect square trinomial: first and last terms are squares and the middle is twice their product.","Always check for a GCF first."],
+ [()=>{const k=ri(2,12);return mk("expr",`Factor: x^2 - ${k*k}`,`(x - ${k})(x + ${k})`,"A² − B² = (A − B)(A + B).",`x² − ${k}² = (x − ${k})(x + ${k})`,{form:"factor",fdeg:[1,1],pe:`x*x-${k*k}`})},
+  ()=>{let a,b;do{a=ri(2,6);b=ri(1,9)}while(gcd(a,b)!==1);return mk("expr",`Factor: ${a*a}x^2 - ${b*b}`,`(${a}x - ${b})(${a}x + ${b})`,"A = ax, B = b: A² − B² = (A − B)(A + B).",`(${a}x)² − ${b}² = (${a}x − ${b})(${a}x + ${b})`,{form:"factor",fdeg:[1,1],pe:`${a*a}*x*x-${b*b}`})},
+  ()=>{const k=ri(1,9),s=Math.random()<0.5?1:-1;return mk("expr",`Factor: ${quad(1,2*k*s,k*k)}`,`(x ${s<0?"-":"+"} ${k})^2`,"Perfect square trinomial: x² ± 2kx + k² = (x ± k)².",`${k}² = ${k*k} and 2·${k} = ${2*k}`,{form:"factor",fdeg:[1,1],pe:`x*x+${2*k*s}*x+${k*k}`})},
+  ()=>{let a,b;do{a=ri(2,5);b=ri(1,7)}while(gcd(a,b)!==1);const s=Math.random()<0.5?1:-1;return mk("expr",`Factor: ${quad(a*a,2*a*b*s,b*b)}`,`(${a}x ${s<0?"-":"+"} ${b})^2`,"Check: first term (ax)², last term b², middle 2·ax·b.",`(${a}x)² ${s<0?"−":"+"} 2(${a}x)(${b}) + ${b}²`,{form:"factor",fdeg:[1,1],pe:`${a*a}*x*x+${2*a*b*s}*x+${b*b}`})}]);
+T("factor-full","a1poly","A.SSE.2","Factoring completely",["factor-a","factor-dos"],
+ "Factor completely: pull out the GCF first, then keep factoring what is left (trinomials, differences of squares) until no factor can be broken down further.",
+ ["Step 1: GCF. Step 2: look for difference of squares or a trinomial pattern. Step 3: check each factor again.","x⁴ − 16 = (x² + 4)(x² − 4) = (x² + 4)(x − 2)(x + 2).","The sum of squares x² + k² doesn't factor over the integers."],
+ [()=>{const g=ri(2,5),k=ri(1,6);return mk("expr",`Factor completely: ${polyStr([[g,"x^2"],[-g*k*k,""]])}`,`${g}(x - ${k})(x + ${k})`,"GCF first, then difference of squares.",`${g}(x² − ${k*k}) = ${g}(x − ${k})(x + ${k})`,{form:"factor",fdeg:[1,1],pe:`${g}*x*x-${g*k*k}`})},
+  ()=>{const g=ri(2,5),p=ri(1,6),q=ri(1,6);return mk("expr",`Factor completely: ${polyStr([[g,"x^2"],[g*(p+q),"x"],[g*p*q,""]])}`,`${g}(x + ${p})(x + ${q})`,"GCF first, then factor the trinomial.",`${g}(x² + ${p+q}x + ${p*q}) = ${g}(x + ${p})(x + ${q})`,{form:"factor",fdeg:[1,1],pe:`${g}*(x*x+${p+q}*x+${p*q})`})},
+  ()=>{const k=ri(1,7);return mk("expr",`Factor completely: x^3 - ${k*k}x`,`x(x - ${k})(x + ${k})`,"GCF x first, then difference of squares.",`x(x² − ${k*k}) = x(x − ${k})(x + ${k})`,{form:"factor",fdeg:[1,1,1],pe:`x**3-${k*k}*x`})},
+  ()=>{const k=ri(1,4);return mk("expr",`Factor completely: x^4 - ${Math.pow(k,4)}`,`(x^2 + ${k*k})(x - ${k})(x + ${k})`,"Difference of squares twice: x⁴ − k⁴ = (x² + k²)(x² − k²).",`(x² + ${k*k})(x² − ${k*k}) = (x² + ${k*k})(x − ${k})(x + ${k})`,{form:"factor",fdeg:[1,1,2],pe:`x**4-${Math.pow(k,4)}`})}]);
+T("quad-factor","a1quad","A.REI.4b","Solving quadratics by factoring",["factor-trinomial","factor-a"],
+ "Zero-product property: if A·B = 0 then A = 0 or B = 0. Move everything to one side, factor, and set each factor equal to 0.",
+ ["Write the equation as ax² + bx + c = 0 first.","Factor, then solve each factor = 0.","Quadratics can have two solutions, one (a double root) or none."],
+ [()=>{const p=rnz(-9,9),q=rnz(-9,9);return mk("set",`Solve: (x ${p<0?"+":"-"} ${Math.abs(p)})(x ${q<0?"+":"-"} ${Math.abs(q)}) = 0`,`${p}, ${q}`,"Zero-product property: set each factor to 0.",`x = ${p} or x = ${q}`,{fx:`(x-(${p}))*(x-(${q}))`,nroots:p===q?1:2,complete:false})},
+  ()=>{const p=rnz(-9,9),q=rnz(-9,9);return mk("set",`Solve: ${quad(1,-(p+q),p*q)} = 0`,`${p}, ${q}`,"Factor into (x − p)(x − q) = 0.",`${quad(1,-(p+q),p*q)} = (x − ${P(p)})(x − ${P(q)})`,{fx:`x*x-(${p+q})*x+(${p*q})`,nroots:p===q?1:2,complete:false})},
+  ()=>{const k=rnz(-9,9);const s=Math.random()<0.5;return mk("set",s?`Solve: x^2 = ${k}x`:`Solve: ${polyStr([[1,"x^2"],[-k,"x"]])} = 0`,`0, ${k}`,"Factor out x, then set each factor to 0 (never divide by x).",`x(x − ${P(k)}) = 0 → x = 0 or x = ${k}`,{fx:`x*x-(${k})*x`,nroots:2})},
+  ()=>{let m,n,p,q;do{m=ri(2,4);n=ri(1,3);p=rnz(-6,6);q=rnz(-6,6)}while(gcd(m,p)!==1||gcd(n,q)!==1);return mk("set",`Solve: ${quad(m*n,m*q+n*p,p*q)} = 0`,`${frs(-p,m)}, ${frs(-q,n)}`,"Factor with the ac method, then solve each factor.",`(${lin(m,p)})(${lin(n,q)}) = 0 → x = ${frs(-p,m)} or x = ${frs(-q,n)}`,{fx:`${m*n}*x*x+(${m*q+n*p})*x+(${p*q})`,nroots:new Set([frs(-p,m),frs(-q,n)]).size,complete:false})}]);
+T("quad-sqrt","a1quad","A.REI.4b","Solving by square roots",["sqrt-basic","multistep-eq"],
+ "If a quadratic is just x² (or a perfect square expression) equal to a number, isolate the square and take both square roots.",
+ ["x² = k → x = ±√k (two solutions if k > 0; none if k < 0).","(x − h)² = k → x = h ± √k.","Give exact answers like 3 + √5 (type 3+sqrt(5))."],
+ [()=>{const k=ri(2,12);return mk("set",`Solve: x^2 = ${k*k}`,`${-k}, ${k}`,"Take ± the square root.",`x = ±√${k*k} = ±${k}`,{fx:`x*x-${k*k}`,nroots:2})},
+  ()=>{const a=ri(2,6),k=ri(2,9);return mk("set",`Solve: ${a}x^2 = ${a*k*k}`,`${-k}, ${k}`,"Divide by a first, then take both roots.",`x² = ${k*k} → x = ±${k}`,{fx:`${a}*x*x-${a*k*k}`,nroots:2})},
+  ()=>{const h=rnz(-8,8),k=ri(1,9);return mk("set",`Solve: (x ${h<0?"+":"-"} ${Math.abs(h)})^2 = ${k*k}`,`${h-k}, ${h+k}`,"Take ± the square root of both sides, then solve for x.",`x ${h<0?"+":"−"} ${Math.abs(h)} = ±${k} → x = ${h-k} or ${h+k}`,{fx:`(x-(${h}))**2-${k*k}`,nroots:2})},
+  ()=>{let n;do{n=ri(2,30)}while(SQ(n));return mk("set",`Solve (give exact answers): x^2 = ${n}`,`${rs(1,n)}, ${rs(-1,n)}`,"x = ±√n; simplify the radical if possible.",`x = ±√${n} = ±${M(rs(1,n))}`,{fx:`x*x-${n}`,nroots:2})},
+  ()=>{const k=ri(1,9);return mk("set",`Solve: x^2 + ${k} = 0`,"none","A square is never negative, so x² = −k has no real solution.",`x² = −${k} has no real solution`,{fx:`x*x+${k}`})}]);
+T("rad-simp","a1rad","N.RN.2","Simplifying radicals",["sqrt-basic","irrational"],
+ "To simplify √n, pull out the largest perfect-square factor: √50 = √(25·2) = 5√2. A radical is simplified when its radicand has no perfect-square factor.",
+ ["Factor the radicand: √72 = √(36·2) = 6√2.","√(ab) = √a · √b and c√n means c times √n.","Type radicals like 5sqrt(2); the answer must be fully simplified."],
+ [()=>{let n;do{n=ri(8,150)}while(rparts(n)[0]===1);return mk("expr",`Simplify: sqrt(${n})`,rs(1,n),"Pull out the largest perfect-square factor.",`${n} = ${rparts(n)[0]**2} × ${rparts(n)[1]}, so √${n} = ${M(rs(1,n))}`,{form:"rad",pe:`Math.sqrt(${n})`})},
+  ()=>{const c=ri(2,6);let n;do{n=ri(8,60)}while(rparts(n)[0]===1);return mk("expr",`Simplify: ${c}sqrt(${n})`,rs(c,n),"Simplify the radical, then multiply by the coefficient.",`${c}√${n} = ${c}·${rparts(n)[0]}√${rparts(n)[1]}`,{form:"rad",pe:`${c}*Math.sqrt(${n})`})},
+  ()=>{const a=ri(2,9),m=pick([2,3,5,6,7]);return mk("expr",`Simplify: sqrt(${a*a*m})`,rs(1,a*a*m),"√(a²·m) = a√m.",`${a*a*m} = ${a*a}·${m}`,{form:"rad",pe:`Math.sqrt(${a*a*m})`})},
+  ()=>{let n,d;do{n=ri(8,100);d=ri(2,12)}while(rparts(n)[0]===1||rparts(n)[1]===1);const [k,m]=rparts(n);const g=gcd(k,d);const num=k/g,den=d/g;return mk("expr",`Simplify: sqrt(${n})/${d}`,(num===1?"":num)+"sqrt("+m+")"+(den===1?"":"/"+den),"Simplify the radical, then reduce the coefficient against the denominator.",`√${n} = ${k}√${m}; ${k}√${m}/${d} reduced by ${g}`,{form:"rad",pe:`Math.sqrt(${n})/${d}`})}]);
+T("rad-ops","a1rad","N.RN.3","Operations with radicals",["rad-simp","poly-mult"],
+ "Like radicals add like like terms: 3√2 + 5√2 = 8√2. Radicals multiply by multiplying the insides, and you rationalize a denominator by multiplying top and bottom by the radical.",
+ ["Add/subtract only like radicals (same radicand): simplify first, then combine.","√a·√b = √(ab); (a + √n)(a − √n) = a² − n.","Rationalize: a/√n = a√n/n."],
+ [()=>{const a=ri(2,9),b=ri(2,9),n=pick([2,3,5,6,7]);return mk("expr",`Simplify: ${a}sqrt(${n}) + ${b}sqrt(${n})`,`${a+b}sqrt(${n})`,"Combine like radicals like like terms.",`(${a} + ${b})√${n}`,{form:"rad",pe:`${a+b}*Math.sqrt(${n})`})},
+  ()=>{const a=ri(2,12),b=ri(2,12);return mk("expr",`Simplify: sqrt(${a})·sqrt(${b})`,rs(1,a*b),"√a · √b = √(ab), then simplify.",`√${a*b} = ${M(rs(1,a*b))}`,{form:"rad",pe:`Math.sqrt(${a*b})`})},
+  ()=>{const a=ri(1,9),n=pick([2,3,5,6,7,10,11]);return mk("num",`Simplify: (${a} + sqrt(${n}))(${a} - sqrt(${n}))`,a*a-n,"Difference of squares: the radicals cancel.",`${a}² − (√${n})² = ${a*a} − ${n} = ${a*a-n}`,{js:`(${a}+Math.sqrt(${n}))*(${a}-Math.sqrt(${n}))`,jtol:1e-9})},
+  ()=>{const n=pick([2,3,5,6,7,10,11]);const a=ri(2,12);const g=gcd(a,n);return mk("expr",`Rationalize the denominator: ${a}/sqrt(${n})`,`${a/g===1?"":a/g}sqrt(${n})${n/g===1?"":"/"+n/g}`,"Multiply the numerator and denominator by √n.",`${a}√${n}/${n} reduced by ${g}`,{form:"rad",pe:`${a}/Math.sqrt(${n})`})},
+  ()=>{const a=ri(2,6),b=ri(2,6),m=pick([2,3,5,6]);return mk("expr",`Simplify: sqrt(${a*a*m}) + sqrt(${b*b*m})`,`${a+b}sqrt(${m})`,"Simplify each radical first; then they are like radicals.",`${a}√${m} + ${b}√${m} = ${a+b}√${m}`,{form:"rad",pe:`${a+b}*Math.sqrt(${m})`})}]);
+T("rat-irr","a1rad","N.RN.3","Rational & irrational numbers: sums and products",["rad-simp"],
+ "A rational plus a rational is rational; a nonzero rational times an irrational is irrational; a rational plus an irrational is irrational. Two irrationals can give either.",
+ ["Rational + rational, rational × rational → rational.","Rational + irrational → irrational. Nonzero rational × irrational → irrational.","Irrational + irrational (or ×) can be rational: √2·√2 = 2."],
+ [()=>{const a=ri(1,9),n=pick([2,3,5,6,7,10]);return mcq(`Is ${a} + √${n} rational or irrational?`,"Irrational",["Rational"],"Rational + irrational is always irrational.","√"+n+" is irrational, adding a rational can't make it rational.")},
+  ()=>{const a=ri(2,9),n=pick([2,3,5,6,7,10]);return mcq(`Is ${a}·√${n} rational or irrational?`,"Irrational",["Rational"],"A nonzero rational times an irrational is irrational.",`√${n} is irrational and ${a} ≠ 0.`)},
+  ()=>{const n=pick([2,3,5,6,7,10]);const t=pick([["√"+n+" · √"+n,"Rational"],["√"+n+" + √"+n,"Irrational"],["√"+n+" − √"+n,"Rational"],["√"+n+" · √"+(n+1),"Irrational"]]);const nn=SQ(n+1)&&t[0].includes(String(n+1))?null:1;if(!nn)return TOPIC_BY_ID["rat-irr"].gens[2]();return mcq(`Is ${t[0]} rational or irrational?`,t[1],[t[1]==="Rational"?"Irrational":"Rational"],"Compute the result: some irrational combinations are rational.",t[1]==="Rational"?"The result simplifies to a rational number (like 0 or a perfect square).":"The result is a nonzero multiple of an irrational number or a root of a non-square.")}]);
+T("quad-cs","a1quad","A.REI.4b","Completing the square",["quad-sqrt","factor-dos"],
+ "Completing the square turns x² + bx into a perfect square trinomial by adding (b/2)². It solves any quadratic and reveals the vertex.",
+ ["x² + bx + (b/2)² = (x + b/2)².","x² + bx + c = (x + p)² + q with p = b/2 and q = c − p².","Solve x² + bx = d: add (b/2)² to both sides, take square roots."],
+ [()=>{const b=2*ri(1,9)*pick([1,-1]);return mk("num",`What number must be added to x^2 ${b<0?"-":"+"} ${Math.abs(b)}x to complete the square?`,(b/2)**2,"Add (b/2)².",`(${b}/2)² = ${(b/2)**2}`,{js:`(${b}/2)**2`})},
+  ()=>{const p=rnz(-8,8),q=ri(-12,12);return mk("num",`Write x² ${2*p<0?"-":"+"} ${Math.abs(2*p)}x ${p*p+q<0?"-":"+"} ${Math.abs(p*p+q)} in the form (x + p)² + q. Find p.`,p,"p = b/2.",`p = ${2*p}/2 = ${p}`,{js:`${2*p}/2`})},
+  ()=>{const p=rnz(-8,8),q=ri(-12,12);return mk("num",`Write x² ${2*p<0?"-":"+"} ${Math.abs(2*p)}x ${p*p+q<0?"-":"+"} ${Math.abs(p*p+q)} in the form (x + p)² + q. Find q.`,q,"q = c − p².",`q = ${p*p+q} − ${p*p} = ${q}`,{js:`${p*p+q}-(${2*p}/2)**2`})},
+  ()=>{const p=rnz(-6,6);const d=ri(1,20);const k=d+p*p;return mk("set",`Solve by completing the square (exact form): x² ${2*p<0?"-":"+"} ${Math.abs(2*p)}x = ${d}`,`${-p}+sqrt(${k}), ${-p}-sqrt(${k})`,"Add p² to both sides, write the left as (x + p)², then take square roots.",`(x ${p<0?"−":"+"} ${Math.abs(p)})² = ${k} → x = ${-p} ± √${k}`,{fx:`x*x+${2*p}*x-${d}`,nroots:2})}]);
+T("quad-formula","a1quad","A.REI.4a","The quadratic formula & discriminant",["quad-cs"],
+ "For ax² + bx + c = 0, x = (−b ± √(b² − 4ac)) / (2a). The discriminant D = b² − 4ac tells how many real solutions there are.",
+ ["D > 0: two real solutions. D = 0: one. D < 0: none (real).","Write the equation in standard form first so a, b, c are right.","Round only at the end; type solutions separated by a comma, e.g. 1.5, -2."],
+ [()=>{const a=rnz(-4,5),b=rnz(-9,9),c=rnz(-9,9);return mk("num",`Find the discriminant of ${quad(a,b,c)} = 0.`,b*b-4*a*c,"D = b² − 4ac.",`(${b})² − 4(${a})(${c}) = ${b*b-4*a*c}`,{js:`${b}*${b}-4*(${a})*(${c})`})},
+  ()=>{const a=rnz(-3,4),b=rnz(-8,8),c=rnz(-8,8);const D=b*b-4*a*c;return mk("num",`How many real solutions does ${quad(a,b,c)} = 0 have?`,D>0?2:D===0?1:0,"Compute D = b² − 4ac: positive → 2, zero → 1, negative → 0.",`D = ${D}`,{js:`(${b}*${b}-4*(${a})*(${c}))>0?2:(${b}*${b}-4*(${a})*(${c}))===0?1:0`})},
+  ()=>{let a,x1,x2;do{a=ri(1,4);x1=ri(-5,5);x2=ri(-5,5)}while(x1===x2);const b=-a*(x1+x2),c=a*x1*x2;const D=b*b-4*a*c;return mk("set",`Solve using the quadratic formula: ${quad(a,b,c)} = 0`,`${x1}, ${x2}`,"x = (−b ± √D) / 2a.",`D = ${D}, √D = ${Math.sqrt(D)}; x = (${-b} ± ${Math.sqrt(D)})/${2*a} = ${x1}, ${x2}`,{fx:`${a}*x*x+(${b})*x+(${c})`,nroots:2})},
+  ()=>{let a,b,c,D,r1,r2;let g=0;do{a=rnz(-4,5);b=rnz(-9,9);c=rnz(-9,9);D=b*b-4*a*c;r1=(-b+Math.sqrt(D))/(2*a);r2=(-b-Math.sqrt(D))/(2*a);g++}while(g<500&&(D<=0||SQ(D)||Math.abs(r1)>30||Math.abs(r2)>30||[r1,r2].some(r=>Math.abs(Math.abs(r*100)%1-0.5)<0.03)));
+     if(D<=0||SQ(D))return TOPIC_BY_ID["quad-formula"].gens[2]();const A1=rdn(r1,2),A2=rdn(r2,2);return mk("set",`Solve ${quad(a,b,c)} = 0. Round each solution to the nearest hundredth.`,`${A1}, ${A2}`,"Use the quadratic formula, then round at the end.",`D = ${D}; x = (${-b} ± √${D})/${2*a} ≈ ${A1}, ${A2}`,{fx:`${a}*x*x+(${b})*x+(${c})`,round:2,nroots:2,ftol:0.006*(2*Math.abs(a)*Math.max(Math.abs(r1),Math.abs(r2))+Math.abs(b))+1e-6})},
+  ()=>{let a,x1,x2;do{a=ri(2,4);x1=ri(-4,4);x2=ri(-4,4)}while(x1===x2);const b=-a*(x1+x2),c=a*x1*x2;return mk("set",`Solve: ${polyStr([[a,"x^2"]])} = ${polyStr([[-b,"x"],[-c,""]])}`,`${x1}, ${x2}`,"Move every term to one side to get standard form, then use the formula (or factor).",`${quad(a,b,c)} = 0 → x = ${x1} or ${x2}`,{fx:`${a}*x*x+(${b})*x+(${c})`,nroots:2})}]);
+T("quad-graph","a1quad","F.IF.7a","Parabolas: vertex, axis & intercepts",["quad-factor","fn-transform"],
+ "The graph of y = ax² + bx + c is a parabola. Its axis of symmetry is x = −b/(2a), and the vertex lies on the axis.",
+ ["Axis of symmetry: x = −b/(2a). Vertex: plug that x back in to get y.","y-intercept: c.  x-intercepts: solve ax² + bx + c = 0 (for a(x − p)(x − q) they are p and q).","a > 0 opens up (vertex is a minimum); a < 0 opens down (a maximum)."],
+ [()=>{const a=rnz(-4,4),h=ri(-6,6);const b=-2*a*h;return mk("num",`Find the axis of symmetry of y = ${quad(a,b,ri(-5,5))}. (Give the number k in x = k.)`,h,"x = −b/(2a).",`x = −(${b})/(2·${a}) = ${h}`,{js:`-(${b})/(2*${a})`})},
+  ()=>{const a=rnz(-3,3),h=ri(-5,5),k=ri(-9,9);const b=-2*a*h,c=a*h*h+k;return mk("pair",`Find the vertex of y = ${quad(a,b,c)}.`,`(${h}, ${k})`,"x = −b/(2a); then substitute to find y.",`x = ${-b}/${2*a} = ${h}; y = ${a}(${h})² + ${b}(${h}) + ${c} = ${k}`,{eqs:[`2*${a}*x+(${b})=0`,`y=${a}*x*x+(${b})*x+(${c})`]})},
+  ()=>{const a=rnz(-3,3),p=rnz(-6,6),q=rnz(-6,6);return mk("num",`Find the y-intercept of y = ${a===1?"":a===-1?"-":a}(x ${p<0?"+":"-"} ${Math.abs(p)})(x ${q<0?"+":"-"} ${Math.abs(q)}).`,a*p*q,"Set x = 0.",`${a}(−${P(p)})(−${P(q)}) = ${a*p*q}`,{js:`${a}*(0-(${p}))*(0-(${q}))`})},
+  ()=>{const a=pick([-3,-2,-1,1,2,3]),h=ri(-5,5),k=ri(-9,9);return mk("num",`The parabola y = ${a===1?"":a===-1?"-":a}(x ${h<0?"+":"-"} ${Math.abs(h)})^2 ${k<0?"-":"+"} ${Math.abs(k)} has a ${a>0?"minimum":"maximum"} value. What is it?`,k,a>0?"a > 0 so the vertex is the lowest point: the minimum value is k.":"a < 0 so the vertex is the highest point: the maximum value is k.",`vertex (${h}, ${k}); ${a>0?"min":"max"} = ${k}`,{js:`${k}`})}]);
+T("quad-apps","a1quad","A.CED.1","Quadratic word problems",["quad-formula"],
+ "Many situations — projectiles, areas, products — lead to quadratic equations. Set up the equation from the story, solve, and keep only answers that make sense.",
+ ["Projectile: h = −16t² + v₀t + h₀ (feet, seconds). It lands when h = 0.","Maximum/minimum occurs at the vertex t = −b/(2a).","Reject negative lengths and times."],
+ [()=>{const v=16*ri(2,6);return mk("num",`A ball is thrown up from the ground: h = −16t² + ${v}t. After how many seconds does it land?`,v/16,"Set h = 0 and factor: −16t(t − v/16) = 0.",`−16t² + ${v}t = 0 → t(−16t + ${v}) = 0 → t = ${v/16}`,{js:`${v}/16`,u:" s"})},
+  ()=>{const m=ri(1,4),h0=ri(2,12)*2;const v=32*m;return mk("num",`A rocket's height is h = −16t² + ${v}t + ${h0} (feet). What is its maximum height?`,16*m*m+h0,"Maximum at t = −b/(2a) = v/32; substitute back.",`t = ${v}/32 = ${m}; h = −16(${m})² + ${v}(${m}) + ${h0} = ${16*m*m+h0}`,{js:`-16*${m}**2+${v}*${m}+${h0}`,u:" ft"})},
+  ()=>{const w=ri(3,12),k=ri(2,8);return mk("num",`A rectangle's length is ${k} more than its width, and its area is ${w*(w+k)}. Find the width.`,w,"Let width = x: x(x + k) = area; solve and keep the positive answer.",`x² + ${k}x − ${w*(w+k)} = 0 → (x − ${w})(x + ${w+k}) = 0 → x = ${w}`,{eqs:[`x*(x+${k})=${w*(w+k)}`]})},
+  ()=>{const n=ri(3,15);return mk("num",`The product of two consecutive positive integers is ${n*(n+1)}. What is the smaller integer?`,n,"Let the integers be n and n + 1: n(n + 1) = product.",`n² + n − ${n*(n+1)} = 0 → (n − ${n})(n + ${n+1}) = 0 → n = ${n}`,{eqs:[`x*(x+1)=${n*(n+1)}`]})}]);
+T("stat-box","a1stat","S.ID.1","Five-number summary & box plots",["stat-spread"],
+ "The five-number summary — minimum, Q1, median, Q3, maximum — is what a box plot displays. The box holds the middle 50% of the data.",
+ ["Sort the data first. Median = middle. Q1 and Q3 are the medians of the lower and upper halves (excluding the median when n is odd).","Range = max − min; IQR = Q3 − Q1.","About 25% of the data lies in each section of the box plot."],
+ [()=>{const n=pick([9,11]);const a=shuffle(distinct(n,1,60));const s=a.slice().sort((x,y)=>x-y);const q1=n===9?(s[1]+s[2])/2:s[2],med=s[(n-1)/2],q3=n===9?(s[6]+s[7])/2:s[8];return mk("list",`Find the five-number summary (min, Q1, median, Q3, max) of: ${a.join(", ")}. Type the five numbers in order, separated by commas.`,`${s[0]}, ${q1}, ${med}, ${q3}, ${s[n-1]}`,"Sort the data; median in the middle; Q1 and Q3 are medians of the halves.",`sorted: ${s.join(", ")}`,{jsl:[`${s[0]}`,`${q1}`,`${med}`,`${q3}`,`${s[n-1]}`]})},
+  ()=>{const mn=ri(1,20),q1=mn+ri(2,10),md=q1+ri(2,10),q3=md+ri(2,10),mx=q3+ri(2,12);return mk("num",`A box plot has minimum ${mn}, Q1 ${q1}, median ${md}, Q3 ${q3} and maximum ${mx}. What is the IQR?`,q3-q1,"IQR = Q3 − Q1.",`${q3} − ${q1} = ${q3-q1}`,{js:`${q3}-${q1}`})},
+  ()=>{const mn=ri(1,20),q1=mn+ri(2,10),md=q1+ri(2,10),q3=md+ri(2,10),mx=q3+ri(2,12);return mk("num",`A box plot has minimum ${mn}, Q1 ${q1}, median ${md}, Q3 ${q3} and maximum ${mx}. What is the range?`,mx-mn,"Range = max − min.",`${mx} − ${mn} = ${mx-mn}`,{js:`${mx}-${mn}`})},
+  ()=>{const n=ri(5,30)*4;return mk("num",`A data set has ${n} values. About how many values lie between Q1 and Q3?`,n/2,"The box (Q1 to Q3) contains the middle 50% of the data.",`${n} × 0.5 = ${n/2}`,{js:`${n}*0.5`})}]);
+T("stat-sd","a1stat","S.ID.2","Standard deviation",["stat-spread","sqrt-basic"],
+ "Standard deviation measures how far values typically sit from the mean. Bigger SD means more spread out.",
+ ["Population SD: find the mean, square each deviation, average the squares (variance), then take the square root.","Adding a constant to every value leaves SD unchanged; multiplying every value by k multiplies SD by |k|.","Compare spread: the data set with the larger SD is more spread out."],
+ [()=>{let a,v,m,g=0;do{a=Array.from({length:ri(4,5)},()=>ri(1,20));m=a.reduce((x,y)=>x+y)/a.length;v=a.reduce((x,y)=>x+(y-m)**2,0)/a.length;g++}while(g<500&&(!Number.isInteger(m)||v===0||Math.abs(Math.abs(Math.sqrt(v)*100)%1-0.5)<0.05));
+     const n=a.length;return mk("num",`Find the population standard deviation of ${a.join(", ")}. (Round to the nearest hundredth.)`,rdn(Math.sqrt(v),2),"Mean → squared deviations → average → square root.",`mean = ${m}; squared deviations sum = ${v*n}; variance = ${rdn(v,3)}; SD ≈ ${rdn(Math.sqrt(v),2)}`,{js:`Math.sqrt([${a}].reduce((s,y)=>s+(y-${m})**2,0)/${n})`,jtol:0.0050001})},
+  ()=>{let a,m;do{a=Array.from({length:4},()=>ri(1,20));m=a.reduce((x,y)=>x+y)/4}while(!Number.isInteger(m));const v=a.reduce((x,y)=>x+(y-m)**2,0)/4;return mk("num",`Find the variance (the square of the population standard deviation) of ${a.join(", ")}.`,rdn(v,2),"Variance = average of the squared deviations from the mean.",`mean = ${m}; squared deviations: ${a.map(y=>(y-m)**2).join(", ")}; average = ${rdn(v,2)}`,{js:`[${a}].reduce((s,y)=>s+(y-${m})**2,0)/4`})},
+  ()=>{const m=ri(10,40),dA=[ri(1,3),ri(1,3)],dB=[ri(5,9),ri(5,9)];const A=[m-dA[0],m+dA[0],m-dA[1],m+dA[1]],B=[m-dB[0],m+dB[0],m-dB[1],m+dB[1]];return mcq(`Data set A: ${shuffle(A).join(", ")}. Data set B: ${shuffle(B).join(", ")}. Which has the larger standard deviation?`,"Set B",["Set A","They are equal"],"The set whose values are farther from the (common) mean has the larger SD.",`Both have mean ${m}; B's values deviate by at least 5 while A's by at most 3.`)},
+  ()=>{const s=ri(2,9),k=ri(2,5);return mk("num",`A data set has standard deviation ${s}. Every value is multiplied by ${k}. What is the new standard deviation?`,s*k,"Multiplying all values by k multiplies the SD by |k|.",`${s} × ${k} = ${s*k}`,{js:`${s}*${k}`})}]);
+T("stat-compare","a1stat","S.ID.3","Comparing data sets: outliers, shape & spread",["stat-sd"],
+ "Outliers and skew affect the mean more than the median. Compare data sets using a center AND a spread measure that match the shape.",
+ ["Skewed right: mean > median.  Skewed left: mean < median.  Symmetric: mean ≈ median.","Outliers pull the mean toward them; the median barely moves, so use the median and IQR for skewed data.","Compare spread with IQR (resistant) or standard deviation."],
+ [()=>{const a=Array.from({length:5},()=>ri(10,30));const out=ri(80,150);const m0=a.reduce((x,y)=>x+y)/5,s0=a.slice().sort((x,y)=>x-y)[2];const b=a.concat([out]);const m1=b.reduce((x,y)=>x+y)/6,s1=b.slice().sort((x,y)=>x-y);const med1=(s1[2]+s1[3])/2;const ans=Math.abs(m1-m0)>Math.abs(med1-s0)?"The mean":"The median";return mcq(`The data ${a.join(", ")} gets a new value ${out} added. Which measure of center changes more?`,ans,[ans==="The mean"?"The median":"The mean"],"An outlier pulls the mean strongly; the median is resistant.",`mean: ${rdn(m0,2)} → ${rdn(m1,2)}; median: ${s0} → ${med1}`,{js:`(Math.abs(${m1}-${m0})>Math.abs(${med1}-${s0}))===${ans==="The mean"}`})},
+  ()=>{let a,s;let g=0;do{a=Array.from({length:5},()=>ri(5,30));s=a.reduce((x,y)=>x+y)+ri(60,120);g++}while(g<2000&&(a.reduce((x,y)=>x+y)%5!==0||s%6!==0));const out=s-a.reduce((x,y)=>x+y);return mk("num",`The mean of ${a.join(", ")} is ${a.reduce((x,y)=>x+y)/5}. A new value ${out} is added. What is the new mean?`,s/6,"New mean = (old sum + new value) ÷ (count + 1).",`(${a.reduce((x,y)=>x+y)} + ${out})/6 = ${s/6}`,{js:`([${a}].reduce((x,y)=>x+y)+${out})/6`})},
+  ()=>{const med=ri(20,60),d=pick([-1,0,1])*ri(4,12);const mean=med+d;const ans=d>0?"Skewed right":d<0?"Skewed left":"Approximately symmetric";return mcq(`A data set has mean ${mean} and median ${med}. What is the most likely shape?`,ans,["Skewed right","Skewed left","Approximately symmetric"].filter(x=>x!==ans),"Mean > median → skewed right; mean < median → skewed left.",`mean − median = ${d}`)},
+  ()=>{const a1=ri(5,20),b1=ri(5,20);const iA=ri(4,12);let iB;do{iB=ri(4,12)}while(iB===iA);const ans=iA>iB?"Set A":"Set B";return mcq(`Set A has Q1 = ${a1}, Q3 = ${a1+iA}; Set B has Q1 = ${b1}, Q3 = ${b1+iB}. Which has the greater spread (larger IQR)?`,ans,[ans==="Set A"?"Set B":"Set A"],"IQR = Q3 − Q1: compare them.",`A: ${iA}; B: ${iB}`,{js:`((${a1+iA}-${a1})>(${b1+iB}-${b1}))===${iA>iB}`})}]);
+T("stat-reg","a1stat","S.ID.6","Linear regression & correlation",["scatter"],
+ "A regression line models the trend in two-variable data. The correlation coefficient r (between −1 and 1) measures how well a line fits and in which direction.",
+ ["r near +1: strong positive; near −1: strong negative; near 0: weak or none.","Slope: predicted change in y for 1 unit of x. Intercept: predicted y when x = 0 (may not make sense in context).","Correlation does not prove causation. Predicting outside the data range (extrapolation) is risky."],
+ [()=>{const r=pick([0.95,0.88,0.7,0.55,0.15,-0.1,-0.45,-0.7,-0.92,-0.97]);const ans=Math.abs(r)>=0.8?(r>0?"Strong positive":"Strong negative"):Math.abs(r)>=0.5?(r>0?"Moderate positive":"Moderate negative"):"Weak or no linear relationship";return mcq(`A data set has correlation coefficient r = ${r}. How would you describe the linear relationship?`,ans,["Strong positive","Strong negative","Moderate positive","Moderate negative","Weak or no linear relationship"].filter(x=>x!==ans).slice(0,3),"Judge by the size and sign of r.",`|r| = ${Math.abs(r)}`)},
+  ()=>{const m=pick([1.5,2,2.5,3,0.5,-1,-2,4]),b=ri(5,40),x=ri(3,15);return mk("num",`The regression line is ŷ = ${m}x + ${b}. Predict y for x = ${x}.`,rdn(m*x+b,3),"Substitute x into the regression equation.",`${m}(${x}) + ${b} = ${rdn(m*x+b,3)}`,{js:`${m}*${x}+${b}`})},
+  ()=>{const m=pick([2,3,5,4]),b=ri(5,30),x=ri(2,10),act=m*x+b+rnz(-8,8);return mk("num",`The regression line is ŷ = ${m}x + ${b}. For x = ${x}, the actual value is ${act}. What is the residual (actual − predicted)?`,act-(m*x+b),"Residual = actual − predicted.",`predicted ${m*x+b}; ${act} − ${m*x+b} = ${act-(m*x+b)}`,{js:`${act}-(${m}*${x}+${b})`})},
+  ()=>{const m=pick([2,3,5,1.5,2.5]),k=ri(2,6);return mk("num",`A regression line predicts weight (lb) = ${m}·(height in inches) − 90. By how many pounds does it predict weight to change for ${k} more inches of height?`,rdn(m*k,2),"Slope × change in x.",`${m} × ${k} = ${rdn(m*k,2)}`,{js:`${m}*${k}`})}]);
+T("sys-word","a1sys","A.CED.3","Systems of equations: word problems",["sys-elim"],
+ "Define two variables, write one equation for each relationship in the story, then solve the system (substitution or elimination).",
+ ["Let x and y stand for the two unknown quantities; write them down.","One equation usually counts items (x + y = total); the other counts value (price·x + price·y = money).","Check the answer in the original words."],
+ [()=>{const x=ri(10,60),y=ri(10,60),p=ri(6,15),q=ri(3,p-1);return mk("pair",`Tickets cost $${p} for adults and $${q} for children. ${x+y} tickets were sold for $${p*x+q*y} total. Find (adults, children).`,`(${x}, ${y})`,"Let x = adults, y = children: x + y = tickets and px + qy = money.",`x + y = ${x+y}; ${p}x + ${q}y = ${p*x+q*y} → x = ${x}, y = ${y}`,{eqs:[`x+y=${x+y}`,`${p}*x+${q}*y=${p*x+q*y}`]})},
+  ()=>{const q=ri(3,20),d=ri(3,20);return mk("pair",`A jar has quarters and dimes: ${q+d} coins worth ${25*q+10*d} cents. Find (quarters, dimes).`,`(${q}, ${d})`,"x + y = coins; 25x + 10y = cents.",`x + y = ${q+d}; 25x + 10y = ${25*q+10*d} → x = ${q}, y = ${d}`,{eqs:[`x+y=${q+d}`,`25*x+10*y=${25*q+10*d}`]})},
+  ()=>{const x=ri(5,30),k=ri(2,12);return mk("pair",`Two numbers have a sum of ${2*x+k}, and the larger exceeds the smaller by ${k}. Find (larger, smaller).`,`(${x+k}, ${x})`,"Let x = larger, y = smaller: x + y = sum and x − y = difference.",`x + y = ${2*x+k}; x − y = ${k} → x = ${x+k}, y = ${x}`,{eqs:[`x+y=${2*x+k}`,`x-y=${k}`]})}]);
+T("sys-ineq","a1ineq","A.REI.12","Systems of linear inequalities",["lin-ineq2","sys-sub"],
+ "The solution of a system of inequalities is the overlap of the shaded regions: points satisfying every inequality at once.",
+ ["Test each candidate point in every inequality.","Strict inequalities (<, >) exclude boundary points; ≤ and ≥ include them.","The solution region is where all the shadings overlap."],
+ [()=>{const m1=rnz(-3,3),b1=ri(-4,4),m2=rnz(-3,3),b2=ri(-4,4),o1=pick([">",">="]),o2=pick(["<","<="]);const test=(x,y)=>(o1===">"?y>m1*x+b1:y>=m1*x+b1)&&(o2==="<"?y<m2*x+b2:y<=m2*x+b2);let pts,k=0;do{pts=distinct(4,-6,6).map(x=>[x,ri(-8,8)]);k++}while(pts.filter(p=>test(p[0],p[1])).length!==1&&k<3000);
+     if(pts.filter(p=>test(p[0],p[1])).length!==1)return TOPIC_BY_ID["sys-ineq"].gens[1]();const good=pts.find(p=>test(p[0],p[1]));const s=p=>`(${p[0]}, ${p[1]})`;return mcq(`Which point is a solution of the system y ${o1} ${lin(m1,b1)} and y ${o2} ${lin(m2,b2)}?`,s(good),pts.filter(p=>p!==good).map(s),"Test each point in BOTH inequalities.",`${s(good)} satisfies both; each other point fails at least one.`,{js:`(${good[1]}${o1}${m1*good[0]+b1})&&(${good[1]}${o2}${m2*good[0]+b2})`})},
+  ()=>{const c=ri(2,9),d=ri(-5,0),x=ri(-4,8),y=ri(-4,8);const yes=(x+y<=c)&&(x-y>d);return mcq(`Is (${x}, ${y}) a solution of x + y ≤ ${c} and x − y > ${d}?`,yes?"Yes":"No",[yes?"No":"Yes"],"Substitute into both inequalities.",`${x}+${y} = ${x+y} ≤ ${c} is ${x+y<=c}; ${x}−${y} = ${x-y} > ${d} is ${x-y>d}`,{js:`((${x}+${y}<=${c})&&(${x}-${y}>${d}))===${yes}`})},
+  ()=>{const m=rnz(-2,3),b=ri(-3,3),c=ri(-3,6);const pts=distinct(5,-5,5).map(x=>[x,ri(-6,8)]);const cnt=pts.filter(p=>p[1]>m*p[0]+b&&p[0]<c).length;return mk("num",`How many of the points ${pts.map(p=>`(${p[0]}, ${p[1]})`).join(", ")} satisfy both y > ${lin(m,b)} and x < ${c}?`,cnt,"Test each point in both inequalities and count those that pass both.",`${cnt} point(s) pass both tests`,{js:`[${pts.map(p=>`[${p}]`)}].filter(p=>p[1]>${m}*p[0]+(${b})&&p[0]<${c}).length`})}]);
+
+// ===== finalize graph (must come after all topic files) =====
 const TOPIC_BY_ID=Object.fromEntries(TOPICS.map(t=>[t.id,t]));
+{const ub=UNIT_BY_ID();TOPICS.forEach(t=>{t.course=ub[t.unit]?ub[t.unit].course:null})}
 
 // ===== ENGINE: knowledge graph, mastery, spaced repetition, diagnostic, XP/streak (pure functions) =====
 const PASS_CORRECT=5, PRACTICE_LEN=6;                 // mastery: 5 of 6 correct
 const INTERVALS=[1,3,7,14,30,60,120];                 // days between reviews (grows after each success)
-const DX_Q_PER_TOPIC=2, DX_MAX_TOPICS=14;             // diagnostic: 2 questions per topic, at most 14 topics probed
+const DX_Q_PER_TOPIC=2, DX_MAX_TOPICS=20;             // diagnostic: 2 questions per topic, at most 14 topics probed
 const XP={practiceCorrect:2,masteryBonus:10,reviewCorrect:3,extraCorrect:1};
 const DAY=86400000;
 const dayNum=ms=>Math.floor((ms-new Date(ms).getTimezoneOffset()*60000)/DAY);
@@ -558,7 +1299,7 @@ function graphProblems(){const errs=[];const ids=new Set();
   return errs}
 
 // ---- state ----
-function newState(){return {v:1,updatedAt:0,topics:{},xp:0,goal:50,daily:{day:0,xp:0},streak:{count:0,last:0},diagnostic:null}}
+function newState(){return {v:1,updatedAt:0,topics:{},xp:0,goal:50,daily:{day:0,xp:0},streak:{count:0,last:0},diagnostic:null,course:null}}
 function validState(s){if(!s||typeof s!=="object"||!s.topics||typeof s.topics!=="object")return false;
   for(const k in s.topics){if(!TOPIC_BY_ID[k])return false;const r=s.topics[k];if(!r||typeof r!=="object")return false}
   return typeof s.xp==="number"&&s.daily&&s.streak&&true}
@@ -574,7 +1315,20 @@ const missingPrereqs=(S,id)=>prereqsOf(id).filter(p=>!isMastered(S,p));
 function topicStatus(S,id,now=Date.now()){const r=S.topics[id];
   if(r&&r.m)return r.due<=dayNum(now)?"due":"mastered";
   return isUnlocked(S,id)?"available":"locked"}
-const nextTopic=(S)=>TOPICS.find(t=>!isMastered(S,t.id)&&isUnlocked(S,t.id))||null;
+const nextTopic=(S,course)=>(course&&TOPICS.find(t=>t.course===course&&!isMastered(S,t.id)&&isUnlocked(S,t.id)))||TOPICS.find(t=>!isMastered(S,t.id)&&isUnlocked(S,t.id))||null;
+const courseTopics=cid=>TOPICS.filter(t=>t.course===cid);
+function courseStats(S,cid){const ts=courseTopics(cid),m=ts.filter(t=>isMastered(S,t.id)).length;return {total:ts.length,mastered:m,pct:ts.length?Math.round(100*m/ts.length):0}}
+const activeCourse=S=>COURSE_BY_ID[S.course]?S.course:"g7";
+// today's task queue: due reviews first, then the next lessons in the active course (in graph order), then extra practice if nothing else
+function buildTasks(S,now=Date.now(),{lessons=3}={}){const tasks=[],due=dueTopics(S,now),c=activeCourse(S);
+  if(due.length)tasks.push({kind:"review",n:Math.min(due.length,10),total:due.length,xp:Math.min(due.length,10)*XP.reviewCorrect});
+  const seen=new Set();let t=nextTopic(S,c);
+  const avail=TOPICS.filter(x=>!isMastered(S,x.id)&&isUnlocked(S,x.id));
+  const inC=avail.filter(x=>x.course===c),rest=avail.filter(x=>x.course!==c);
+  for(const x of inC.concat(rest)){if(tasks.filter(k=>k.kind==="lesson").length>=lessons)break;if(seen.has(x.id))continue;seen.add(x.id);
+    tasks.push({kind:"lesson",id:x.id,xp:PRACTICE_LEN*XP.practiceCorrect+XP.masteryBonus})}
+  if(!tasks.some(k=>k.kind==="lesson")&&countMastered(S)>0)tasks.push({kind:"mix",xp:8*XP.extraCorrect});
+  return tasks}
 const countMastered=S=>TOPICS.filter(t=>isMastered(S,t.id)).length;
 
 // ---- practice / mastery ----
@@ -621,20 +1375,24 @@ function buildReviewQueue(S,now=Date.now(),{max=10,minFill=0}={}){
     pickIds=pickIds.concat(extra.map(id=>({id,wasDue:false})))}
   const order=interleave(pickIds.map(x=>x.id)),by=Object.fromEntries(pickIds.map(x=>[x.id,x]));return order.map(id=>by[id])}
 
-// ---- diagnostic placement (adaptive-ish binary search over the graph) ----
-function dxInit(){return {status:{},tested:0}}
-const dxUndetermined=dx=>TOPICS.map(t=>t.id).filter(id=>!dx.status[id]);
-function dxPickNext(dx){if(dx.tested>=DX_MAX_TOPICS)return null;const und=dxUndetermined(dx);if(!und.length)return null;
-  let best=null,bs=-1;for(const id of und){const a=ancestorsOf(id).filter(x=>!dx.status[x]).length,d=descendantsOf(id).filter(x=>!dx.status[x]).length;
+// ---- diagnostic placement (adaptive binary search over the part of the graph relevant to the chosen starting course) ----
+// scope = the chosen course's topics plus all of their prerequisites (so a Grade 7 student is never probed on Precalculus)
+function dxScope(cid){const s=new Set();for(const t of courseTopics(cid)){s.add(t.id);ancestorsOf(t.id).forEach(a=>s.add(a))}return TOPICS.filter(t=>s.has(t.id)).map(t=>t.id)}
+function dxInit(course,S){const dx={status:{},tested:0,course:course||null,scope:course?dxScope(course):TOPICS.map(t=>t.id)};
+  if(S)for(const id of dx.scope)if(isMastered(S,id)){dx.status[id]="known";for(const a of ancestorsOf(id))dx.status[a]="known"}   // retake: don't re-test what is already mastered
+  return dx}
+const dxUndetermined=dx=>(dx.scope||TOPICS.map(t=>t.id)).filter(id=>!dx.status[id]);
+function dxPickNext(dx){if(dx.tested>=DX_MAX_TOPICS)return null;const und=dxUndetermined(dx);if(!und.length)return null;const inS=new Set(und);
+  let best=null,bs=-1;for(const id of und){const a=ancestorsOf(id).filter(x=>inS.has(x)).length,d=descendantsOf(id).filter(x=>inS.has(x)).length;
     const score=Math.min(a,d)*100+a+d;if(score>bs){bs=score;best=id}}return best}
 function dxRecord(dx,id,known){const n=cl(dx);n.tested++;
   if(known){n.status[id]="known";for(const a of ancestorsOf(id))if(!n.status[a])n.status[a]="known"}
-  else{n.status[id]="unknown";for(const d of descendantsOf(id))if(!n.status[d])n.status[d]="unknown"}return n}
+  else{n.status[id]="unknown";const sc=n.scope?new Set(n.scope):null;for(const d of descendantsOf(id))if(!n.status[d]&&(!sc||sc.has(d)))n.status[d]="unknown"}return n}
 const dxTopicKnown=(correct,asked=DX_Q_PER_TOPIC)=>asked>0&&correct===asked;
 function dxFinish(S,dx,now=Date.now()){const n=cl(S),d=dayNum(now);let k=0;
   for(const t of TOPICS){if(dx.status[t.id]==="known"&&!isMastered(n,t.id)){
     n.topics[t.id]={...(n.topics[t.id]||{}),m:1,at:now,src:"diagnostic",idx:1,due:d+INTERVALS[1],lapses:0,flag:0};k++}}
-  n.diagnostic={done:1,at:now,tested:dx.tested,known:Object.values(dx.status).filter(v=>v==="known").length,unknown:Object.values(dx.status).filter(v=>v!=="known").length};
+  n.course=dx.course||n.course;n.diagnostic={done:1,at:now,tested:dx.tested,course:dx.course||null,known:Object.values(dx.status).filter(v=>v==="known").length,unknown:Object.values(dx.status).filter(v=>v!=="known").length};
   n.updatedAt=now;return {state:n,placed:k}}
 function resetState(){const n=newState();n.updatedAt=Date.now();return n}
 
@@ -649,39 +1407,75 @@ function save(touch=true){if(touch)S.updatedAt=Date.now();try{localStorage.setIt
 const commit=ns=>{S=ns;save()};
 
 // ---------- navigation ----------
-let view={name:"home"},run=null,D=null;
+let view={name:"home"},run=null,D=null,UO={},CF=null,PICK="g7";
 function go(v){view=v;render();window.scrollTo(0,0)}
-function render(){renderStats();({home:vHome,topic:vTopic,run:vRun,dx:vDx,result:vResult}[view.name]||vHome)()}
-function renderStats(){const now=Date.now(),x=todayXP(S,now),pct=Math.min(100,Math.round(100*x/S.goal)),due=dueTopics(S,now).length;
-  $("stats").innerHTML=`<div class="stat"><b>${x} / ${S.goal} XP</b><span>Today's goal ${goalMetToday(S,now)?"✅ reached":""}</span><div class="bar"><i style="width:${pct}%"></i></div></div>
-  <div class="stat"><b>🔥 ${currentStreak(S,now)} day${currentStreak(S,now)===1?"":"s"}</b><span>Streak (days the goal was met)</span></div>
-  <div class="stat"><b>⭐ ${S.xp}</b><span>Total XP</span></div>
-  <div class="stat"><b>${countMastered(S)} / ${TOPICS.length}</b><span>Topics mastered${due?` · <b style="color:var(--o)">${due} due</b>`:""}</span></div>`;
+function render(){renderTop();({home:vHome,course:vCourse,topic:vTopic,run:vRun,dx:vDx,result:vResult}[view.name]||vHome)()}
+const cTitle=id=>COURSE_BY_ID[id]?COURSE_BY_ID[id].title:"";
+function renderTop(){const now=Date.now(),st=currentStreak(S,now),c=activeCourse(S);
+  $("courseBtn").textContent="📚 "+cTitle(c);
+  $("xpChip").innerHTML=`⭐ <b>${S.xp}</b> XP`;$("stkChip").innerHTML=`🔥 <b>${st}</b> day${st===1?"":"s"}`;
+  $("tabHome").classList.toggle("on",view.name==="home");$("tabCourse").classList.toggle("on",view.name==="course");
   const g=$("goalSel");if(g)g.value=String(S.goal)}
-
-// ---------- home / knowledge map ----------
 const STATUS_LABEL={locked:"🔒 Locked",available:"Available",mastered:"✓ Mastered",due:"⏰ Due for review"};
-function vHome(){const now=Date.now(),due=dueTopics(S,now),nt=nextTopic(S),hasMastered=countMastered(S)>0;let h="";
-  h+=`<div class="card"><h2>Welcome back</h2>`;
-  if(!S.diagnostic)h+=`<p>Start with a <b>placement test</b>: it finds what you already know, unlocks the right topics, and skips what you've mastered. About 10–25 questions, no penalty for “I don't know”.</p>
-   <button class="btn" onclick="startDx()">📋 Take placement test</button><button class="btn sec" onclick="skipDx()">Skip — start from the beginning</button>`;
-  else{h+=`<p class="small">${S.diagnostic.skipped?"Placement test skipped.":`Placement: ${S.diagnostic.known} topics placed as known.`}</p>`;
-   if(due.length)h+=`<button class="btn warn" onclick="startReview(false)">⏰ Review ${due.length} due topic${due.length===1?"":"s"}</button>`;
-   if(nt)h+=`<button class="btn" onclick="openTopic('${nt.id}')">▶ Continue: ${esc(nt.title)}</button>`;else h+=`<div class="win">🏆 You've mastered every topic available in this version!</div>`;
-   if(hasMastered)h+=`<button class="btn sec" onclick="startReview(true)">🔀 Mixed practice</button>`;
-   h+=`<div><button class="link" onclick="startDx()">Retake placement test</button> <span class="small">(only adds mastered topics, never removes)</span></div>`}
-  h+=`</div><div class="legend"><span class="badge locked">🔒 Locked</span> needs prerequisites mastered · <span class="badge available">Available</span> ready to learn · <span class="badge mastered">✓ Mastered</span> · <span class="badge due">⏰ Due</span> review is due</div>`;
-  for(const u of UNITS){const ts=TOPICS.filter(t=>t.unit===u.id);h+=`<div class="unit">${esc(u.title)} <span class="small">(${ts.filter(t=>isMastered(S,t.id)).length}/${ts.length})</span></div><div class="grid">`;
-    for(const t of ts){const st=topicStatus(S,t.id,now),r=S.topics[t.id],last=r&&r.att&&r.att.length?r.att[r.att.length-1]:null;
-      const meta=st==="locked"?"Needs: "+missingPrereqs(S,t.id).map(p=>TOPIC_BY_ID[p].title).join(", "):st==="due"||st==="mastered"?(r.flag?"⚑ flagged: a later topic was missed · ":"")+"next review "+dueLabel(r.due,now):(last?`Last set: ${last.c}/${last.n} (need ${PASS_CORRECT})`:"Not started");
-      h+=`<button class="node ${st}" onclick="openTopic('${t.id}')"><span class="badge ${st}">${STATUS_LABEL[st]}</span><span class="t">${esc(t.title)}</span><div class="m">${esc(t.std)} · ${esc(meta)}</div></button>`}
-    h+=`</div>`}
-  $("app").innerHTML=h}
 function dueLabel(d,now){const k=d-dayNum(now);return k<=0?"today":k===1?"tomorrow":"in "+k+" days"}
 
+// ---------- dashboard (today's tasks) ----------
+function ring(x,goal){const p=Math.min(1,goal?x/goal:0),R=46,C=2*Math.PI*R;
+  return `<div class="ringw"><svg viewBox="0 0 110 110" width="132" height="132" role="img" aria-label="Daily XP ${x} of ${goal}"><circle cx="55" cy="55" r="${R}" fill="none" stroke="#e5e9f5" stroke-width="11"/>
+  <circle cx="55" cy="55" r="${R}" fill="none" stroke="${p>=1?"#2f9e44":"#4c6ef5"}" stroke-width="11" stroke-linecap="round" stroke-dasharray="${(C*p).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 55 55)"/></svg>
+  <div class="ringt"><b>${x}</b><span>/ ${goal} XP</span></div></div>`}
+function taskInfo(k){
+  if(k.kind==="lesson"){const t=TOPIC_BY_ID[k.id];return {icon:"📖",title:"Lesson: "+t.title,sub:cTitle(t.course)+" · "+UNIT_BY_ID()[t.unit].title,xp:k.xp}}
+  if(k.kind==="review")return {icon:"⏰",title:`Review ${k.n} due topic${k.n===1?"":"s"}`,sub:k.total>k.n?`${k.total} due in total · do ${k.n} now`:"Spaced review keeps what you've mastered fresh",xp:k.xp};
+  return {icon:"🔀",title:"Mixed practice",sub:"Interleaved questions from topics you've mastered",xp:k.xp}}
+function doTask(i){const k=buildTasks(S,Date.now())[i];if(!k)return go({name:"home"});
+  if(k.kind==="lesson")go({name:"topic",id:k.id,from:"home"});else startReview(k.kind==="mix")}
+function startPlacementCard(){return `<div class="card"><h2>👋 Welcome! Where would you like to start?</h2>
+  <p class="small">Pick a course. A short adaptive placement test finds what you already know, unlocks the right topics, and skips what you've mastered. Roughly 10–20 questions; “I don't know” is always fine.</p>
+  <div class="chips">${COURSES.map(c=>`<button class="chipb ${PICK===c.id?"on":""}" onclick="PICK='${c.id}';render()">${esc(c.title)}</button>`).join("")}</div>
+  <p class="small">${esc(COURSE_BY_ID[PICK].blurb)}</p>
+  <button class="btn" onclick="startDx('${PICK}')">📋 Take the ${esc(cTitle(PICK))} placement test</button><button class="btn sec" onclick="skipDx('${PICK}')">Skip — start with the first lessons</button></div>`}
+function vHome(){const now=Date.now();let h="";
+  if(!S.diagnostic)h+=startPlacementCard();
+  const tasks=buildTasks(S,now),x=todayXP(S,now),met=goalMetToday(S,now),c=activeCourse(S),cs=courseStats(S,c),due=dueTopics(S,now).length;
+  h+=`<div class="dash"><div class="col">
+  <div class="card goal">${ring(x,S.goal)}<div><h2>Today</h2><div class="small">${met?"✅ Daily goal reached — nice work! Keep going for bonus XP.":`${S.goal-x} XP to reach your daily goal`}</div>
+   <div class="small" style="margin-top:6px">🔥 ${currentStreak(S,now)}-day streak${due?` · <b style="color:var(--o)">${due} topic${due===1?"":"s"} due for review</b>`:""}</div></div></div>`;
+  if(tasks.length){const t0=taskInfo(tasks[0]);
+    h+=`<div class="card upnext"><div class="eyebrow">Up next</div><div class="uptitle">${t0.icon} ${esc(t0.title)}</div><div class="small">${esc(t0.sub)} · +${t0.xp} XP</div>
+     <button class="btn big" onclick="doTask(0)">▶ ${tasks[0].kind==="lesson"?"Start lesson":"Start"}</button></div>
+     <div class="card"><h3 style="margin-top:0">Today's task queue</h3><ol class="tasks">${tasks.map((k,i)=>{const t=taskInfo(k);
+       return `<li class="${i===0?"first":""}"><button onclick="doTask(${i})"><span class="ti">${t.icon}</span><span class="tt"><b>${esc(t.title)}</b><span class="small">${esc(t.sub)}</span></span><span class="tx">+${t.xp} XP</span></button></li>`}).join("")}</ol>
+     <div class="small">Finish a task and you'll land back here with the next one ready.</div></div>`}
+  else h+=`<div class="card"><div class="win">🏆 You've mastered every topic available. Come back as reviews fall due!</div></div>`;
+  h+=`</div><div class="col"><div class="card"><h3 style="margin-top:0">Course progress</h3>${COURSES.map(co=>{const s=courseStats(S,co.id);
+    return `<button class="cprog ${co.id===c?"cur":""}" onclick="CF='${co.id}';go({name:'course'})"><span class="cph"><b>${esc(co.title)}</b>${co.id===c?`<span class="badge available">Current</span>`:""}<span class="small">${s.pct}% · ${s.mastered}/${s.total}</span></span><span class="bar"><i style="width:${s.pct}%"></i></span></button>`}).join("")}
+   <div style="margin-top:8px"><button class="btn sec sm" onclick="go({name:'course'})">🗺️ Open course map</button></div></div>
+   <div class="card small">Placement: ${S.diagnostic?(S.diagnostic.skipped?"skipped.":`${S.diagnostic.known} topics placed as known${S.diagnostic.course?" ("+esc(cTitle(S.diagnostic.course))+")":""}.`):"not taken yet."} <button class="link" onclick="CF=null;go({name:'course'})">Retake placement…</button></div></div></div>`;
+  $("app").innerHTML=h}
+
+// ---------- course screen (full map: course → unit → topic) ----------
+function vCourse(){const now=Date.now(),act=activeCourse(S);if(!CF)CF=act;const cf=CF,list=cf==="all"?COURSES:COURSES.filter(c=>c.id===cf);let h="";
+  h+=`<div class="card"><h2>🗺️ Course map</h2><div class="chips">${COURSES.map(c=>`<button class="chipb ${cf===c.id?"on":""}" onclick="CF='${c.id}';render()">${esc(c.title)} <span class="small">${courseStats(S,c.id).pct}%</span></button>`).join("")}<button class="chipb ${cf==="all"?"on":""}" onclick="CF='all';render()">All courses</button></div>
+  <div class="legend"><span class="badge locked">🔒 Locked</span> needs prerequisites · <span class="badge available">Available</span> · <span class="badge mastered">✓ Mastered</span> · <span class="badge due">⏰ Due</span></div></div>`;
+  for(const co of list){const s=courseStats(S,co.id),us=UNITS.filter(u=>u.course===co.id);
+    h+=`<div class="card"><div class="ch2"><div><h2 style="margin:0">${esc(co.title)}</h2><div class="small">${esc(co.blurb)}</div></div>
+     <div class="chbtns">${co.id===act?`<span class="badge available">Current course</span>`:`<button class="btn sec sm" onclick="setCourse('${co.id}')">Make current</button>`}<button class="btn sec sm" onclick="startDx('${co.id}')">📋 Placement test</button></div></div>
+     <div class="small" style="margin-top:6px">${s.pct}% mastered · ${s.mastered} of ${s.total} topics</div><div class="bar"><i style="width:${s.pct}%"></i></div>`;
+    for(const u of us){const ts=TOPICS.filter(t=>t.unit===u.id);if(!ts.length)continue;const m=ts.filter(t=>isMastered(S,t.id)).length;
+      const act2=ts.some(t=>{const st=topicStatus(S,t.id,now);return st==="available"||st==="due"});const open=u.id in UO?UO[u.id]:(cf!=="all"&&act2);
+      h+=`<details class="unitd" ${open?"open":""} ontoggle="UO['${u.id}']=this.open"><summary><span class="un">${esc(u.title)}</span><span class="small">${m}/${ts.length}</span><span class="bar mini"><i style="width:${Math.round(100*m/ts.length)}%"></i></span></summary><div class="grid">`;
+      for(const t of ts){const st=topicStatus(S,t.id,now),r=S.topics[t.id],last=r&&r.att&&r.att.length?r.att[r.att.length-1]:null;
+        const meta=st==="locked"?"Needs: "+missingPrereqs(S,t.id).map(p=>TOPIC_BY_ID[p].title).join(", "):st==="due"||st==="mastered"?(r.flag?"⚑ flagged: a later topic was missed · ":"")+"next review "+dueLabel(r.due,now):(last?`Last set: ${last.c}/${last.n} (need ${PASS_CORRECT})`:"Not started");
+        h+=`<button class="node ${st}" onclick="go({name:'topic',id:'${t.id}',from:'course'})"><span class="badge ${st}">${STATUS_LABEL[st]}</span><span class="t">${esc(t.title)}</span><div class="m">${esc(t.std)} · ${esc(meta)}</div></button>`}
+      h+=`</div></details>`}
+    h+=`</div>`}
+  $("app").innerHTML=h}
+function setCourse(id){S.course=id;save();render()}
+
 // ---------- topic page: lesson ----------
-function openTopic(id){go({name:"topic",id})}
-function vTopic(){const t=TOPIC_BY_ID[view.id],st=topicStatus(S,t.id),now=Date.now();let h=`<div class="card"><button class="link" onclick="go({name:'home'})">← All topics</button><h2>${esc(t.title)} <span class="badge ${st}">${STATUS_LABEL[st]}</span></h2><div class="small">${esc(UNITS.find(u=>u.id===t.unit).title)} · standard ${esc(t.std)}</div>`;
+function openTopic(id){go({name:"topic",id,from:view.name==="course"?"course":(view.name==="topic"&&view.from)||"home"})}
+function vTopic(){const t=TOPIC_BY_ID[view.id],st=topicStatus(S,t.id),now=Date.now();let h=`<div class="card"><button class="link" onclick="go({name:'${view.from==="course"?"course":"home"}'})">← ${view.from==="course"?"Course map":"Dashboard"}</button><h2>${esc(t.title)} <span class="badge ${st}">${STATUS_LABEL[st]}</span></h2><div class="small">${esc(cTitle(t.course))} · ${esc(UNITS.find(u=>u.id===t.unit).title)} · standard ${esc(t.std)}</div>`;
   if(st==="locked"){const m=missingPrereqs(S,t.id);h+=`<p>🔒 Master these first:</p><div>${m.map(p=>`<button class="btn sec" onclick="openTopic('${p}')">${esc(TOPIC_BY_ID[p].title)} ${isUnlocked(S,p)?"":"🔒"}</button>`).join("")}</div></div>`;$("app").innerHTML=h;return}
   const g0=t.gens[0](),g1=t.gens[1]?t.gens[1]():t.gens[0]();
   h+=`<p>${esc(t.lesson.intro)}</p><h3>Key ideas</h3><ul class="pts">${t.lesson.points.map(p=>`<li>${esc(p)}</li>`).join("")}</ul><h3>Worked examples</h3>`;
@@ -695,7 +1489,7 @@ function startPractice(id){run={kind:"practice",id,items:makePractice(TOPIC_BY_I
 function startReview(mix){const queue=buildReviewQueue(S,Date.now(),mix?{max:10,minFill:8}:{max:10});
   if(!queue.length){alert("Nothing to review yet — master a topic first.");return}
   run={kind:"review",mix,items:queue.map(x=>({id:x.id,wasDue:x.wasDue,q:pick(TOPIC_BY_ID[x.id].gens)()})),i:0,answered:false,xp:0,flagged:[]};go({name:"run"})}
-const HINT={num:"Type a number or fraction, e.g. -3/4",poly:"Type like 2x^2 - 5x + 3 (use ^ for exponents, no parentheses). For equations of a line write y = …",ineq:"Type like x > 3 or x <= -2",pair:"Type an ordered pair like (3, -2)"};
+const HINT={expr:"Type like (x+2)(x-3), 3sqrt(2), 5pi, x^2/(x-1). Use ^ for powers.",eq:"Type an equation, e.g. y = 2x + 3",set:"List all solutions separated by commas, e.g. -3, 2 (or 'none')",list:"Type the numbers separated by commas, e.g. <3, -2>",cplx:"Type like 3 + 4i or -2i",interval:"Interval notation, e.g. (-inf, 3] or [2, 5) U (7, inf)",num:"Type a number or fraction, e.g. -3/4",poly:"Type like 2x^2 - 5x + 3 (use ^ for exponents, no parentheses). For equations of a line write y = …",ineq:"Type like x > 3 or x <= -2",pair:"Type an ordered pair like (3, -2)"};
 function qHTML(q,idx,total,{showDots=true,idk=false}={}){let h=`<div class="q">${q.q}</div>`;
   if(q.type==="mc")h+=q.choices.map((c,i)=>`<button class="ch" onclick="submit(${i})">${esc(c)}</button>`).join("");
   else h+=`<input id="ans" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Your answer" placeholder="Your answer" onkeydown="if(event.key==='Enter'){event.stopPropagation();submit()}"><div class="small">${HINT[q.type]||""}</div><button class="btn" onclick="submit()">Check</button>`;
@@ -726,6 +1520,7 @@ function nextQ(){if(!run||!run.answered)return;
     go({name:"result",kind:"practice",id:run.id,correct,total:run.items.length,passed:r.passed,newly:r.newlyMastered,xp:r.xpGain,unlocked})}
   else{const correct=run.items.filter(x=>x.ok).length;const v={name:"result",kind:"review",mix:run.mix,correct,total:run.items.length,xp:run.xp,flagged:run.flagged.slice(),wrong:run.items.filter(x=>!x.ok).map(x=>x.id)};save();go(v)}}
 function quitRun(){if(confirm("Quit this set? Practice progress in an unfinished set isn't saved."))go({name:"home"})}
+function nextTaskBtns(){const t=buildTasks(S,Date.now())[0];return (t?`<button class="btn" onclick="doTask(0)">Next task: ${esc(taskInfo(t).title)} →</button>`:"")+`<button class="btn sec" onclick="go({name:'home'})">Dashboard</button>`}
 function vResult(){const v=view;let h=`<div class="card">`;
   if(v.kind==="practice"){const t=TOPIC_BY_ID[v.id];
     h+=`<h2>${v.correct} / ${v.total} correct</h2>`;
@@ -733,20 +1528,19 @@ function vResult(){const v=view;let h=`<div class="card">`;
     else if(v.passed)h+=`<div class="win">✅ Passed again (+${v.xp} XP).</div>`;
     else h+=`<p>You need ${PASS_CORRECT} of ${PRACTICE_LEN} to master this topic. Re-read the lesson, then try a fresh set of new problems. (+${v.xp} XP for effort)</p>`;
     if(v.unlocked.length)h+=`<p>🔓 Unlocked: ${v.unlocked.map(id=>`<button class="btn sec sm" onclick="openTopic('${id}')">${esc(TOPIC_BY_ID[id].title)}</button>`).join("")}</p>`;
-    h+=v.passed?`<button class="btn" onclick="go({name:'home'})">Back to map</button>`:`<button class="btn" onclick="startPractice('${v.id}')">Try a new set</button><button class="btn sec" onclick="openTopic('${v.id}')">Review lesson</button>`;
-    if(v.passed&&nextTopic(S))h+=`<button class="btn sec" onclick="openTopic('${nextTopic(S).id}')">Next topic: ${esc(nextTopic(S).title)}</button>`}
+    h+=v.passed?nextTaskBtns():`<button class="btn" onclick="startPractice('${v.id}')">Try a new set</button><button class="btn sec" onclick="openTopic('${v.id}')">Review lesson</button><button class="btn sec" onclick="go({name:'home'})">Dashboard</button>`}
   else{h+=`<h2>${v.mix?"Mixed practice":"Review"} done: ${v.correct} / ${v.total}</h2><p>+${v.xp} XP</p>`;
     if(v.wrong.length)h+=`<p>Missed: ${v.wrong.map(id=>esc(TOPIC_BY_ID[id].title)).join(", ")}. These come back for review tomorrow.</p>`;
     if(v.flagged.length)h+=`<div class="win">⚑ To shore up the foundations, these prerequisite topics were flagged for review now: ${v.flagged.map(id=>esc(TOPIC_BY_ID[id].title)).join(", ")}.</div>`;
-    h+=`<button class="btn" onclick="go({name:'home'})">Back to map</button>`;if(dueTopics(S).length)h+=`<button class="btn warn" onclick="startReview(false)">Review more (${dueTopics(S).length} due)</button>`}
+    h+=nextTaskBtns()}
   $("app").innerHTML=h+`</div>`}
 
 // ---------- placement test ----------
-function skipDx(){S.diagnostic={done:1,skipped:1,at:Date.now(),tested:0,known:0,unknown:0};save();render()}
-function startDx(){D={dx:dxInit(),cur:null,qs:[],qi:0,right:0,answered:false};view={name:"dx"};dxNextTopic()}
+function skipDx(c){S.diagnostic={done:1,skipped:1,at:Date.now(),tested:0,known:0,unknown:0};if(c)S.course=c;save();render()}
+function startDx(c){c=c||activeCourse(S);D={dx:dxInit(c,S),cur:null,qs:[],qi:0,right:0,answered:false};view={name:"dx"};dxNextTopic()}
 function dxNextTopic(){const id=dxPickNext(D.dx);if(!id)return dxDone();D.cur=id;D.qs=makePractice(TOPIC_BY_ID[id],DX_Q_PER_TOPIC);D.qi=0;D.right=0;render();window.scrollTo(0,0)}
-function vDx(){if(!D)return go({name:"home"});const q=D.qs[D.qi],known=Object.keys(D.dx.status).length,total=TOPICS.length;
-  $("app").innerHTML=`<div class="card"><h2>📋 Placement test</h2><div class="small">Mapped ${known} of ${total} topics · answer what you can; “I don't know” is fine — it just helps place you correctly.</div><div class="bar"><i style="width:${Math.round(100*known/total)}%"></i></div>
+function vDx(){if(!D)return go({name:"home"});const q=D.qs[D.qi],known=Object.keys(D.dx.status).length,total=D.dx.scope.length;
+  $("app").innerHTML=`<div class="card"><h2>📋 Placement test · ${esc(cTitle(D.dx.course))}</h2><div class="small">Mapped ${known} of ${total} topics · answer what you can; “I don't know” is fine — it just helps place you correctly.</div><div class="bar"><i style="width:${Math.round(100*known/total)}%"></i></div>
   ${qHTML(q)}<div><button class="btn sec sm" onclick="dxSubmit('idk')">I don't know</button></div><div style="margin-top:10px"><button class="link" onclick="D=null;go({name:'home'})">Cancel test</button></div></div>`;
   const a=$("ans");if(a)a.focus()}
 function dxSubmit(idx){if(!D)return;const q=D.qs[D.qi];let ok=false;
@@ -754,10 +1548,10 @@ function dxSubmit(idx){if(!D)return;const q=D.qs[D.qi];let ok=false;
   if(ok)D.right++;D.qi++;
   if(!ok||D.qi>=D.qs.length){D.dx=dxRecord(D.dx,D.cur,dxTopicKnown(D.right,D.qs.length));dxNextTopic()}else render()}
 function dxDone(){const r=dxFinish(S,D.dx,Date.now());commit(r.state);const summary={placed:r.placed,tested:D.dx.tested};D=null;
-  view={name:"home"};render();alert(`Placement complete: ${summary.placed} topic${summary.placed===1?"":"s"} marked as known (they'll come back for review in a few days). Your map is updated.`)}
+  view={name:"home"};render();alert(`Placement complete: ${summary.placed} topic${summary.placed===1?"":"s"} marked as known (they'll come back for review in a few days). Your dashboard is updated.`)}
 
 // ---------- settings ----------
-function setGoal(n){S.goal=n;save();renderStats()}
+function setGoal(n){S.goal=n;save();render()}
 function resetAll(){if(confirm("Reset ALL progress on this account/device? This can't be undone.")){S=resetState();save();go({name:"home"})}}
 function toggleMenu(open){const m=$("menu");if(open===undefined)open=m.hidden;if(open)m.style.top=(document.querySelector("header").getBoundingClientRect().bottom+6)+"px";m.hidden=!open;$("menuBack").hidden=!open;$("menuBtn").setAttribute("aria-expanded",open)}
 document.addEventListener("keydown",e=>{if(e.key==="Escape")toggleMenu(false);
@@ -817,7 +1611,7 @@ async function signOutCloud(){if(!window.CLOUD)return;try{clearTimeout(pushTimer
   await CLOUD.sb.auth.signOut();S=newState();save(false);render();setSyncMsg("Signed out. This device's copy was cleared; sign in to load your progress.")}
 
 // test/debug hook (harmless in production)
-window.__mm={get S(){return S},set S(v){S=v},go,render,startPractice,startReview,startDx,openTopic,submit,nextQ,dxSubmit,get run(){return run},get D(){return D},get view(){return view}};
+window.__mm={get S(){return S},set S(v){S=v},go,render,doTask,setCourse,startPractice,startReview,startDx,openTopic,submit,nextQ,dxSubmit,get run(){return run},get D(){return D},get view(){return view}};
 renderAuth();render();initCloud();
 
 </script></body></html>

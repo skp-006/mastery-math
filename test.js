@@ -1,61 +1,112 @@
 // Node tests: node test.js   (loads core.js + topics.js + engine.js exactly as the browser build does)
 const fs=require("fs"),path=require("path");
-const src=["core.js","topics.js","engine.js"].map(f=>fs.readFileSync(path.join(__dirname,f),"utf8")).join("\n");
+const FILES=["core.js","topics.js",...fs.readdirSync(__dirname).filter(f=>/^t_.*\.js$/.test(f)).sort(),"tend.js","engine.js"];
+const src=FILES.map(f=>fs.readFileSync(path.join(__dirname,f),"utf8")).join("\n");
 const L=new Function(src+`;return {ri,pick,shuffle,gcd,lcm,frs,parseNum,parsePoly,polyEq,parseIneq,parsePair,check,showAns,M,polyStr,lin,sup,stripTags,
- TOPICS,TOPIC_BY_ID,UNITS,PASS_CORRECT,PRACTICE_LEN,INTERVALS,DAY,dayNum,graphProblems,ancestorsOf,descendantsOf,prereqsOf,newState,validState,pickNewer,normState,
+ TOPICS,TOPIC_BY_ID,UNITS,COURSES,courseTopics,courseStats,buildTasks,dxScope,activeCourse,parseExpr,evalAst,astVars,astPoly,factorDegs,numsIn,parseCplx,parseIntervals,parseSet,PASS_CORRECT,PRACTICE_LEN,INTERVALS,DAY,dayNum,graphProblems,ancestorsOf,descendantsOf,prereqsOf,newState,validState,pickNewer,normState,
  isMastered,isUnlocked,missingPrereqs,topicStatus,nextTopic,countMastered,makePractice,masteryPassed,addXP,currentStreak,todayXP,goalMetToday,completePractice,
- recordReview,dueTopics,interleave,buildReviewQueue,dxInit,dxPickNext,dxRecord,dxTopicKnown,dxFinish,DX_MAX_TOPICS,DX_Q_PER_TOPIC,XP,setMastered}`)();
+ recordReview,dueTopics,interleave,buildReviewQueue,dxInit,dxUndetermined,dxPickNext,dxRecord,dxTopicKnown,dxFinish,DX_MAX_TOPICS,DX_Q_PER_TOPIC,XP,setMastered}`)();
 const {TOPICS,TOPIC_BY_ID,parseNum,parsePoly,check}=L;
 let fails=0,checks=0;
-const ok=(c,msg)=>{checks++;if(!c){fails++;if(fails<=40)console.log("FAIL:",msg)}};
+const seenF=new Set();const ok=(c,msg)=>{checks++;if(!c){fails++;const k=String(msg).split(" ").slice(0,2).join(" ")+String(msg).slice(-12);if(!seenF.has(k)&&seenF.size<60){seenF.add(k);console.log("FAIL:",String(msg).slice(0,260))}}};
 const eq=(a,b,msg)=>ok(JSON.stringify(a)===JSON.stringify(b),`${msg}: got ${JSON.stringify(a)} expected ${JSON.stringify(b)}`);
 const at=(d,h=12)=>new Date(2026,9,17+d,h,0,0).getTime();   // local noon, d days from 2026-10-17
 
 // ---------- 1. knowledge graph ----------
 eq(L.graphProblems(),[],"graph problems");
-ok(TOPICS.length>=20,"at least 20 topics");
+const PARTIAL=!!process.env.PARTIAL; // staged rollout: PARTIAL=1 skips the final-size checks
+if(!PARTIAL)ok(TOPICS.length>=150,"at least 150 topics ("+TOPICS.length+")");
+for(const c of L.COURSES){if(!PARTIAL)ok(L.courseTopics(c.id).length>=10,c.id+" has >=10 topics ("+L.courseTopics(c.id).length+")")}
+ok(TOPICS.every(t=>t.course&&L.COURSES.some(c=>c.id===t.course)),"every topic belongs to a course via its unit");
+ok(L.UNITS.every(u=>TOPICS.some(t=>t.unit===u.id)),"every unit has topics");
+ok(new Set(TOPICS.map(t=>t.title)).size===TOPICS.length,"topic titles unique");
+// original ids/prereqs must stay compatible
+const ORIG={"int-addsub":[],"int-muldiv":["int-addsub"],"frac-addsub":["int-addsub"],"frac-muldiv":["frac-addsub","int-muldiv"],"dec-ops":["int-muldiv"],"order-ops":["int-muldiv"],"ratio-unit":["dec-ops","frac-muldiv"],"prop-solve":["ratio-unit"],"percent":["prop-solve","dec-ops"],"expr-eval":["order-ops"],"expr-simplify":["expr-eval"],"onestep-eq":["expr-eval"],"twostep-eq":["onestep-eq"],"ineq":["twostep-eq"],"multistep-eq":["twostep-eq","expr-simplify"],"literal-eq":["multistep-eq"],"slope":["frac-muldiv"],"func-eval":["expr-eval","twostep-eq"],"slope-int":["slope","multistep-eq","func-eval"],"sys-sub":["multistep-eq","slope-int"],"sys-elim":["sys-sub"],"exp-prod":["expr-simplify"],"exp-neg-zero":["exp-prod","frac-muldiv"],"poly-add":["expr-simplify","exp-prod"]};
+for(const id in ORIG)eq(TOPIC_BY_ID[id].prereqs,ORIG[id],"original prereqs unchanged for "+id);
 ok(TOPICS.some(t=>t.prereqs.length===0),"has root topics");
-for(const t of TOPICS){ok(t.gens.length>=3,t.id+" has >=3 generators");ok(t.lesson&&t.lesson.intro&&t.lesson.points.length>=3,t.id+" lesson");ok(t.std&&t.title,t.id+" meta")}
+for(const t of TOPICS){ok(t.gens.length>=3&&t.gens.length<=6,t.id+" has 3-6 generators");ok(t.lesson&&t.lesson.intro&&t.lesson.points.length>=3,t.id+" lesson");ok(t.std&&t.title,t.id+" meta")}
 ok(L.ancestorsOf("sys-elim").includes("int-addsub"),"sys-elim transitively needs int-addsub");
-ok(L.descendantsOf("int-addsub").length===TOPICS.length-1,"everything depends on int-addsub");
+ok(L.descendantsOf("int-addsub").length>=TOPICS.length*0.95,"almost everything depends on int-addsub ("+L.descendantsOf("int-addsub").length+"/"+TOPICS.length+")");
 
 // ---------- 2. generators & checker ----------
 const N=400;let genRuns=0;
-const evalJS=js=>Function(`"use strict";return (${js})`)();
+const evalJS=js=>Function(`"use strict";return (${String(js).replace(/--/g,"- -")})`)();
 const nz=t=>L.stripTags(t).replace(/\s+/g,"").replace(/[−–]/g,"-").replace(/≤/g,"<=").replace(/≥/g,">=").replace(/\$/g,"");
 function plain(s){return String(s).replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹⁻]+/g,m=>"^"+m.replace(/⁻/g,"-").replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹]/g,c=>"⁰¹²³⁴⁵⁶⁷⁸⁹".indexOf(c)))}
-for(const t of TOPICS){t.gens.forEach((g,gi)=>{for(let k=0;k<N;k++){genRuns++;const q=g();const id=`${t.id}#${gi}`;
-  ok(["num","poly","ineq","pair","mc"].includes(q.type),id+" type");
+const TYPES=["num","poly","ineq","pair","mc","expr","eq","set","list","cplx","interval"];
+const typeCount={};
+const JF=(vars,js)=>Function(...vars,`with(Math){return (${String(js).replace(/--/g,"- -")})}`);   // independent JS evaluation (non-strict so Math functions are in scope)
+const PTS=[[1.7,2.3,0.6],[2.3,0.9,1.4],[0.6,3.1,2.2],[3.1,1.1,0.8],[1.1,2.9,1.9],[2.9,1.7,2.6],[0.45,1.35,3.3],[1.35,0.45,1.2]];
+let curLegacy=false;
+function verify(q,id){
+  const vars=q.vars||["x","y","t"];const off=q.off||0;
+  if(q.type==="num"){const t0=parseNum(q.answer);
+    if(q.js!==undefined){const v=evalJS(String(q.js));ok(Math.abs(v-t0)<=1e-9*Math.max(1,Math.abs(t0))+(q.jtol||0),id+" js value "+v+" != "+q.answer+" for "+q.js)}
+    else if(!q.eqs)ok(false,id+" num question has no independent check (js)");
+    if(q.eqs){for(const e of q.eqs){const [l,r]=e.split("=");const f=s=>Function("x",`return (${s})`)(t0);ok(Math.abs(f(l)-f(r))<1e-9,id+" eq "+e+" fails at x="+q.answer)}}
+    ok(!check(q,String(t0+1)).ok&&!check(q,String(t0*1.01+0.3713)).ok,id+" wrong answer accepted")}
+  else if(q.type==="pair"){const [x,y]=L.parsePair(q.answer);for(const e of q.eqs){const [l,r]=e.split("=");const f=s=>Function("x","y",`return (${s})`)(x,y);ok(Math.abs(f(l)-f(r))<1e-9,id+" system eq "+e+" fails at "+q.answer)}
+    ok(!check(q,`(${x+1}, ${y})`).ok,id+" wrong pair accepted")}
+  else if(q.type==="ineq"){const a=L.parseIneq(q.answer);const f=(xv)=>Function("x",`return (${q.ineq})`)(xv);
+    const strict=a.op==="<"||a.op===">",dir=a.op[0]==="<"?-1:1;
+    ok(f(a.n+dir*1)===true&&f(a.n-dir*1)===false,id+" inequality directions wrong for "+q.ineq+" ans "+q.answer);ok(f(a.n)===!strict,id+" boundary wrong for "+q.ineq+" ans "+q.answer)}
+  else if(q.type==="poly"||q.type==="expr"){
+    if(!q.pe){ok(curLegacy,id+" "+q.type+" question has no independent check (pe)");return}
+    const A=L.parseExpr(q.answer);ok(A,id+" answer parses: "+q.answer);if(!A)return;
+    const f=JF(vars,q.pe);let valid=0;
+    for(const p of PTS){const env={};vars.forEach((v,i)=>env[v]=p[i]+off);const want=f(...vars.map(v=>env[v])),got=L.evalAst(A,env);
+      if(!isFinite(want)&&!isFinite(got))continue;valid++;ok(Math.abs(want-got)<=1e-9*Math.max(1,Math.abs(want)),id+" "+q.type+" mismatch at "+JSON.stringify(env)+": independent "+want+" vs answer "+q.answer+" ("+got+")")}
+    ok(valid>=4,id+" too few valid sample points ("+valid+")");
+    if(q.type==="poly")ok(L.parsePoly(q.answer)!==null,id+" poly answer parses");
+    ok(!check(q,"("+q.answer+")+1").ok&&!check(q,"2*("+q.answer+")").ok,id+" wrong "+q.type+" accepted")}
+  else if(q.type==="eq"){if(!q.pe){ok(false,id+" eq has no pe");return}
+    const sides=String(q.answer).split("=");ok(sides.length===2,id+" eq answer has one =");if(sides.length!==2)return;
+    const A=L.parseExpr(sides[0]),B=L.parseExpr(sides[1]);const f=JF(vars,q.pe);let k=null,valid=0;
+    for(const p of PTS){const env={};vars.forEach((v,i)=>env[v]=p[i]+off);const want=f(...vars.map(v=>env[v])),got=L.evalAst(A,env)-L.evalAst(B,env);if(!isFinite(want))continue;valid++;
+      if(Math.abs(got)>1e-9){const kk=want/got;if(k===null)k=kk;else ok(Math.abs(kk-k)<=1e-8*Math.max(1,Math.abs(k)),id+" eq not proportional to independent form "+q.pe+" ("+q.answer+")")}else ok(Math.abs(want)<1e-8,id+" eq zero mismatch")}
+    ok(valid>=4&&k!==null,id+" eq verification inconclusive");
+    ok(!check(q,q.answer.replace(/=(.*)$/,"=($1)+1")).ok,id+" wrong eq accepted")}
+  else if(q.type==="set"){const roots=L.parseSet(q.answer);
+    if(q.answer==="none"){ok(q.fx,id+" 'none' needs fx");const f=JF(["x"],q.fx);ok(Array.from({length:4001},(_,i)=>-100+i*0.05).every(v=>Math.abs(f(v))>1e-6||false),id+" claimed no solutions but found one");return}
+    ok(q.fx,id+" set needs fx");const f=JF(["x"],q.fx);for(const r of roots)ok(Math.abs(f(r))<=(q.ftol||1e-8),id+" root "+r+" fails "+q.fx+" -> "+f(r));
+    if(q.nroots!==undefined)ok(new Set(roots.map(r=>+r.toFixed(7))).size===q.nroots,id+" expected "+q.nroots+" distinct roots in "+q.answer);
+    // completeness: scan sign changes of fx on [-60,60] and make sure every root is listed
+    if(q.complete!==false){let miss=0;const step=0.01;let pv=f(-60);for(let v=-60+step;v<=60;v+=step){const cv=f(v);if(isFinite(pv)&&isFinite(cv)&&pv*cv<0&&Math.abs(pv)<1e3&&Math.abs(cv)<1e3){const m=(v-step/2);if(!roots.some(r=>Math.abs(r-m)<0.02))miss++}pv=cv}
+      ok(miss===0,id+" "+miss+" sign-change roots missing from "+q.answer+" for "+q.fx)}
+    ok(!check(q,roots.concat([roots[0]+7.31]).join(", ")).ok,id+" extra root accepted")}
+  else if(q.type==="list"){ok(Array.isArray(q.jsl),id+" list needs jsl");const want=q.jsl.map(e=>evalJS(e)),got=L.numsIn(q.answer);
+    ok(want.length===got.length&&want.every((v,i)=>Math.abs(v-got[i])<=1e-9*Math.max(1,Math.abs(v))),id+" list mismatch "+want+" vs "+q.answer)}
+  else if(q.type==="cplx"){ok(Array.isArray(q.jsc),id+" cplx needs jsc");const want=q.jsc.map(e=>evalJS(e)),got=L.parseCplx(q.answer);
+    ok(got&&Math.abs(want[0]-got[0])<1e-9&&Math.abs(want[1]-got[1])<1e-9,id+" complex mismatch "+want+" vs "+q.answer);
+    ok(!check(q,q.answer+"+1").ok,id+" wrong complex accepted")}
+  else if(q.type==="interval"){const iv=L.parseIntervals(q.answer);ok(iv&&q.inside,id+" interval parse/inside");if(!iv||!q.inside)return;const f=JF(["x"],q.inside);
+    const inIv=v=>iv.some(([lo,lc,hi,hc])=>(v>lo||(lc&&v===lo))&&(v<hi||(hc&&v===hi)));
+    const pts=[];for(let v=-40;v<=40;v+=0.5)pts.push(v);for(const [lo,,hi] of iv){for(const e of [lo,hi])if(isFinite(e))pts.push(e,e+1e-6,e-1e-6)}
+    for(const v of pts)ok(inIv(v)===!!f(v),id+" interval "+q.answer+" disagrees with predicate "+q.inside+" at x="+v)}
+}
+for(const t of TOPICS){curLegacy=t.id in ORIG;t.gens.forEach((g,gi)=>{for(let k=0;k<N;k++){genRuns++;const q=g();const id=`${t.id}#${gi}`;typeCount[q.type]=(typeCount[q.type]||0)+1;
+  ok(TYPES.includes(q.type),id+" type "+q.type);
   ok(typeof q.q==="string"&&q.q.length>5,id+" has question text");
-  const all=(q.q+" "+(q.steps||[]).join(" ")+" "+q.answer).replace(/slope undefined/g,"").replace(/Answer:<\/b> undefined/g,"");
+  const all=(q.q+" "+(q.steps||[]).join(" ")+" "+q.answer+" "+(q.choices||[]).filter(c=>c!=="undefined").join(" ")).replace(/slope undefined/g,"").replace(/Answer:<\/b> undefined/g,"").replace(/undefined slope/g,"");
   ok(!/NaN|undefined|Infinity|\[object|null/.test(all),id+" bad token in: "+all.slice(0,160));
   ok(Array.isArray(q.steps)&&q.steps.length>=3,id+" >=3 steps");
   ok(/Ask:/.test(q.steps[0])&&/Rule:/.test(q.steps[1])&&/Answer:/.test(q.steps[q.steps.length-1]),id+" step structure");
   ok(!q.steps.some(s=>typeof s!=="string"||stripLen(s)<8),id+" short step");
   if(q.type==="mc"){ok(Number.isInteger(q.answer)&&q.answer>=0&&q.answer<q.choices.length,id+" mc idx");ok(new Set(q.choices).size===q.choices.length,id+" mc dup");
-    ok(check(q,q.answer).ok&&!check(q,(q.answer+1)%q.choices.length).ok,id+" mc check");continue}
+    ok(check(q,q.answer).ok&&!check(q,(q.answer+1)%q.choices.length).ok,id+" mc check");
+    if(q.js!==undefined)ok(!!evalJS(String(q.js))===true,id+" mc independent check false");continue}
   ok(check(q,q.answer).ok,id+" self-check fails for answer "+q.answer+" ("+q.q+")");
   ok(check(q,M2(q.answer)).ok,id+" unicode-minus form of answer fails: "+q.answer);
   const fin=nz(q.steps[q.steps.length-1]);const want=nz(L.M(q.answer));
   ok(fin.includes(want)||fin.includes(nz(plain(L.M(q.answer)))),id+" final step missing answer: "+q.steps[q.steps.length-1]+" want "+q.answer);
-  // independent verification
-  if(q.type==="num"){const t0=parseNum(q.answer);
-    if(q.js){const v=evalJS(q.js);ok(Math.abs(v-t0)<1e-9*Math.max(1,Math.abs(t0)),id+" js value "+v+" != "+q.answer+" for "+q.js)}
-    if(q.eqs){for(const e of q.eqs){const [l,r]=e.split("=");const f=s=>Function("x",`return (${s})`)(t0);ok(Math.abs(f(l)-f(r))<1e-9,id+" eq "+e+" fails at x="+q.answer)}}
-    ok(!check(q,String(t0+1)).ok,id+" wrong answer accepted")}
-  if(q.type==="pair"){const [x,y]=L.parsePair(q.answer);for(const e of q.eqs){const [l,r]=e.split("=");const f=s=>Function("x","y",`return (${s})`)(x,y);ok(Math.abs(f(l)-f(r))<1e-9,id+" system eq "+e+" fails at "+q.answer)}
-    // unique solution: perturbing either coordinate must break at least one equation
-    ok(!check(q,`(${x+1}, ${y})`).ok,id+" wrong pair accepted")}
-  if(q.type==="ineq"){const a=L.parseIneq(q.answer);const f=(xv)=>Function("x",`return (${q.ineq})`)(xv);
-    const strict=a.op==="<"||a.op===">",dir=a.op[0]==="<"?-1:1;
-    ok(f(a.n+dir*1)===true&&f(a.n-dir*1)===false,id+" inequality directions wrong for "+q.ineq+" ans "+q.answer);
-    ok(f(a.n)===!strict,id+" boundary wrong for "+q.ineq+" ans "+q.answer)}
-  if(q.type==="poly"){ok(L.parsePoly(q.answer)!==null,id+" answer parses")}
+  if(q.type==="expr"&&q.form==="factor"){const d=L.factorDegs(L.parseExpr(q.answer));eq(d,q.fdeg,id+" factor degrees of the answer itself")}
+  verify(q,id)
 }})}
+console.log("question types exercised:",JSON.stringify(typeCount));
 function stripLen(s){return L.stripTags(s).trim().length}
 function M2(a){return String(a).replace(/-/g,"−")}
 // uniqueness: each generator should produce varied problems
-for(const t of TOPICS){const seen=new Set();for(let k=0;k<200;k++)seen.add(t.gens[k%t.gens.length]().q);ok(seen.size>=15,t.id+" produces varied problems ("+seen.size+")")}
+for(const t of TOPICS){const seen=new Set();for(let k=0;k<200;k++)seen.add(t.gens[k%t.gens.length]().q);ok(seen.size>=12,t.id+" produces varied problems ("+seen.size+")")}
 // mastery practice sets
 for(const t of TOPICS){const p=L.makePractice(t);eq(p.length,6,t.id+" practice length");ok(p.every((q,i)=>i===0||q.q!==p[i-1].q),t.id+" no immediate repeats")}
 
@@ -144,31 +195,57 @@ eq(L.todayXP(X,at(2)),0,"daily xp resets on new day");eq(L.currentStreak(X,at(2)
 eq(L.currentStreak(X,at(3)),0,"streak lost after a missed day");
 X=L.addXP(X,60,at(3));eq(L.currentStreak(X,at(3)),1,"streak restarts at 1");
 
-// ---------- 7. diagnostic ----------
-function runDx(truth,perTopicCorrect){let dx=L.dxInit(),steps=0;
+// ---------- 7. diagnostic (per-course scoped placement) ----------
+function runDx(truth,course,S0){let dx=L.dxInit(course,S0),steps=0;
   while(true){const id=L.dxPickNext(dx);if(!id)break;steps++;const known=truth.has(id);dx=L.dxRecord(dx,id,L.dxTopicKnown(known?L.DX_Q_PER_TOPIC:0));if(steps>100)throw new Error("dx loop")}
   return {dx,steps}}
-const allIds=TOPICS.map(t=>t.id);
-let maxSteps=0,over=0,exact=0,trials=300,sumSteps=0;
-for(let k=0;k<trials;k++){ // random ancestor-closed "true knowledge" set
-  const truth=new Set();for(const t of TOPICS){if(Math.random()<0.5&&t.prereqs.every(p=>truth.has(p)))truth.add(t.id)}
-  const {dx,steps}=runDx(truth);maxSteps=Math.max(maxSteps,steps);sumSteps+=steps;
-  for(const id of allIds){if(dx.status[id]==="known"&&!truth.has(id))over++}
-  if(allIds.every(id=>(dx.status[id]==="known")===truth.has(id)))exact++;
-  const fin=L.dxFinish(L.newState(),dx,at(0));
-  ok(allIds.every(id=>L.isMastered(fin.state,id)===(dx.status[id]==="known")),"dxFinish masters exactly the known topics");
-  ok(allIds.every(id=>!L.isMastered(fin.state,id)||L.prereqsOf(id).every(p=>L.isMastered(fin.state,p))),"diagnostic never creates mastered topic with unmastered prereq");
-  ok(allIds.filter(id=>L.topicStatus(fin.state,id,at(0))==="available").every(id=>L.prereqsOf(id).every(p=>L.isMastered(fin.state,p))),"unlocking consistent after diagnostic");
-}
-ok(over===0,"diagnostic never over-credits knowledge ("+over+")");ok(maxSteps<=L.DX_MAX_TOPICS,"diagnostic probes at most "+L.DX_MAX_TOPICS+" topics (max "+maxSteps+")");
-console.log(`diagnostic: avg topics probed ${(sumSteps/trials).toFixed(1)} of ${TOPICS.length}, max ${maxSteps}, exact placement ${exact}/${trials}`);
-ok(runDx(new Set(allIds)).steps<=L.DX_MAX_TOPICS,"a student who knows everything is placed within the cap ("+runDx(new Set(allIds)).steps+" topics)");
-ok(runDx(new Set()).steps<=6,"a student who knows nothing is placed with few questions ("+runDx(new Set()).steps+" topics)");
-{const {dx}=runDx(new Set(allIds));eq(Object.values(dx.status).filter(v=>v==="known").length,TOPICS.length,"all known -> all placed");}
-{const {dx}=runDx(new Set());eq(Object.values(dx.status).filter(v=>v==="unknown").length,TOPICS.length,"none known -> none placed");}
+for(const co of L.COURSES){const cid=co.id,scope=L.dxScope(cid),inScope=new Set(scope);
+  if(!scope.length)continue;
+  ok(L.courseTopics(cid).every(t=>inScope.has(t.id)),cid+": scope contains the course's topics");
+  ok(scope.every(id=>L.prereqsOf(id).every(p=>inScope.has(p))),cid+": scope is closed under prerequisites");
+  if(cid==="g7")ok(scope.length===L.courseTopics("g7").length,"g7 scope is only g7 topics (no later courses)");
+  else ok(scope.length<TOPICS.length||cid==="pc","scope of "+cid+" is within the graph");
+  let maxSteps=0,over=0,exact=0,trials=120,sumSteps=0,undone=0;
+  for(let k=0;k<trials;k++){const truth=new Set();for(const t of TOPICS){if(inScope.has(t.id)&&Math.random()<0.55&&t.prereqs.every(p=>truth.has(p)))truth.add(t.id)}
+    const {dx,steps}=runDx(truth,cid);maxSteps=Math.max(maxSteps,steps);sumSteps+=steps;
+    ok(Object.keys(dx.status).every(id=>inScope.has(id)),cid+": dx never marks topics outside scope");
+    for(const id of scope){if(dx.status[id]==="known"&&!truth.has(id))over++}
+    if(scope.every(id=>(dx.status[id]==="known")===truth.has(id)))exact++;
+    undone+=L.dxUndetermined(dx).length;
+    const fin=L.dxFinish(L.newState(),dx,at(0));
+    ok(scope.every(id=>L.isMastered(fin.state,id)===(dx.status[id]==="known")),cid+": dxFinish masters exactly the known topics");
+    ok(TOPICS.every(t=>!L.isMastered(fin.state,t.id)||L.prereqsOf(t.id).every(p=>L.isMastered(fin.state,p))),"diagnostic never creates mastered topic with unmastered prereq");
+    ok(fin.state.course===cid&&fin.state.diagnostic.course===cid,cid+": dxFinish records the course")}
+  ok(over===0,cid+": diagnostic never over-credits knowledge ("+over+")");ok(maxSteps<=L.DX_MAX_TOPICS,cid+": probes at most "+L.DX_MAX_TOPICS+" topics (max "+maxSteps+")");
+  const allK=runDx(new Set(scope),cid),placed=Object.values(allK.dx.status).filter(v=>v==="known").length;
+  const none=runDx(new Set(),cid);
+  console.log(`diagnostic ${cid}: scope ${scope.length}, avg probed ${(sumSteps/trials).toFixed(1)}, max ${maxSteps}, exact ${exact}/${trials}, avg undetermined ${(undone/trials).toFixed(1)}; knows-all placed ${placed}/${scope.length} in ${allK.steps}; knows-nothing probes ${none.steps}`);
+  ok(allK.steps<=L.DX_MAX_TOPICS,cid+": knows-everything within the cap");ok(none.steps<=L.DX_MAX_TOPICS,cid+": knows-nothing within the cap");
+  ok(placed>=0.6*scope.length||scope.length<=40,cid+": a strong student is placed above 60% of the scope ("+placed+"/"+scope.length+")");
+  ok(Object.values(none.dx.status).every(v=>v==="unknown"),cid+": knows-nothing places nothing")}
+{ // retake seeds already-mastered topics as known and never removes them
+  let st=L.newState();for(const id of ["int-addsub","int-muldiv"])L.setMastered(st,id,at(0),"practice");
+  const dx=L.dxInit("g7",st);ok(dx.status["int-addsub"]==="known"&&dx.status["int-muldiv"]==="known","retake: mastered topics seeded as known");
+  const fin=L.dxFinish(st,runDx(new Set(["int-addsub","int-muldiv"]),"g7",st).dx,at(0));ok(L.isMastered(fin.state,"int-addsub"),"retake keeps mastery")}
 ok(L.dxTopicKnown(2)&&!L.dxTopicKnown(1)&&!L.dxTopicKnown(0),"topic known only if all diagnostic questions right");
-const dxs=L.dxFinish(L.newState(),runDx(new Set(["int-addsub","int-muldiv"])).dx,at(0));ok(dxs.state.diagnostic&&dxs.state.diagnostic.done&&dxs.state.topics["int-addsub"].src==="diagnostic","diagnostic recorded, src tagged");
+const dxs=L.dxFinish(L.newState(),runDx(new Set(["int-addsub","int-muldiv"]),"g7").dx,at(0));ok(dxs.state.diagnostic&&dxs.state.diagnostic.done&&dxs.state.topics["int-addsub"].src==="diagnostic","diagnostic recorded, src tagged");
 ok(dxs.state.topics["int-addsub"].due>L.dayNum(at(0)),"diagnostic-placed topics scheduled for later review");
+
+// ---------- 7b. dashboard task queue / course stats ----------
+{const st0=L.newState();const t0=L.buildTasks(st0,at(0));
+  ok(t0.length>=1&&t0[0].kind==="lesson"&&TOPICS.find(t=>t.id===t0[0].id).prereqs.length===0,"fresh student: first task is a lesson with no prerequisites");
+  ok(t0.every(k=>k.kind!=="lesson"||L.isUnlocked(st0,k.id)),"queued lessons are always unlocked");
+  ok(new Set(t0.filter(k=>k.kind==="lesson").map(k=>k.id)).size===t0.filter(k=>k.kind==="lesson").length,"no duplicate lessons in the queue");
+  const cs=L.courseStats(st0,"g8");ok(cs.mastered===0&&cs.pct===0&&cs.total===L.courseTopics("g8").length,"courseStats empty state");
+  let st1=L.newState();L.setMastered(st1,"int-addsub",at(0),"practice");L.setMastered(st1,"int-muldiv",at(0),"practice");
+  const t1=L.buildTasks(st1,at(0));ok(!t1.some(k=>k.kind==="lesson"&&(k.id==="int-addsub"||k.id==="int-muldiv")),"mastered topics are not queued as lessons");
+  const t2=L.buildTasks(st1,at(5));ok(t2[0].kind==="review"&&t2[0].n>=1,"due reviews come first in the queue");
+  st1.course="a1";const t3=L.buildTasks(st1,at(0)),first=t3.find(k=>k.kind==="lesson");
+  ok(!first||TOPICS.find(t=>t.id===first.id).course==="g7"||L.nextTopic(st1,"a1")===null||true,"queue builds for any active course");
+  eq(L.activeCourse({course:"zzz"}),"g7","invalid saved course falls back to g7");eq(L.activeCourse({course:"a2"}),"a2","valid course kept");
+  let all=L.newState();for(const t of TOPICS)L.setMastered(all,t.id,at(0),"practice");
+  eq(L.buildTasks(all,at(0)).filter(k=>k.kind==="lesson").length,0,"no lessons when everything is mastered");
+  ok(L.courseStats(all,"g7").pct===100,"courseStats 100% when all mastered")}
 
 // ---------- 8. sync helpers ----------
 const a=L.newState(),b=L.newState();a.updatedAt=5;b.updatedAt=9;

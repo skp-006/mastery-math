@@ -1,7 +1,7 @@
 // ===== ENGINE: knowledge graph, mastery, spaced repetition, diagnostic, XP/streak (pure functions) =====
 const PASS_CORRECT=5, PRACTICE_LEN=6;                 // mastery: 5 of 6 correct
 const INTERVALS=[1,3,7,14,30,60,120];                 // days between reviews (grows after each success)
-const DX_Q_PER_TOPIC=2, DX_MAX_TOPICS=14;             // diagnostic: 2 questions per topic, at most 14 topics probed
+const DX_Q_PER_TOPIC=2, DX_MAX_TOPICS=20;             // diagnostic: 2 questions per topic, at most 14 topics probed
 const XP={practiceCorrect:2,masteryBonus:10,reviewCorrect:3,extraCorrect:1};
 const DAY=86400000;
 const dayNum=ms=>Math.floor((ms-new Date(ms).getTimezoneOffset()*60000)/DAY);
@@ -21,7 +21,7 @@ function graphProblems(){const errs=[];const ids=new Set();
   return errs}
 
 // ---- state ----
-function newState(){return {v:1,updatedAt:0,topics:{},xp:0,goal:50,daily:{day:0,xp:0},streak:{count:0,last:0},diagnostic:null}}
+function newState(){return {v:1,updatedAt:0,topics:{},xp:0,goal:50,daily:{day:0,xp:0},streak:{count:0,last:0},diagnostic:null,course:null}}
 function validState(s){if(!s||typeof s!=="object"||!s.topics||typeof s.topics!=="object")return false;
   for(const k in s.topics){if(!TOPIC_BY_ID[k])return false;const r=s.topics[k];if(!r||typeof r!=="object")return false}
   return typeof s.xp==="number"&&s.daily&&s.streak&&true}
@@ -37,7 +37,20 @@ const missingPrereqs=(S,id)=>prereqsOf(id).filter(p=>!isMastered(S,p));
 function topicStatus(S,id,now=Date.now()){const r=S.topics[id];
   if(r&&r.m)return r.due<=dayNum(now)?"due":"mastered";
   return isUnlocked(S,id)?"available":"locked"}
-const nextTopic=(S)=>TOPICS.find(t=>!isMastered(S,t.id)&&isUnlocked(S,t.id))||null;
+const nextTopic=(S,course)=>(course&&TOPICS.find(t=>t.course===course&&!isMastered(S,t.id)&&isUnlocked(S,t.id)))||TOPICS.find(t=>!isMastered(S,t.id)&&isUnlocked(S,t.id))||null;
+const courseTopics=cid=>TOPICS.filter(t=>t.course===cid);
+function courseStats(S,cid){const ts=courseTopics(cid),m=ts.filter(t=>isMastered(S,t.id)).length;return {total:ts.length,mastered:m,pct:ts.length?Math.round(100*m/ts.length):0}}
+const activeCourse=S=>COURSE_BY_ID[S.course]?S.course:"g7";
+// today's task queue: due reviews first, then the next lessons in the active course (in graph order), then extra practice if nothing else
+function buildTasks(S,now=Date.now(),{lessons=3}={}){const tasks=[],due=dueTopics(S,now),c=activeCourse(S);
+  if(due.length)tasks.push({kind:"review",n:Math.min(due.length,10),total:due.length,xp:Math.min(due.length,10)*XP.reviewCorrect});
+  const seen=new Set();let t=nextTopic(S,c);
+  const avail=TOPICS.filter(x=>!isMastered(S,x.id)&&isUnlocked(S,x.id));
+  const inC=avail.filter(x=>x.course===c),rest=avail.filter(x=>x.course!==c);
+  for(const x of inC.concat(rest)){if(tasks.filter(k=>k.kind==="lesson").length>=lessons)break;if(seen.has(x.id))continue;seen.add(x.id);
+    tasks.push({kind:"lesson",id:x.id,xp:PRACTICE_LEN*XP.practiceCorrect+XP.masteryBonus})}
+  if(!tasks.some(k=>k.kind==="lesson")&&countMastered(S)>0)tasks.push({kind:"mix",xp:8*XP.extraCorrect});
+  return tasks}
 const countMastered=S=>TOPICS.filter(t=>isMastered(S,t.id)).length;
 
 // ---- practice / mastery ----
@@ -84,19 +97,23 @@ function buildReviewQueue(S,now=Date.now(),{max=10,minFill=0}={}){
     pickIds=pickIds.concat(extra.map(id=>({id,wasDue:false})))}
   const order=interleave(pickIds.map(x=>x.id)),by=Object.fromEntries(pickIds.map(x=>[x.id,x]));return order.map(id=>by[id])}
 
-// ---- diagnostic placement (adaptive-ish binary search over the graph) ----
-function dxInit(){return {status:{},tested:0}}
-const dxUndetermined=dx=>TOPICS.map(t=>t.id).filter(id=>!dx.status[id]);
-function dxPickNext(dx){if(dx.tested>=DX_MAX_TOPICS)return null;const und=dxUndetermined(dx);if(!und.length)return null;
-  let best=null,bs=-1;for(const id of und){const a=ancestorsOf(id).filter(x=>!dx.status[x]).length,d=descendantsOf(id).filter(x=>!dx.status[x]).length;
+// ---- diagnostic placement (adaptive binary search over the part of the graph relevant to the chosen starting course) ----
+// scope = the chosen course's topics plus all of their prerequisites (so a Grade 7 student is never probed on Precalculus)
+function dxScope(cid){const s=new Set();for(const t of courseTopics(cid)){s.add(t.id);ancestorsOf(t.id).forEach(a=>s.add(a))}return TOPICS.filter(t=>s.has(t.id)).map(t=>t.id)}
+function dxInit(course,S){const dx={status:{},tested:0,course:course||null,scope:course?dxScope(course):TOPICS.map(t=>t.id)};
+  if(S)for(const id of dx.scope)if(isMastered(S,id)){dx.status[id]="known";for(const a of ancestorsOf(id))dx.status[a]="known"}   // retake: don't re-test what is already mastered
+  return dx}
+const dxUndetermined=dx=>(dx.scope||TOPICS.map(t=>t.id)).filter(id=>!dx.status[id]);
+function dxPickNext(dx){if(dx.tested>=DX_MAX_TOPICS)return null;const und=dxUndetermined(dx);if(!und.length)return null;const inS=new Set(und);
+  let best=null,bs=-1;for(const id of und){const a=ancestorsOf(id).filter(x=>inS.has(x)).length,d=descendantsOf(id).filter(x=>inS.has(x)).length;
     const score=Math.min(a,d)*100+a+d;if(score>bs){bs=score;best=id}}return best}
 function dxRecord(dx,id,known){const n=cl(dx);n.tested++;
   if(known){n.status[id]="known";for(const a of ancestorsOf(id))if(!n.status[a])n.status[a]="known"}
-  else{n.status[id]="unknown";for(const d of descendantsOf(id))if(!n.status[d])n.status[d]="unknown"}return n}
+  else{n.status[id]="unknown";const sc=n.scope?new Set(n.scope):null;for(const d of descendantsOf(id))if(!n.status[d]&&(!sc||sc.has(d)))n.status[d]="unknown"}return n}
 const dxTopicKnown=(correct,asked=DX_Q_PER_TOPIC)=>asked>0&&correct===asked;
 function dxFinish(S,dx,now=Date.now()){const n=cl(S),d=dayNum(now);let k=0;
   for(const t of TOPICS){if(dx.status[t.id]==="known"&&!isMastered(n,t.id)){
     n.topics[t.id]={...(n.topics[t.id]||{}),m:1,at:now,src:"diagnostic",idx:1,due:d+INTERVALS[1],lapses:0,flag:0};k++}}
-  n.diagnostic={done:1,at:now,tested:dx.tested,known:Object.values(dx.status).filter(v=>v==="known").length,unknown:Object.values(dx.status).filter(v=>v!=="known").length};
+  n.course=dx.course||n.course;n.diagnostic={done:1,at:now,tested:dx.tested,course:dx.course||null,known:Object.values(dx.status).filter(v=>v==="known").length,unknown:Object.values(dx.status).filter(v=>v!=="known").length};
   n.updatedAt=now;return {state:n,placed:k}}
 function resetState(){const n=newState();n.updatedAt=Date.now();return n}

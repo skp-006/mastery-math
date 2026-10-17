@@ -9,11 +9,36 @@ function addExplain(a,b){const s=a+b;
 const RULE_ADD="Same signs: add absolute values, keep the sign. Different signs: subtract absolute values, keep the sign of the number farther from 0.";
 const eqMsg=(x)=>`Check: substitute back to make sure both sides match.`;
 // Unit (strand) groupings for the dashboard
+const COURSES=[
+ {id:"g7",title:"Grade 7",blurb:"Rational numbers, ratios, expressions, geometry and probability basics"},
+ {id:"g8",title:"Grade 8",blurb:"Exponents, radicals, linear functions, transformations, bivariate data"},
+ {id:"a1",title:"Algebra I",blurb:"Linear and quadratic functions, factoring, exponentials, statistics"},
+ {id:"geo",title:"Geometry",blurb:"Congruence, similarity, trigonometry, circles, coordinate geometry, volume"},
+ {id:"a2",title:"Algebra II",blurb:"Polynomials, complex numbers, rational/radical, exponential/log, trig, series, statistics"},
+ {id:"pc",title:"Precalculus",blurb:"Functions, trig identities, vectors, matrices, polar/parametric, limits"}];
+const COURSE_BY_ID=Object.fromEntries(COURSES.map(c=>[c.id,c]));
+// Unit (strand) groupings; `course` says where the unit lives on the Course screen
 const UNITS=[
- {id:"rn",title:"Grade 7 · Rational Numbers"},{id:"rp",title:"Grade 7 · Ratios & Proportions"},{id:"ee",title:"Grade 7 · Expressions & Equations"},
- {id:"a1eq",title:"Algebra I · Equations"},{id:"a1lin",title:"Algebra I · Linear Functions"},{id:"a1sys",title:"Algebra I · Systems"},{id:"a1exp",title:"Algebra I · Exponents & Polynomials"}];
-
-const TOPICS=[
+ {id:"rn",course:"g7",title:"Rational Numbers"},{id:"rp",course:"g7",title:"Ratios & Proportions"},{id:"ee",course:"g7",title:"Expressions & Equations"},
+ {id:"a1eq",course:"a1",title:"Equations"},{id:"a1lin",course:"a1",title:"Linear Functions"},{id:"a1sys",course:"a1",title:"Systems"},{id:"a1exp",course:"a1",title:"Exponents & Polynomials"}];
+const UNIT_BY_ID=()=>Object.fromEntries(UNITS.map(u=>[u.id,u]));
+// ---- authoring kit for the generators added in later files ----
+// mk(type,q,answer,rule,work,opts): builds a question with the standard Ask/Rule/Work/Answer steps. opts.u = unit suffix shown in the final step;
+// verification hints used only by test.js (js, pe, fx, jsc, jsl, inside, ineq, eqs...) ride along as extra fields.
+const mk=(type,q,ans,rule,work,o={})=>{const {ask,u,...rest}=o;return {type,q:M(q),answer:String(ans),steps:[ASK(ask||"Work out the answer."),RULE(rule),WORK(M(work)),ANS(M(String(ans))+(u||""))],...rest}};
+const rdn=(v,d=0)=>{const f=Math.pow(10,d);return String(Math.round((v+Math.sign(v)*1e-12)*f)/f)};
+const fx=(r,v="x")=>r===0?v:"("+v+(r<0?" + "+(-r):" - "+r)+")";             // (x - r)
+const lf=(a,r,v="x")=>a===1?"("+v+(r<0?" + "+(-r):" - "+r)+")":"("+cf(a,v)+(r<0?" + "+(-r):" - "+r)+")";
+const quad=(a,b,c,v="x")=>polyStr([[a,v+"^2"],[b,v],[c,""]]);
+const TOPICS=[];
+const T=(id,unit,std,title,prereqs,intro,points,gens)=>TOPICS.push({id,unit,std,title,prereqs,lesson:{intro,points},gens});
+const addUnits=(course,list)=>list.forEach(([id,title])=>UNITS.push({id,course,title}));
+const nzr=(a,b)=>rnz(a,b);
+function distinct(n,lo,hi){const s=new Set();while(s.size<n)s.add(ri(lo,hi));return [...s]}
+function distinctNZ(n,lo,hi){const s=new Set();while(s.size<n)s.add(rnz(lo,hi));return [...s]}
+const mcq=(q,correct,wrongs,rule,work,o={})=>{const ch=shuffle([correct,...wrongs]);return {type:"mc",q:M(q),choices:ch,answer:ch.indexOf(correct),
+  steps:[ASK(o.ask||"Choose the best answer."),RULE(rule),WORK(M(work)),ANS(M(correct))],...o}};
+TOPICS.push(
 // ---------------- Grade 7: Rational numbers ----------------
 {id:"int-addsub",unit:"rn",grade:7,std:"7.NS.1",title:"Add & subtract integers",prereqs:[],
  lesson:{intro:"Integers are the whole numbers and their negatives. Think of a number line: adding moves right (if positive) or left (if negative).",
@@ -383,5 +408,5 @@ const TOPICS=[
  ()=>{let a,b,c,d,e;do{[a,b,c,d,e]=[rnz(-5,6),rnz(-8,8),rnz(-9,9),rnz(-5,6),rnz(-7,7)]}while(a+d===0||b===0);
    const p1=[[a,"x^2"],[b,"x"]],p2=[[d,"x^2"],[e,"x"],[c,""]],r=[[a+d,"x^2"],[b+e,"x"],[c,""]];return {type:"poly",q:M(`Add: (${polyStr(p1)}) + (${polyStr(p2)})`),answer:polyStr(r),
    steps:[ASK("Add the polynomials (one has no constant term)."),RULE("Line up like terms; a missing term counts as 0."),WORK(M(`x²: ${a} + ${P(d)} = ${a+d}; x: ${b} + ${P(e)} = ${b+e}; constant: 0 + ${P(c)} = ${c}`)),ANS(M(polyStr(r)))]}}]}
-];
-const TOPIC_BY_ID=Object.fromEntries(TOPICS.map(t=>[t.id,t]));
+);
+

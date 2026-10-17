@@ -10,22 +10,45 @@ const dom=new JSDOM(html,{virtualConsole:vc,runScripts:"dangerously",url:"http:/
 const w=dom.window,d=w.document,A=w.__mm;
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 (async()=>{await sleep(200);
-  ok(A&&d.getElementById("app").innerHTML.includes("placement test"),"home renders with placement-test card");
-  ok(d.querySelectorAll(".node").length===24,"24 topic nodes rendered ("+d.querySelectorAll(".node").length+")");
+  ok(A&&/Where would you like to start/.test(d.getElementById("app").innerHTML),"dashboard offers the start-course chooser");
+  ok(d.querySelectorAll(".chipb").length===6,"six course choices");
+  ok(d.getElementById("xpChip").textContent.includes("XP")&&d.getElementById("stkChip").textContent.includes("day"),"top bar shows XP and streak");
+  ok(/Grade 7/.test(d.getElementById("courseBtn").textContent),"top bar shows course name");
+  ok(d.querySelector(".ringw svg")&&d.querySelector(".upnext")&&d.querySelectorAll("ol.tasks li").length>=1,"dashboard has XP ring, Up next and task queue");
+  ok(d.querySelectorAll(".cprog").length===6,"per-course progress panel for 6 courses");
+  ok(d.querySelectorAll(".node").length===0,"dashboard is not a wall of topics");
+  A.go({name:"course"});
+  ok(d.querySelectorAll(".node").length===w.eval('courseTopics("g7").length'),"course screen shows current course's topics ("+d.querySelectorAll(".node").length+")");
+  ok(d.querySelectorAll("details.unitd").length>=3,"units are collapsible sections");
+  A.go({name:"home"});
   ok(d.getElementById("authBox").hidden===true,"auth UI hidden when Supabase placeholders are unset");
   ok(/Local mode/.test(d.getElementById("syncMsg").textContent),"local-mode message shown");
   ok(!w.CLOUD,"no cloud client created when unconfigured");
+  // a1 placement is scoped: never probes later courses
+  A.startDx("a1");ok(A.D.dx.scope.length===w.eval('dxScope("a1").length')&&A.D.dx.scope.every(id=>w.eval(`ORDER["${id}"]`)>=0),"a1 placement scope built");
+  ok(!A.D.dx.scope.some(id=>["geo","a2","pc"].includes(w.eval(`TOPIC_BY_ID["${id}"].course`))),"a1 placement never probes Geometry/Algebra II/Precalc");
+  ok(/Placement test · Algebra I/.test(d.getElementById("app").innerHTML),"placement header names the course");
+  A.go({name:"home"});
   // placement test: simulate a student who knows the first 8 topics (by oracle answering from q.answer)
   const known=new Set(["int-addsub","int-muldiv","frac-addsub","frac-muldiv","dec-ops","order-ops","expr-eval","onestep-eq"]);
-  A.startDx();let guard=0;
+  A.startDx("g7");let guard=0;
   while(A.view.name==="dx"&&guard++<80){const D=A.D;const q=D.qs[D.qi];
     if(known.has(D.cur)){if(q.type==="mc")A.dxSubmit(q.answer);else{d.getElementById("ans").value=q.answer;A.dxSubmit()}}
     else A.dxSubmit("idk")}
-  ok(A.view.name==="home"&&A.S.diagnostic&&A.S.diagnostic.done,"diagnostic finished");
+  ok(A.view.name==="home"&&A.S.diagnostic&&A.S.diagnostic.done&&A.S.course==="g7","diagnostic finished and course recorded");
   const m=Object.keys(A.S.topics).filter(k=>A.S.topics[k].m);
   ok(m.length===known.size&&m.every(k=>known.has(k)),"diagnostic placed exactly the known topics: "+m.join(","));
+  ok(!/Where would you like to start/.test(d.getElementById("app").innerHTML),"chooser gone after placement");
+  A.go({name:"course"});
   ok(d.querySelectorAll(".node.mastered").length+d.querySelectorAll(".node.due").length===known.size,"map shows mastered topics");
   ok(d.querySelectorAll(".node.available").length>0&&d.querySelectorAll(".node.locked").length>0,"map shows available and locked topics");
+  A.go({name:"home"});ok(/Lesson:/.test(d.querySelector("ol.tasks").textContent),"task queue contains lessons after placement");
+  ok(d.querySelector(".cprog.cur")&&/Current/.test(d.querySelector(".cprog.cur").textContent),"current course highlighted in progress panel");
+  // course filter: all courses
+  A.go({name:"course"});d.querySelectorAll(".chipb")[6].click();
+  ok(d.querySelectorAll(".node").length===w.eval("TOPICS.length"),"'All courses' lists every topic ("+d.querySelectorAll(".node").length+")");
+  d.querySelectorAll(".chipb")[1].click();ok(d.querySelectorAll(".node").length===w.eval('courseTopics("g8").length'),"course filter narrows to Grade 8");
+  d.querySelectorAll(".chipb")[0].click();
   // locked topic page
   A.openTopic("sys-sub");ok(/Master these first/.test(d.getElementById("app").innerHTML),"locked topic shows prerequisites");
   // practice a topic, fail first then pass
@@ -37,8 +60,10 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   ok(/Try a new set/.test(d.getElementById("app").innerHTML),"failure offers retry");
   const xp1=A.S.xp;play(5);ok(A.view.passed&&A.S.topics["twostep-eq"].m,"5/6 masters");ok(A.S.xp>xp1,"xp awarded");
   ok(/Mastered/.test(d.getElementById("app").innerHTML),"result shows mastery");
-  A.go({name:"home"});ok(d.querySelector(".node.mastered"),"home shows newly mastered");
-  ok(d.getElementById("stats").textContent.includes("XP"),"xp stats visible");
+  ok(/Next task/.test(d.getElementById("app").innerHTML),"result offers the next task");
+  d.querySelector("#app .btn:not(.sec)").click();ok(A.view.name==="topic"||A.view.name==="run","next-task button starts the next task ("+A.view.name+")");
+  A.go({name:"home"});A.go({name:"course"});ok(d.querySelector(".node.mastered"),"course map shows newly mastered");A.go({name:"home"});
+  ok(d.getElementById("xpChip").textContent.includes("XP")&&d.querySelector(".ringt").textContent.includes("XP"),"xp visible in top bar and ring");
   // review: force due, fail one and check prereq flagging in UI state
   const S=A.S;for(const k in S.topics){S.topics[k].due=0}A.S=S;A.startReview(false);ok(A.run.items.length>0&&A.run.kind==="review","review queue built from due topics");
   const q0=A.run.items[0].q,id0=A.run.items[0].id;if(q0.type==="mc")A.submit((q0.answer+1)%q0.choices.length);else{d.getElementById("ans").value="zzz";A.submit()}
